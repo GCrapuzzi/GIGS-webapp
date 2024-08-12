@@ -3,6 +3,6 @@ Repository utile alla cooperazione e allo sviluppo in un ambiente coordinato del
 oggetto d'esame per il secondo modulo di "Ingegneria del software e Fondamenti del Web".
 
 A cura di:
-Crapuzzi Giovanni
-Saracino Cristian
-Stega Paolo Pio
+Crapuzzi Giovanni,
+Saracino Cristian,
+Stega Paolo Pio.
