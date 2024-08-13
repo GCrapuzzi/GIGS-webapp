@@ -1,4 +1,4 @@
-# lavoretto-webapp
+# gigs-webapp
 Repository utile alla cooperazione e allo sviluppo in un ambiente coordinato della web app
 oggetto d'esame per il secondo modulo di "Ingegneria del software e Fondamenti del Web".
 
