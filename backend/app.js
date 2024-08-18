@@ -5,6 +5,9 @@ const cors = require('cors');
 const app = express();
 const cookieParser = require('cookie-parser');
 const userRoutes = require('./src/routes/userRoutes');
+const env = require("dotenv");
+
+env.config();
 
 // Middleware
 app.use(express.json());

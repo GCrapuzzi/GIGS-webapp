@@ -1,6 +1,5 @@
-const User = require("./models/userSchema");
+const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
-
 const env = require("dotenv");
 const { createSecretToken } = require("./utils/generateToken");
 
