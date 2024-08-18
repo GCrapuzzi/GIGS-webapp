@@ -6,7 +6,6 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const userRoutes = require('./src/routes/userRoutes');
 const env = require("dotenv");
-
 env.config();
 
 // Middleware
@@ -17,7 +16,7 @@ app.use(cookieParser());
 // Connessione al database (questa andrebbe spostata in controller, fallo quando vuoi paul)
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('MongoDB connected'))
-.catch(err => console.log('MongoDB connection error:', err));
+.catch(err => console.log('MongoDB connection error:', err)); 
 
 // Route principale
 app.get('/', (req, res) => {
