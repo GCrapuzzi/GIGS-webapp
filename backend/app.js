@@ -2,8 +2,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
 const app = express();
+
+// Blueprint routes
+const userRoutes = require('./src/routes/userRoutes');
 
 // Middleware (questa andrebbe in middleware, fallo quando vuoi paul)
 app.use(express.json()); // Per il parsing del corpo delle richieste in formato JSON
@@ -17,9 +19,12 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log('MongoDB connection error:', err));
 
-// Routes (questa potrebbe andare in routes ma essendo la route principale la lascerei qua, a te la scelta)
+// Route principale
 app.get('/', (req, res) => {
-  res.send('Paul is running...');
+  res.send('API is running...');
 });
+
+// Route per gli utenti
+app.use('/users', userRoutes);
 
 module.exports = app;
