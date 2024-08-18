@@ -2,6 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
+  "author": "Crapuzzi Giovanni, Saracino Cristian, Stega Paolo Pio",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,12 +11,11 @@
     "test:ci": "jest --ci",
     "build": "npm install"
   },
-  "author": "Crapuzzi Giovanni, Saracino Cristian, Stega Paolo Pio",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.2",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.22"
   }
 }

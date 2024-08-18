@@ -2,7 +2,7 @@ function App() {
   return (
     <div className="App">
       <p>
-        Sti cazzi
+        Sto pazzo
       </p>  
     </div>
   );

@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
+  "author": "Crapuzzi Giovanni, Saracino Cristian, Stega Paolo Pio",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -19,11 +20,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {
-    "eslint": "^7.20.0",
-    "eslint-plugin-react": "^7.22.0"
-  },
-  "author": "Crapuzzi Giovanni, Saracino Cristian, Stega Paolo Pio",
   "browserslist": {
     "production": [
       ">0.2%",

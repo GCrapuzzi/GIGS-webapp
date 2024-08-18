@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Routes (questa potrebbe andare in routes ma essendo la route principale la lascerei qua, a te la scelta)
 app.get('/', (req, res) => {
-  res.send('API is running...');
+  res.send('Paul is running...');
 });
 
 module.exports = app;
