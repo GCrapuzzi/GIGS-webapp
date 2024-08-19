@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectToDatabase = require('./src/config/db');
+const errorHandler = require('./src/middleware/errorHandler');
 const config = require('./src/config/config');
 
 // Importo le route
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+app.use(errorHandler);
 
 // Connessione al database
 connectToDatabase();
