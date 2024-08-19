@@ -1,22 +1,22 @@
-// app.js
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
-const app = express();
 const cookieParser = require('cookie-parser');
+const connectToDatabase = require('./src/config/db');
+const config = require('./src/config/config');
+
+// Importo le route
 const userRoutes = require('./src/routes/userRoutes');
-const env = require("dotenv");
-env.config();
+
+// Inizializzo l'applicazione
+const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-// Connessione al database (questa andrebbe spostata in controller, fallo quando vuoi paul)
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log('MongoDB connection error:', err)); 
+// Connessione al database
+connectToDatabase();
 
 // Route principale
 app.get('/', (req, res) => {
