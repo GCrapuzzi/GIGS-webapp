@@ -22,7 +22,7 @@ connectToDatabase();
 
 // Route principale
 app.get('/', (req, res) => {
-  res.send('API is running...');
+  res.send('API in funzione...');
 });
 
 // Route per gli utenti

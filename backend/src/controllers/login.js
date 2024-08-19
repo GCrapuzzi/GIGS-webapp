@@ -1,17 +1,14 @@
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
-const env = require("dotenv");
 const { createSecretToken } = require("./utils/generateToken");
 
-env.config();
-
 const login = async (req, res) => {
-  const { email, password } = req.body;
-  if (!(email && password)) {
+  const { number, otp } = req.body;
+  if (!(number && otp)) {
     return res.status(400).json({ message: "All input is required" });
   }
   const user = await User.findOne({ email });
-  if (!(user && (await bcrypt.compare(password, user.password)))) {
+  if (!(user && (await bcrypt.compare(otp, user.otp)))) {
     return res.status(404).json({ message: "Invalid credentials" });
   }
   const token = createSecretToken(user._id);
