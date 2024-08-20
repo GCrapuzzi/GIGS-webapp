@@ -1,4 +1,4 @@
-import {Route, Routes, Router } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import React, { useState } from 'react'; 
 import Homepage from './pages/Homepage.jsx';
 import OfferingGigs from './pages/OfferingGigs.jsx';
@@ -13,8 +13,8 @@ function App(){
   const toggleButtonState = () => {
     setButtonState(!buttonState);
   };
-  const visitingGig = require("./images/image.png")
-  const offeringGig = require("./images/homepage.png")
+  const visitingGig = require("./assets/image.png")
+  const offeringGig = require("./assets/homepage.png")
 
   return (
     <>

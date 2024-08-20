@@ -1,7 +1,7 @@
-import { FaPhoneAlt } from "react-icons/fa";
-import { GiPositionMarker } from "react-icons/gi";
-import { GiGardeningShears } from "react-icons/gi";
-import { GiWorld } from "react-icons/gi";
+import { FaPhoneAlt } from "react-icons/fa"
+import { GiPositionMarker } from "react-icons/gi"
+import { GiGardeningShears } from "react-icons/gi"
+import { GiWorld } from "react-icons/gi"
 
 const buttonVisitorStyle = {
     backgroundColor: 'rgb(221, 235, 237)',               

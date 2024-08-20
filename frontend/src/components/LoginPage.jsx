@@ -1,6 +1,6 @@
-import React from 'react';
-import { FaPhoneAlt } from "react-icons/fa";
-import { GiWorld } from "react-icons/gi";
+import React from 'react'
+import { FaPhoneAlt } from "react-icons/fa"
+import { GiWorld } from "react-icons/gi"
 
 
 function LoginPage({toggleButtonState, buttonState}){
@@ -19,7 +19,7 @@ function LoginPage({toggleButtonState, buttonState}){
             <button id="closeButton" onClick={handleClick}>X</button>
             <div className="loginSubPage">
               <div>
-                  <img id="loginImage" src={require("../images/login.png")} />
+                  <img id="loginImage" src={require("../assets/login.png")} />
               </div>
               <h2>Effettua il login:</h2>
               <div id="loginInput">
