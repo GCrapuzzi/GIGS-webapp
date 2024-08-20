@@ -5,7 +5,11 @@ const userSchema=mongoose.Schema({
       nome:String,
       cognome:String,
       number:String,
-      otp:String,
+      otp: String,
+      otpCreatedAt: {
+            type: Date,
+            expires: "5s"
+      }
 })
 
 // Creo il modello
