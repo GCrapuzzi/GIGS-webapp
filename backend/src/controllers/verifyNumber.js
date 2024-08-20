@@ -1,6 +1,6 @@
 const User = require("../models/userSchema");
-import { validateNumber } from "../validators/validateNumber";
-import { generateOTP } from "../utils/generateOTP";
+const { validateNumber } = require("../validators/validateNumber");
+const { generateOTP } = require("../utils/generateOTP");
 
 const verifyNumber = async (req, res) => {
     const { number } = req.body;
