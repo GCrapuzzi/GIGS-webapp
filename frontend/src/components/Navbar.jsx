@@ -9,7 +9,7 @@ function Navbar({ toggleButtonState }) {
   
 
     return(
-        <div className="container">
+        <nav className="container">
             <ul className="navbar">
                 <li id="logo"><a href="">GIGS</a></li>
 
@@ -20,7 +20,7 @@ function Navbar({ toggleButtonState }) {
 
                 <li ><a href="" id="login" onClick={handleClick}>Accedi</a></li>
             </ul>
-        </div>
+        </nav>
         
     )
 }
