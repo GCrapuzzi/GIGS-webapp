@@ -1,6 +1,6 @@
 const User = require("../models/userSchema");
 const { validateNumber } = require("../validators/validateNumber");
-const { generateOTP } = require("../utils/generateOTP");
+const { generateOTPforUser } = require("../utils/generateOTP");
 
 const verifyNumber = async (req, res) => {
     const { number } = req.body;
@@ -14,7 +14,7 @@ const verifyNumber = async (req, res) => {
     let user = await User.findOne({ number });
 
     // Genera un OTP
-    const otp = generateOTP();
+    const otp = generateOTPforUser();
 
     if (user) {
         // Se l'utente esiste, aggiorna il campo otp
