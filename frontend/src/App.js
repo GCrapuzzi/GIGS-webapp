@@ -19,12 +19,10 @@ function App(){
   return (
     <>
       <Navbar toggleButtonState={toggleButtonState}/>
-      <div>
-        <Routes>
-          <Route path="/" element={<Homepage buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
-          <Route path="/offeringGigs" element={<OfferingGigs buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Homepage buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
+        <Route path="/offeringGigs" element={<OfferingGigs buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+      </Routes>
     </>
   );
 };

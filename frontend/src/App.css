@@ -63,6 +63,10 @@ li{
   font-size: large;
 }
 
+li:focus{
+  text-decoration: underline;
+}
+
 .HomepageContainer{
   display: flex;
   align-items: center;
