@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import {Route, Routes} from 'react-router-dom';
+import React, { useState } from 'react'; 
+import Homepage from './pages/Homepage.jsx';
+import OfferingGigs from './pages/OfferingGigs.jsx';
+import Navbar from './components/Navbar.jsx';
+import './App.css'
 
-function App() {
+ 
+function App(){
+
+  const [buttonState, setButtonState] = useState(false);
+  
+  const toggleButtonState = () => {
+    setButtonState(!buttonState);
+  };
+  const visitingGig = require("./assets/image.png")
+  const offeringGig = require("./assets/homepage.png")
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar toggleButtonState={toggleButtonState}/>
+      <Routes>
+        <Route path="/" element={<Homepage buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
+        <Route path="/offeringGigs" element={<OfferingGigs buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+      </Routes>
+    </>
   );
-}
-
+};
+ 
 export default App;

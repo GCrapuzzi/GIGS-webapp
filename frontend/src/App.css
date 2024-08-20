@@ -1,38 +1,253 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar{
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  height: 70px;
+  border-bottom: 3px;
+  border-bottom-style: solid ;
+  border-bottom-color: rgb(220, 216, 216);
+  padding-left: 10px;
+  position: relative;
+  z-index: 3;
+  background-color:rgb(243, 241, 241);
+}
+
+
+.container{
+  margin: 0;
+}
+
+li{
+  list-style: none;
+  font-weight:bold;
+  font-size: 20px;
+}
+
+#logo{
+  font-size: 50px;
+}
+
+
+.centralContainer{
+  display: flex;
+  justify-content: space-between;
+  width:350px;
+  align-items: center;
+}
+
+body{
+  margin: 0;
+  background-color:rgb(243, 241, 241);
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+a{
+  margin: 0;
+  max-height:min-content;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  margin-right: 30px;
+}
+
+a:hover{
+  color: rgb(35, 117, 10);
+}
+
+li{
+  text-align: center;
+  min-height: inherit;
+  font-size: large;
+}
+
+li:focus{
+  text-decoration: underline;
+}
+
+.HomepageContainer{
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+
+}
+
+.overlay{
+  position: absolute;
+  z-index: -1;
+  height: 100vh;
+  width: 100vw;
+  transition: filter 0.5s ease;
+}
+
+.overlay.active{
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+.HomepageBox{
+  border-style: solid;
+  border-color: rgb(220, 216, 216);
+  box-shadow: 5px 10px rgb(220, 216, 216);
+  padding-top: 150px;
+  padding-bottom: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 50px;
+  border-radius: 50px;
+  width: 1000px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+  background-position-x: -40px;
+}
+
+
+
+
+.title{
+  font-family: 'Poppins', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.subtitle{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #555;
+}
+
+.icon{
+  position: absolute;
+  z-index: 0;
+  padding: 10px;
+  padding-top: 12px;
+}
+
+.HomepageText{
+
+  width:400px;
+}
+
+
+
+.HomepageForm{
+  padding-top: 10px;
+  width: 400px;
+  
+}
+
+.formSpace{
+  border-radius: 50px;
+  padding: 10px;
+  margin: 5px;
+  margin-left: 0;
+  width:370px;
+  border-color: black;
+  border-width: 1px;
+  outline: none;
+  padding-left: 30px;
+  height: 10px;
+}
+
+.formSpace:focus{
+  border-color: #6505ed;
+  box-shadow: 0 0 10px rgba(98, 0, 234, 0.7);
+  outline: none;
+}
+
+.submitButton{
+  margin: 5px;
+  border-radius: 50px;  
+  padding: 10px;
+  width: 412px;
+  font-weight: bold;
+  font-size: medium;
+  line-height: 10px;
+  margin-left: 0;
+  cursor: pointer;
+  padding-right: 0;
+  margin-right: 0;
+  padding: 10px;
+  margin: 5px;
+  margin-left: 0;
+  width:412px;
+  border-color: black;
+  border-width: 1px;
+}
+
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+}
+
+#login{
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px;
+  background-color: green;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.loginPage{
+  position: absolute;
+  border-style: solid;
+  height: 100vh;
+  top:0;
+  right: -460px;
+  background-color: rgb(252, 220, 193);
+  border-right: 0;
+  z-index: 2;
+  transition: right 0.5s ease;
+  border-color: rgb(220, 216, 216);
+  width: 450px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.loginSubPage{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  top: 10%;
+  position: relative;
+}
+
+.loginPage.open{
+  right: 0;
+  filter: none;
+}
+
+#personCircle{
+  width: 200px;
+  height: 150px;
+}
+
+#closeButton{
+  position: relative;
+  top: 8%;
+  font-size: 40px;
+  margin-left: 10px;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+  color: black;
+}
+
+#loginImage{
+  width: 300px;
+}
+
+#loginInput{
+  width: 400px;
 }
