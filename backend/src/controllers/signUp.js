@@ -1,5 +1,5 @@
-const User = require("./models/userSchema"); 
-const { createSecretToken } = require("./utils/generateToken");
+const User = require("../models/userSchema"); 
+const { createSecretToken } = require("../utils/generateToken");
 const bcrypt = require("bcryptjs");
 
 const createUser = async (req, res) => {
