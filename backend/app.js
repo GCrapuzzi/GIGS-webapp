@@ -24,7 +24,6 @@ connectToDatabase();
 app.get('/', (req, res) => {
   res.send('API in funzione...');
 });
-
 // Route per gli utenti
 app.use('/users', userRoutes);
 
