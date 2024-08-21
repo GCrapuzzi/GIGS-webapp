@@ -10,8 +10,8 @@ async function generateOTPForUser(number) {
 }
 
 function generateOTP() {
-    // Genera un OTP casuale, ad esempio, 6 cifre
+    // Genera un OTP casuale
     return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-module.exports = { generateOTPForUser };
+module.exports = { generateOTPForUser }; 
