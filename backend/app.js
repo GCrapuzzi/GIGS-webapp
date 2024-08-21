@@ -6,6 +6,7 @@ const errorHandler = require('./src/middleware/errorHandler');
 
 // Importo le route
 const userRoutes = require('./src/routes/userRoutes');
+const annunciRoutes = require('./src/routes/annunciRoutes');
 
 // Inizializzo l'applicazione
 const app = express();
@@ -25,5 +26,7 @@ app.get('/', (req, res) => {
 });
 // Route per gli utenti
 app.use('/users', userRoutes);
+// Route per gli annunci
+app.use('/annunci', annunciRoutes);
 
 module.exports = app;
