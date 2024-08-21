@@ -1,17 +1,25 @@
+const user = require('../models/userSchema');
+
+
 async function generateOTPForUser(number) {
-    const otp = generateOTP(); // Funzione per generare l'OTP
+    const otp = generateOTP();
+    const otpExpiresAt = new Date(Date.now() + 60000); // Imposta la scadenza a 1 minuto nel futuro
+
     await User.updateOne(
         { number: number },
         {
             otp: otp,
-            otpCreatedAt: new Date() // Imposta l'ora corrente
+            otpCreatedAt: new Date(),
+            otpExpiresAt: otpExpiresAt
         }
     );
 }
 
-function generateOTP() {
+
+function generateOTP(number) {
     // Genera un OTP casuale, ad esempio, 6 cifre
-    return Math.floor(100000 + Math.random() * 900000).toString();
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
 }
 
-module.exports = { generateOTPForUser };
+module.exports = { generateOTP };

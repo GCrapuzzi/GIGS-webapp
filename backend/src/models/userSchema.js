@@ -6,13 +6,10 @@ const userSchema=mongoose.Schema({
       cognome:String,
       number:String,
       otp: String,
-      otpCreatedAt: {
-            type: Date,
-            expires: "5s"
-      }
+      otpExpiresAt: Date
 })
 
 // Creo il modello
 const user=mongoose.model("user", userSchema);
 
-module.exports=user;
+module.exports = user;
