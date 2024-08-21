@@ -21,6 +21,28 @@ function goToNext(event, nextInputId) {
     }
 }
 
+function goToPrevious(event, prevInputId) {
+    const currentInput = event.target;
+    
+    if (currentInput && currentInput.value.length === 0 && event.key === 'Backspace') {
+        const prevInput = document.getElementById(prevInputId);
+        if (prevInput) {
+            prevInput.focus();
+        }
+    }
+}
+
+function getOtpString() {
+    let otp = '';
+    for (let i = 1; i <= 6; i++) {
+        const input = document.getElementById(`input${i}`);
+        if (input) {
+            otp += input.value;
+        }
+    }
+    return otp;
+}
+
 function HomepageForm({formType,buttonText}){
     return(
         <div>
@@ -98,18 +120,18 @@ function HomepageForm({formType,buttonText}){
                 <form action="" className="HomepageFormOtp">
                 <div className="textContainerOtp">
                     <div className="otpInputSpace">
-                        <input type="text" className="otpInput" id="input1" maxlength="1" onInput={(e) => goToNext(e, 'input2')}/>
-                        <input type="text" className="otpInput" id="input2" maxlength="1" onInput={(e) => goToNext(e, 'input3')}/>
-                        <input type="text" className="otpInput" id="input3" maxlength="1" onInput={(e) => goToNext(e, 'input4')}/>
-                        <input type="text" className="otpInput" id="input4" maxlength="1" onInput={(e) => goToNext(e, 'input5')}/>
-                        <input type="text" className="otpInput" id="input5" maxlength="1" onInput={(e) => goToNext(e, 'input6')}/>
-                        <input type="text" className="otpInput" id="input6" maxlength="1"/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input1" maxlength="1" onInput={(e) => goToNext(e, 'input2')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input2" maxlength="1" onInput={(e) => goToNext(e, 'input3')} onKeyDown={(e) => goToPrevious(e, 'input1')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input3" maxlength="1" onInput={(e) => goToNext(e, 'input4')} onKeyDown={(e) => goToPrevious(e, 'input2')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input4" maxlength="1" onInput={(e) => goToNext(e, 'input5')} onKeyDown={(e) => goToPrevious(e, 'input3')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input5" maxlength="1" onInput={(e) => goToNext(e, 'input6')} onKeyDown={(e) => goToPrevious(e, 'input4')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input6" maxlength="1" onKeyDown={(e) => goToPrevious(e, 'input5')} required/>
                     </div>
                 </div>
 
                 
 
-                <button action="submit" className="submitButton" style={buttonVisitorStyle}>{buttonText}</button>
+                <button action="" className="submitButton" style={buttonVisitorStyle} onClick={() => {const otpString = getOtpString(); console.log(otpString)}}>{buttonText}</button>
             </form>)}            
         </div>
     )
