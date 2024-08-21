@@ -3,7 +3,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectToDatabase = require('./src/config/db');
 const errorHandler = require('./src/middleware/errorHandler');
-const config = require('./src/config/config');
 
 // Importo le route
 const userRoutes = require('./src/routes/userRoutes');
