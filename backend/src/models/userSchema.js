@@ -5,6 +5,8 @@ const userSchema=mongoose.Schema({
       nome:String,
       cognome:String,
       number:String,
+      profileImageUrl: String,
+      description: String,
       otp: String,
       otpExpiresAt: Date
 })
