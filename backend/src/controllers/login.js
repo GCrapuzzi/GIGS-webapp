@@ -4,23 +4,40 @@ const { createSecretToken } = require("../utils/generateToken");
 
 const login = async (req, res) => {
   const { number, otp } = req.body;
+
+  // Verifica che il numero di telefono e l'OTP siano presenti
   if (!(number && otp)) {
     return res.status(400).json({ message: "All input is required" });
   }
-  const user = await User.findOne({ email });
+
+  // Cerca l'utente con il numero di telefono specificato
+  const user = await User.findOne({ number });
+
+  // Verifica che l'utente esista e che l'OTP sia corretto
   if (!(user && (await bcrypt.compare(otp, user.otp)))) {
     return res.status(404).json({ message: "Invalid credentials" });
   }
+
+  // Verifica se l'OTP è scaduto
+  if (user.otpExpiresAt < new Date()) {
+    return res.status(400).json({ message: "OTP has expired" });
+  }
+
+  // Se l'OTP è valido e non scaduto, crea il token
   const token = createSecretToken(user._id);
+
+  // Imposta il cookie con il token
   res.cookie("token", token, {
     domain: process.env.frontend_url, // Set your domain here
-    path: "/", // Cookie is accessible from all paths
-    expires: new Date(Date.now() + 86400000), // Cookie expires in 1 day
-    secure: true, // Cookie will only be sent over HTTPS
-    httpOnly: true, // Cookie cannot be accessed via client-side scripts
+    path: "/", // Cookie is accessibile da tutti i percorsi
+    expires: new Date(Date.now() + 86400000), // Il cookie scade in 1 giorno
+    secure: true, // Il cookie sarà inviato solo tramite HTTPS
+    httpOnly: true, // Il cookie non può essere accessibile tramite script client-side
     sameSite: "None",
   });
 
+  // Risposta con il token
   res.json({ token });
 };
+
 module.exports = login;
