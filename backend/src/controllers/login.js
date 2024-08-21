@@ -14,12 +14,16 @@ const login = async (req, res) => {
   const user = await User.findOne({ number });
 
   // Verifica che l'utente esista e che l'OTP sia corretto
-  if (!(user && (await bcrypt.compare(otp, user.otp)))) {
+  if (!(user && otp === user.otp)) {
     return res.status(404).json({ message: "Invalid credentials" });
   }
+  
 
   // Verifica se l'OTP è scaduto
-  if (user.otpExpiresAt < new Date()) {
+  const otpExpiresAt = new Date(user.otpExpiresAt);
+  const currentTime = new Date();
+
+  if (otpExpiresAt < currentTime) {
     return res.status(400).json({ message: "OTP has expired" });
   }
 
