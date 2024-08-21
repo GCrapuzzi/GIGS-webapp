@@ -13,6 +13,4 @@ const config = {
     vonageApiSecret: process.env.VONAGE_API_SECRET,
 };
 
-console.log(config.mongoURI);
-
 module.exports = config;

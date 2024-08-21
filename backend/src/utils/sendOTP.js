@@ -6,8 +6,8 @@ console.log('API Secret:', config.vonageApiSecret);
 
 
 const vonage = new Vonage({
-  apiKey: "b59a5f0d",
-  apiSecret: "YB3JfYpt17Y4q8HA",
+  apiKey: config.vonageApiKey,
+  apiSecret: config.vonageApiSecret,
 })
 
 async function sendOTP(number, otp) {
@@ -20,4 +20,4 @@ async function sendOTP(number, otp) {
     .catch(err => { console.error(err) })
 }
 
-module.exports = sendOTP;
+sendOTP('393498124817', '1234')
