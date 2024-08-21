@@ -1,8 +1,25 @@
-function HomepageText({title, subtitle}){
+function HomepageText({formType}){
     return(
         <div className="HomepageText">
-            <h1 className="title">{title}</h1>
-            <h2 className=" subtitle">{subtitle}</h2>
+            {formType === 'register' && (
+                <div>
+                    <h1 className="title">Offri un Lavoretto nella tua zona:</h1>
+                    <h2 className=" subtitle">Guadagna aiutando i tuoi vicini</h2>
+                </div>
+            )}
+
+            {formType === 'login' && (
+                <div>
+                    <h1 className="title">Cerca un Lavoretto nella tua zona:</h1>
+                    <h2 className=" subtitle">Indica il tipo di lavoro di cui hai bisogno e trova qualcuno nella tua zona pronto a darti una mano.</h2>
+                </div>
+            )}
+
+            {formType === 'otp' && (
+                <div className="otpText">
+                    <h1 className="titleOtp">Inserisci codice OTP:</h1>
+                </div>
+            )}
         </div>
     )
 }

@@ -108,8 +108,34 @@ li:focus{
   background-position-x: -40px;
 }
 
+.HomepageBoxOtp{
+  border-style: solid;
+  border-color: rgb(220, 216, 216);
+  box-shadow: 5px 10px rgb(220, 216, 216);
+  padding-top: 150px;
+  padding-bottom: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 50px;
+  border-radius: 50px;
+  width: 1000px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position-y: 20%;
+  background-position-x: 50%;
+}
 
-
+.titleOtp{
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
 
 .title{
   font-family: 'Poppins', sans-serif;
@@ -133,7 +159,6 @@ li:focus{
 }
 
 .HomepageText{
-
   width:400px;
 }
 
@@ -142,7 +167,7 @@ li:focus{
 .HomepageForm{
   padding-top: 10px;
   width: 400px;
-  
+
 }
 
 .formSpace{
@@ -158,7 +183,12 @@ li:focus{
   height: 10px;
 }
 
-.formSpace:focus{
+#formSpaceLogin{
+  width: 360px;
+}
+
+.formSpace:focus,
+.otpInput:focus{
   border-color: #6505ed;
   box-shadow: 0 0 10px rgba(98, 0, 234, 0.7);
   outline: none;
@@ -182,6 +212,10 @@ li:focus{
   width:412px;
   border-color: black;
   border-width: 1px;
+}
+
+#submitButtonLogin{
+  width: 402px;
 }
 
 footer{
@@ -211,7 +245,7 @@ footer{
   z-index: 2;
   transition: right 0.5s ease;
   border-color: rgb(220, 216, 216);
-  width: 450px;
+  width: 413px;
 }
 
 .loginSubPage{
@@ -250,4 +284,28 @@ footer{
 
 #loginInput{
   width: 400px;
+}
+
+.otpText{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.otpInput{
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  margin: 2px;
+  text-align: center;
+  border-color: black;
+  border-width: 1px;
+}
+
+.textContainerOtp{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

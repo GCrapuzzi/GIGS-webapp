@@ -11,6 +11,16 @@ const buttonGigStyle ={
     backgroundColor: 'rgba(251, 220, 192, 0.996)', 
 }
 
+function goToNext(event, nextInputId) {
+    const currentInput = event.target;
+    if (currentInput && currentInput.value.length === currentInput.maxLength) {
+        const nextInput = document.getElementById(nextInputId);
+        if (nextInput) {
+            nextInput.focus();
+        }
+    }
+}
+
 function HomepageForm({formType,buttonText}){
     return(
         <div>
@@ -82,6 +92,25 @@ function HomepageForm({formType,buttonText}){
 
                 <button action="submit" className="submitButton" style={buttonVisitorStyle}>{buttonText}</button>
             </form>)}
+
+
+            {formType === 'otp' && (
+                <form action="" className="HomepageFormOtp">
+                <div className="textContainerOtp">
+                    <div className="otpInputSpace">
+                        <input type="text" className="otpInput" id="input1" maxlength="1" onInput={(e) => goToNext(e, 'input2')}/>
+                        <input type="text" className="otpInput" id="input2" maxlength="1" onInput={(e) => goToNext(e, 'input3')}/>
+                        <input type="text" className="otpInput" id="input3" maxlength="1" onInput={(e) => goToNext(e, 'input4')}/>
+                        <input type="text" className="otpInput" id="input4" maxlength="1" onInput={(e) => goToNext(e, 'input5')}/>
+                        <input type="text" className="otpInput" id="input5" maxlength="1" onInput={(e) => goToNext(e, 'input6')}/>
+                        <input type="text" className="otpInput" id="input6" maxlength="1"/>
+                    </div>
+                </div>
+
+                
+
+                <button action="submit" className="submitButton" style={buttonVisitorStyle}>{buttonText}</button>
+            </form>)}            
         </div>
     )
 }

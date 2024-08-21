@@ -4,6 +4,7 @@ import Homepage from './pages/Homepage.jsx';
 import OfferingGigs from './pages/OfferingGigs.jsx';
 import Navbar from './components/Navbar.jsx';
 import './App.css'
+import Otp from './pages/Otp.jsx';
 
  
 function App(){
@@ -15,11 +16,13 @@ function App(){
   };
   const visitingGig = require("./assets/image.png")
   const offeringGig = require("./assets/homepage.png")
+  const otpGig = require("./assets/otp.png")
 
   return (
     <>
       <Navbar toggleButtonState={toggleButtonState}/>
       <Routes>
+        <Route path="/otp" element={<Otp buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
         <Route path="/" element={<Homepage buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
         <Route path="/offeringGigs" element={<OfferingGigs buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
       </Routes>

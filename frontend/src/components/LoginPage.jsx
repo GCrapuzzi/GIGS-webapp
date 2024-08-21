@@ -22,13 +22,13 @@ function LoginPage({toggleButtonState, buttonState}){
                   <img id="loginImage" src={require("../assets/login.png")} />
               </div>
               <h2>Effettua il login:</h2>
-              <div id="loginInput">
+              <form id="loginInput">
                 <GiWorld className="icon"/>
-                <input type="tel" placeholder="+39" list="prefisso" className="formSpace"/>
+                <input type="tel" placeholder="+39" list="prefisso" className="formSpace" id="formSpaceLogin"/>
                 <FaPhoneAlt className="icon" />
-                <input type="tel" placeholder="Inserisci numero:" className="formSpace"/>
-                <button className="submitButton" style={buttonLoginStyle}>Accedi</button>
-              </div>
+                <input type="tel" placeholder="Inserisci numero:" className="formSpace" id="formSpaceLogin"/>
+                <button className="submitButton" id="submitButtonLogin" style={buttonLoginStyle}>Accedi</button>
+              </form>
             </div>
           </aside>
         </div>
