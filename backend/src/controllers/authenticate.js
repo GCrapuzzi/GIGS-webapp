@@ -1,5 +1,6 @@
 const User = require("../models/userSchema");
 const generateToken = require("../utils/generateToken");
+const config = require("../config/config");
 
 const authenticate = async (req, res, next) => {
   try {
@@ -37,7 +38,7 @@ const authenticate = async (req, res, next) => {
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
-        domain: process.env.frontend_url, // Set your domain here
+        domain: config.frontendURL, // Set your domain here
         path: "/", // Cookie è accessibile da tutti i percorsi
         expires: new Date(Date.now() + 86400000), // Il cookie scade in 1 giorno
         secure: true, // Il cookie sarà inviato solo tramite HTTPS
