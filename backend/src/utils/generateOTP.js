@@ -5,4 +5,4 @@ function generateOTP() {
     return { otp, otpExpiresAt };
 }
 
-module.exports = { generateOTP };
+module.exports = generateOTP;

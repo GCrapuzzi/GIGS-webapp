@@ -1,5 +1,9 @@
 // Funzione che verifica se un numero di telefono è valido
 function validateNumber(number) {
+    // Verifica se il numero è una stringa
+    if (typeof number !== 'string') {
+        return false;
+    }
 
     // Rimuove tutti i caratteri non numerici e il prefisso italiano
     let plain = number.replace(/\D/g, '');
@@ -13,4 +17,4 @@ function validateNumber(number) {
     return false;
 }
 
-module.exports = { validateNumber };
+module.exports = validateNumber;
