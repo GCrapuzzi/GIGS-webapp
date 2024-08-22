@@ -20,4 +20,4 @@ async function sendOTP(number, otp) {
     .catch(err => { console.error(err) })
 }
 
-sendOTP('393498124817', '1234')
+sendOTP('393667142523', 'Vafancul')
