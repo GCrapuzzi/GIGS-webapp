@@ -6,7 +6,7 @@ const sendOTP = require("../utils/sendOTP");
 const verifyUser = async (req, res, next) => {
     try {
       // Verifica che il numero sia presente nella richiesta
-      const number = req.body;
+      const number = req.body.number;
       if (!number) {
         return res.status(400).json({ message: "Il numero è obbligatorio" });
       }
