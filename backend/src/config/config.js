@@ -3,7 +3,7 @@ dotenv.config();
 
 // Configurazione delle variabili d'ambiente
 const config = {
-    port: process.env.PORT || 5000,
+    port: process.env.PORT,
     mongoURI: process.env.MONGO_URI,
     mongoUsername: process.env.MONGO_INITDB_ROOT_USERNAME,
     mongoPassword: process.env.MONGO_INITDB_ROOT_PASSWORD,

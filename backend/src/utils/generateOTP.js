@@ -1,8 +1,7 @@
-const user = require('../models/userSchema');
-
+// Funzione per generare un codice OTP
 function generateOTP() {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpExpiresAt = new Date(Date.now() + 30000); // Imposta la scadenza a 1 minuto nel futuro
+    const otpExpiresAt = new Date(Date.now() + 30000);
     return { otp, otpExpiresAt };
 }
 

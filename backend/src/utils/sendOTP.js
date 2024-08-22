@@ -1,23 +1,14 @@
-const config = require('../config/config')
-const { Vonage } = require('@vonage/server-sdk')
+const vonage = require('../config/vonage')
 
-console.log('API Key:', config.vonageApiKey);
-console.log('API Secret:', config.vonageApiSecret);
-
-
-const vonage = new Vonage({
-  apiKey: config.vonageApiKey,
-  apiSecret: config.vonageApiSecret,
-})
-
+// Funzione per inviare un messaggio di testo con il codice OTP
 async function sendOTP(number, otp) {
     await vonage.sms.send({
         to: number,
         from: "Gigs Web App",
-        text: `Il tuo codice di verifica è: ${otp}`,
+        text: `Il tuo codice di verifica è: ${otp}.`,
     })
     .then(resp => { console.log(resp) })
     .catch(err => { console.error(err) })
 }
 
-sendOTP('393667142523', 'Vafancul')
+module.exports = sendOTP;
