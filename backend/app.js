@@ -26,7 +26,5 @@ app.get('/', (req, res) => {
 });
 // Route per gli utenti
 app.use('/users', userRoutes);
-// Route per gli annunci
-app.use('/annunci', annunciRoutes);
 
 module.exports = app;
