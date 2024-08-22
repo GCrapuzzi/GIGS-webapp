@@ -1,7 +1,7 @@
 const User = require("../models/userSchema");
 const generateToken = require("../utils/generateToken");
 
-const login = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
   try {
     const { otp, number } = req.body;
 
@@ -55,4 +55,4 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = login;
+module.exports = authenticate;
