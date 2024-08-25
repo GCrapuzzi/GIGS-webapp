@@ -6,6 +6,6 @@ const verifyToken = require("../controllers/verifyToken");
 
 router.post("/verify", verifyUser);
 router.post("/authenticate", authenticate);
-
+router.get("/loggedin", verifyToken);
 
 module.exports = router;
