@@ -7,7 +7,7 @@ const annuncioSchema=mongoose.Schema({
       lavoretto: String
 })
 
-// Creo il modello
+// Modello per gli annunci
 const annuncio=mongoose.model("annuncio", annuncioSchema, "Annunci");
 
 module.exports = annuncio;

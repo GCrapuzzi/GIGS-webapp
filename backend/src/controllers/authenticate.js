@@ -2,6 +2,7 @@ const User = require("../models/userSchema");
 const generateToken = require("../utils/generateToken");
 const config = require("../config/config");
 
+// Funzione per autenticare l'utente
 const authenticate = async (req, res, next) => {
   try {
     const { otp, number } = req.body;
@@ -11,9 +12,9 @@ const authenticate = async (req, res, next) => {
       return res.status(400).json({ message: "OTP is required" });
     }
 
+    // Verifica che il numero di telefono sia presente
     let user;
     try {
-      // Cerca l'utente con il numero di telefono specificato
       user = await User.findOne({ number });
     } catch (error) {
       return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" });
@@ -38,11 +39,11 @@ const authenticate = async (req, res, next) => {
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
-        domain: config.frontendURL, // Set your domain here
-        path: "/", // Cookie è accessibile da tutti i percorsi
-        expires: new Date(Date.now() + 86400000), // Il cookie scade in 1 giorno
-        secure: true, // Il cookie sarà inviato solo tramite HTTPS
-        httpOnly: true, // Il cookie non può essere accessibile tramite script lato client
+        domain: config.frontendURL,
+        path: "/",
+        expires: new Date(Date.now() + 86400000),
+        secure: true,
+        httpOnly: true,
         sameSite: "None", 
       });
 
