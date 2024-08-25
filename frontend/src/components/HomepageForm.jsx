@@ -131,7 +131,7 @@ function HomepageForm({formType,buttonText}){
 
                 
 
-                <button action="" className="submitButton" style={buttonVisitorStyle} onClick={() => {const otpString = getOtpString(); console.log(otpString)}}>{buttonText}</button>
+                <button type="submit" action="" className="submitButton" style={buttonVisitorStyle} onClick={() => {const otpString = getOtpString(); console.log(otpString)}}>{buttonText}</button>
             </form>)}            
         </div>
     )

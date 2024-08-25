@@ -3,9 +3,11 @@ const generateOTP = require("../utils/generateOTP");
 const User = require("../models/userSchema");
 const sendOTP = require("../utils/sendOTP");
 
+// Funzione che verifica se un utente è registrato e invia un OTP
 const verifyUser = async (req, res, next) => {
+
+    // Verifica che il numero sia presente nella richiesta
     try {
-      // Verifica che il numero sia presente nella richiesta
       const number = req.body.number;
       if (!number) {
         return res.status(400).json({ message: "Il numero è obbligatorio" });
