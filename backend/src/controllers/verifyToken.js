@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
 const verifyToken = (req, res) => {
     const token = req.headers['authorization'];
@@ -7,7 +8,7 @@ const verifyToken = (req, res) => {
         return res.status(403).json({ isAuthenticated: false, message: 'Token mancante. Accesso negato.' });
     }
 
-    jwt.verify(token, 'secretKey', (err, decoded) => {
+    jwt.verify(token, config.jwtSecret, (err, decoded) => {
         if (err) {
             return res.status(401).json({ isAuthenticated: false, message: 'Token non valido.' });
         }
