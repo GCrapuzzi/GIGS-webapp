@@ -11,7 +11,7 @@ const userSchema=mongoose.Schema({
       otpExpiresAt: Date
 })
 
-// Creo il modello
+// Modello per l'utente
 const user=mongoose.model("user", userSchema);
 
 module.exports = user;
