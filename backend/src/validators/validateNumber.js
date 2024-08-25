@@ -5,7 +5,7 @@ function validateNumber(number) {
         return false;
     }
 
-    // Rimuove tutti i caratteri non numerici e il prefisso italiano
+    // Rimuove tutti i caratteri non numerici e il prefisso
     let plain = number.replace(/\D/g, '');
     plain = plain.substring(2);
 

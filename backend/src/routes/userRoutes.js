@@ -6,5 +6,4 @@ const authenticate = require("../controllers/authenticate");
 router.post("/verify", verifyUser);
 router.post("/authenticate", authenticate);
 
-
 module.exports = router;

@@ -15,10 +15,10 @@ const verifyUser = async (req, res, next) => {
       if (!validateNumber(number)) {
         return res.status(400).json({ message: "Numero non valido" });
       }
-  
+      
+      // Cerca l'utente nel database
       let user;
       try {
-        // Cerca l'utente con il numero specificato
         user = await User.findOne({ number });
       } catch (error) {
         return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" });
@@ -35,15 +35,16 @@ const verifyUser = async (req, res, next) => {
         // Se l'utente non esiste, crea un nuovo utente
         user = new User({ number, otp, otpExpiresAt });
       }
-  
+      
+      // Salva l'utente nel database
       try {
         await user.save();
       } catch (error) {
         return next({ statusCode: 500, message: "Errore durante il salvataggio dell'utente" });
       }
-  
+      
+      // Invia l'OTP all'utente
       try {
-        // Invia OTP all'utente
         await sendOTP(number, otp);
       } catch (error) {
         return next({ statusCode: 500, message: "Errore durante l'invio dell'OTP" });
