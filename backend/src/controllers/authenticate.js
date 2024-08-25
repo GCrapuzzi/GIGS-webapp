@@ -39,16 +39,16 @@ const authenticate = async (req, res, next) => {
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
-        domain: config.frontendURL,
+        domain: "localhost",
         path: "/",
         expires: new Date(Date.now() + 86400000),
         secure: true,
         httpOnly: true,
-        sameSite: "None", 
+        sameSite: 'None', 
       });
 
       // Risposta con il token
-      return res.json({ token });
+      return res.json({ message: 'Autenticazione riuscita', token });
     } catch (error) {
       return next({ statusCode: 500, message: "Errore durante la creazione del token o l'impostazione del cookie" });
     }
