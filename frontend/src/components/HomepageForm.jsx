@@ -47,9 +47,9 @@ function HomepageForm({formType,buttonText}){
     return(
         <div>
             {formType === 'register' && (
-                <form action="" className="HomepageForm">
+                <form action="/signup" className="HomepageForm">
                 <div className="textContainer">
-                    <div>
+                    {/*<div>
                         <GiWorld className="icon"/>
                         <input type="tel" placeholder="+39" list="prefisso" className="formSpace"/>
                         <datalist id="prefisso" name="prefisso">
@@ -63,12 +63,12 @@ function HomepageForm({formType,buttonText}){
                             <option value="+86">Cina</option>
                             <option value="+7">Russia</option>
                         </datalist>
-                    </div>
+                    </div>*/}
                     <div >
                         <FaPhoneAlt className="icon" />
                         <input type="tel" placeholder="Inserisci numero:" className="formSpace"/>
                     </div>
-                    <div>
+                    {/*<div>
                         <GiPositionMarker className="icon" />
                         <input type="text" placeholder="Inserisci città:" className="formSpace"/>
                     </div>
@@ -82,7 +82,7 @@ function HomepageForm({formType,buttonText}){
                             <option value="Baby-sitter" />
                             <option value="Pet-sitter" />
                         </datalist>
-                    </div>
+                    </div>*/}
                 </div>
 
                 
