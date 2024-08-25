@@ -2,6 +2,9 @@ import { FaPhoneAlt } from "react-icons/fa"
 import { GiPositionMarker } from "react-icons/gi"
 import { GiGardeningShears } from "react-icons/gi"
 import { GiWorld } from "react-icons/gi"
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const buttonVisitorStyle = {
     backgroundColor: 'rgb(221, 235, 237)',               
@@ -43,38 +46,91 @@ function getOtpString() {
     return otp;
 }
 
+function addPrefix(phoneNumber) {
+    const prefix = '+39';
+    return `${prefix}${phoneNumber}`;
+}
+
+
 function HomepageForm({formType,buttonText}){
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [city, setCity] = useState('');
+    const [job, setJob] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const prefixedNumber = addPrefix(phoneNumber);
+        console.log(prefixedNumber);
+
+        localStorage.setItem('city', city);
+        localStorage.setItem('job', job);
+        localStorage.setItem('number', prefixedNumber);
+
+        const data = {
+            number: prefixedNumber
+          };
+      
+          try {
+            const response = await axios.post('http://localhost:5000/users/verify', data);
+      
+            if (response.status === 200) {
+              navigate('/otp');
+            } else {
+              console.error('Errore durante la verifica:', response.status, response.statusText);
+            }
+          } catch (error) {
+            console.error('Error submitting form:', error.response ? error.response.data : error.message);
+          }
+    }
+
+    const handleOtpSubmit = async (event) => {
+        event.preventDefault();
+        let otp = '';
+        for (let i = 1; i <= 6; i++) {
+            const input = document.getElementById(`input${i}`);
+            if (input) {
+                otp += input.value;
+            }
+        }
+        console.log(otp);
+        const prefixedNumber = localStorage.getItem('number');
+        const data = {
+            number: prefixedNumber,
+            otp: otp
+          };
+
+          try {
+            const response = await axios.post('http://localhost:5000/users/authenticate', data);
+            if (response.status === 200) {
+                console.log('Otp validato correttamente');
+              } else {
+                console.error('Errore durante la verifica:', response.status, response.statusText);
+              }
+          } catch (error) {
+            console.error('Error submitting form:', error.response ? error.response.data : error.message);
+          }
+
+
+    }
+
     return(
         <div>
             {formType === 'register' && (
-                <form action="/signup" className="HomepageForm">
+                <form className="HomepageForm" onSubmit={handleSubmit}>
                 <div className="textContainer">
-                    {/*<div>
-                        <GiWorld className="icon"/>
-                        <input type="tel" placeholder="+39" list="prefisso" className="formSpace"/>
-                        <datalist id="prefisso" name="prefisso">
-                            <option value="+39">Italia</option>
-                            <option value="+1">Stati Uniti</option>
-                            <option value="+44">Regno Unito</option>
-                            <option value="+33">Francia</option>
-                            <option value="+49">Germania</option>
-                            <option value="+34">Spagna</option>
-                            <option value="+81">Giappone</option>
-                            <option value="+86">Cina</option>
-                            <option value="+7">Russia</option>
-                        </datalist>
-                    </div>*/}
                     <div >
                         <FaPhoneAlt className="icon" />
-                        <input type="tel" placeholder="Inserisci numero:" className="formSpace"/>
+                        <input type="tel" placeholder="Inserisci numero:" className="formSpace" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required pattern='[0-9]{9,10}' title='Il numero di telefono deve avere 9 o 10 cifre numeriche!'/>
                     </div>
-                    {/*<div>
+
+                    <div>
                         <GiPositionMarker className="icon" />
-                        <input type="text" placeholder="Inserisci città:" className="formSpace"/>
+                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={city} onChange={(e) => setCity(e.target.value)}/>
                     </div>
                     <div>
                         <GiGardeningShears className="icon" />
-                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace"/>
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" value={job} onChange={(e) => setJob(e.target.value)}/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
                             <option value="Sguattera" />
@@ -82,7 +138,7 @@ function HomepageForm({formType,buttonText}){
                             <option value="Baby-sitter" />
                             <option value="Pet-sitter" />
                         </datalist>
-                    </div>*/}
+                    </div>
                 </div>
 
                 
@@ -117,21 +173,21 @@ function HomepageForm({formType,buttonText}){
 
 
             {formType === 'otp' && (
-                <form action="" className="HomepageFormOtp">
+                <form className="HomepageFormOtp" onSubmit={handleOtpSubmit}>
                 <div className="textContainerOtp">
                     <div className="otpInputSpace">
-                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input1" maxlength="1" onInput={(e) => goToNext(e, 'input2')} required/>
-                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input2" maxlength="1" onInput={(e) => goToNext(e, 'input3')} onKeyDown={(e) => goToPrevious(e, 'input1')} required/>
-                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input3" maxlength="1" onInput={(e) => goToNext(e, 'input4')} onKeyDown={(e) => goToPrevious(e, 'input2')} required/>
-                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input4" maxlength="1" onInput={(e) => goToNext(e, 'input5')} onKeyDown={(e) => goToPrevious(e, 'input3')} required/>
-                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input5" maxlength="1" onInput={(e) => goToNext(e, 'input6')} onKeyDown={(e) => goToPrevious(e, 'input4')} required/>
-                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input6" maxlength="1" onKeyDown={(e) => goToPrevious(e, 'input5')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input1" maxLength="1" onInput={(e) => goToNext(e, 'input2')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input2" maxLength="1" onInput={(e) => goToNext(e, 'input3')} onKeyDown={(e) => goToPrevious(e, 'input1')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input3" maxLength="1" onInput={(e) => goToNext(e, 'input4')} onKeyDown={(e) => goToPrevious(e, 'input2')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input4" maxLength="1" onInput={(e) => goToNext(e, 'input5')} onKeyDown={(e) => goToPrevious(e, 'input3')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input5" maxLength="1" onInput={(e) => goToNext(e, 'input6')} onKeyDown={(e) => goToPrevious(e, 'input4')} required/>
+                        <input type="text" title="Inserisci una singola cifra tra 0 e 9." pattern="^[0-9]$" className="otpInput" id="input6" maxLength="1" onKeyDown={(e) => goToPrevious(e, 'input5')} required/>
                     </div>
                 </div>
 
                 
 
-                <button action="" className="submitButton" style={buttonVisitorStyle} onClick={() => {const otpString = getOtpString(); console.log(otpString)}}>{buttonText}</button>
+                <button action="submit" className="submitButton" style={buttonVisitorStyle}>{buttonText}</button>
             </form>)}            
         </div>
     )

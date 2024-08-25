@@ -10,7 +10,7 @@ function validateNumber(number) {
     plain = plain.substring(2);
 
     // Verifica se il numero è valido
-    let regexMobile = /^3\d{8,9}$/;
+    let regexMobile = /^3[0-9]{8,9}$/;
     if (regexMobile.test(plain)) {
         return true;
     }
