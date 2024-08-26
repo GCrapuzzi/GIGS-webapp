@@ -8,7 +8,7 @@ const annuncioSchema=mongoose.Schema({
       tariffa: String,
       descrizione: String,
       orario: String,
-      userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
+      user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
 })
 
 // Modello per gli annunci
