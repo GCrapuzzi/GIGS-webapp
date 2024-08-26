@@ -3,7 +3,7 @@ const Annunci = require('../models/annuncioSchema');
 
 // Funzione per creare un annuncio con la foto profilo dell'utente
 async function createAnnuncio(req, res, next) {
-    const { number,città, lavoretto, titolo, descrizione, token, tariffa, orario } = req.body;
+    const { number,città, lavoretto, titolo, descrizione, tariffa, orario } = req.body;
 
     try {
         // Da cambiare -> utilizzare userId estratto tramite middleware dal token
@@ -39,5 +39,3 @@ async function createAnnuncio(req, res, next) {
 }
 
 module.exports = createAnnuncio;
-
-
