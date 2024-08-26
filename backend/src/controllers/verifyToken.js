@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
 const verifyToken = (req, res) => {
-    const token = req.headers['authorization'];
-
+    token = req.cookies.token
+    console.log(token)
     if (!token) {
         return res.status(403).json({ isAuthenticated: false, message: 'Token mancante. Accesso negato.' });
     }

@@ -2,7 +2,7 @@ import { FaPhoneAlt } from "react-icons/fa"
 import { GiPositionMarker } from "react-icons/gi"
 import { GiGardeningShears } from "react-icons/gi"
 import { GiWorld } from "react-icons/gi"
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,16 +35,6 @@ function goToPrevious(event, prevInputId) {
     }
 }
 
-function getOtpString() {
-    let otp = '';
-    for (let i = 1; i <= 6; i++) {
-        const input = document.getElementById(`input${i}`);
-        if (input) {
-            otp += input.value;
-        }
-    }
-    return otp;
-}
 
 function addPrefix(phoneNumber) {
     const prefix = '+39';
@@ -57,15 +47,28 @@ function HomepageForm({formType,buttonText}){
     const [city, setCity] = useState('');
     const [job, setJob] = useState('');
     const navigate = useNavigate();
+    const [isAuthenticated,setIsAuthenticated] = useState('false');
+
+
+    useEffect(() => {
+        setCity(sessionStorage.getItem('city'));
+        setJob(sessionStorage.getItem('job'));
+        if(sessionStorage.getItem('isAuthenticated') === null){
+            sessionStorage.setItem('isAuthenticated', 'false')
+        }
+        setIsAuthenticated(sessionStorage.getItem('isAuthenticated'));
+    }, []);
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const prefixedNumber = addPrefix(phoneNumber);
         console.log(prefixedNumber);
+        
+        sessionStorage.setItem('city', city);
+        sessionStorage.setItem('job', job);
+        sessionStorage.setItem('number', prefixedNumber);
 
-        localStorage.setItem('city', city);
-        localStorage.setItem('job', job);
-        localStorage.setItem('number', prefixedNumber);
 
         const data = {
             number: prefixedNumber
@@ -94,19 +97,31 @@ function HomepageForm({formType,buttonText}){
             }
         }
         console.log(otp);
-        const prefixedNumber = localStorage.getItem('number');
+        const prefixedNumber = sessionStorage.getItem('number');
         const data = {
             number: prefixedNumber,
             otp: otp
           };
 
           try {
-            const response = await axios.post('http://localhost:5000/users/authenticate', data);
+            const response = await axios.post('http://localhost:5000/users/authenticate', data , { withCredentials: true });
             if (response.status === 200) {
+
                 console.log('Otp validato correttamente');
-              } else {
+                const isLoggedResponse = await axios.get('http://localhost:5000/users/loggedin', { withCredentials: true });
+                
+                if (isLoggedResponse.data.isAuthenticated) {
+                    sessionStorage.setItem('isAuthenticated', 'true')
+                    navigate('../OfferingGigs')
+                } 
+                else {
+                    sessionStorage.setItem('isAuthenticated', 'false')
+                    setMessage('Utente non autenticato.');
+                  }
+
+            } else {
                 console.error('Errore durante la verifica:', response.status, response.statusText);
-              }
+            }
           } catch (error) {
             console.error('Error submitting form:', error.response ? error.response.data : error.message);
           }
@@ -114,9 +129,13 @@ function HomepageForm({formType,buttonText}){
 
     }
 
+    
+
+
     return(
         <div>
-            {formType === 'register' && (
+            {formType === 'register'  && isAuthenticated==='false' && (
+                
                 <form className="HomepageForm" onSubmit={handleSubmit}>
                 <div className="textContainer">
                     <div >
@@ -139,6 +158,35 @@ function HomepageForm({formType,buttonText}){
                             <option value="Pet-sitter" />
                         </datalist>
                     </div>
+                </div>
+
+                
+
+                <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>
+            </form>)}
+
+            {formType === 'register' && isAuthenticated==='true' &&(
+                
+                <form className="HomepageForm">
+                <div className="textContainer">
+
+                    <div>
+                        <GiPositionMarker className="icon" />
+                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={city} onChange={(e) => useEffect()}/>
+                    </div>
+                    <div>
+                        <GiGardeningShears className="icon" />
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" value={job} onChange={(e) => setJob(e.target.value)}/>
+                        <datalist id="jobs">
+                            <option value="Fotografo" />
+                            <option value="Sguattera" />
+                            <option value="Taglia erba" />
+                            <option value="Baby-sitter" />
+                            <option value="Pet-sitter" />
+                        </datalist>
+                    </div>
+                    <input type="text" placeholder="Inserisci titolo dell'annuncio" className="formSpace"/>
+                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" className="formSpace"/>
                 </div>
 
                 

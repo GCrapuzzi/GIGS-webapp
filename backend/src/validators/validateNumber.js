@@ -8,13 +8,11 @@ function validateNumber(number) {
 
     // Rimuove tutti i caratteri non numerici
     let plain = number.replace(/\D/g, '');
-    
-    // Verifica se il numero è valido
-    let regexMobile = /^3[0-9]{8,9}$/;
-    if (regexMobile.test(plain)) {
-        return true;
-    }
-    return false;
+    plain = plain.substring(2);
+
+    const isValid = /^3\d{8,9}$/.test(plain);
+
+    return isValid;
 }
 
 module.exports = validateNumber;

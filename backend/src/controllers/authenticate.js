@@ -1,6 +1,5 @@
 const User = require("../models/userSchema");
 const generateToken = require("../utils/generateToken");
-const config = require("../config/config");
 
 // Funzione per autenticare l'utente
 const authenticate = async (req, res, next) => {
@@ -21,8 +20,11 @@ const authenticate = async (req, res, next) => {
     }
 
     // Verifica che l'utente esista e che l'OTP sia corretto
-    if (!user || otp !== user.otp) {
-      return res.status(404).json({ message: "Invalid otp" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found"+number });
+    }
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
     }
 
     // Verifica se l'OTP è scaduto
@@ -33,22 +35,28 @@ const authenticate = async (req, res, next) => {
       return res.status(400).json({ message: "OTP has expired" });
     }
 
+    // Verifica se l'utente ha completato la registrazione
+    let isRegistered = false;
+    if (user.nome && user.cognome) {
+      isRegistered = true;
+    }
+
     try {
       // Se l'OTP è valido e non scaduto, crea il token
       const token = generateToken(user._id);
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
-        domain: config.frontendURL,
+        domain: "localhost",
         path: "/",
         expires: new Date(Date.now() + 86400000),
         secure: true,
         httpOnly: true,
-        sameSite: "None", 
+        sameSite: 'None', 
       });
 
       // Risposta con il token
-      return res.json({ token });
+      return res.json({ message: 'Autenticazione riuscita', token, isRegistered });
     } catch (error) {
       return next({ statusCode: 500, message: "Errore durante la creazione del token o l'impostazione del cookie" });
     }

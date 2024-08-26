@@ -23,8 +23,6 @@ function LoginPage({toggleButtonState, buttonState}){
               </div>
               <h2>Effettua il login:</h2>
               <form id="loginInput">
-                <GiWorld className="icon"/>
-                <input type="tel" placeholder="+39" list="prefisso" className="formSpace" id="formSpaceLogin"/>
                 <FaPhoneAlt className="icon" />
                 <input type="tel" placeholder="Inserisci numero:" className="formSpace" id="formSpaceLogin"/>
                 <button className="submitButton" id="submitButtonLogin" style={buttonLoginStyle}>Accedi</button>

@@ -181,6 +181,14 @@ li:focus{
   outline: none;
   padding-left: 30px;
   height: 10px;
+  
+}
+
+#description{
+  overflow: hidden;
+  height: 50px;
+  border-radius: 20px;
+  resize:none;
 }
 
 #formSpaceLogin{
