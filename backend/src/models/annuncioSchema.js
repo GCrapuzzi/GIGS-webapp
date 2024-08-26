@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const { Stream } = require("twilio/lib/twiml/VoiceResponse");
 
 // Schema per gli annunci
 const annuncioSchema=mongoose.Schema({
@@ -8,7 +9,7 @@ const annuncioSchema=mongoose.Schema({
       tariffa: String,
       descrizione: String,
       orario: String,
-      
+      user_id: String
 })
 
 // Modello per gli annunci

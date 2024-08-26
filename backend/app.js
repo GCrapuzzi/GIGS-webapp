@@ -20,6 +20,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(errorHandler);
 
+
 // Connessione al database
 connectToDatabase();
 
@@ -27,6 +28,7 @@ connectToDatabase();
 app.get('/', (req, res) => {
   res.send('API in funzione...');
 });
+
 // Route per gli utenti
 app.use('/users', userRoutes);
 
