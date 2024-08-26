@@ -167,34 +167,32 @@ function HomepageForm({formType,buttonText}){
 
             {formType === 'register' && isAuthenticated==='true' &&(
                 
+                <form className="HomepageForm">
+                <div className="textContainer">
+
+                    <div>
+                        <GiPositionMarker className="icon" />
+                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={city} onChange={(e) => useEffect()}/>
+                    </div>
+                    <div>
+                        <GiGardeningShears className="icon" />
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" value={job} onChange={(e) => setJob(e.target.value)}/>
+                        <datalist id="jobs">
+                            <option value="Fotografo" />
+                            <option value="Sguattera" />
+                            <option value="Taglia erba" />
+                            <option value="Baby-sitter" />
+                            <option value="Pet-sitter" />
+                        </datalist>
+                    </div>
+                    <input type="text" placeholder="Inserisci titolo dell'annuncio" className="formSpace"/>
+                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" className="formSpace"/>
+                </div>
+
                 
-                                <form className="HomepageForm">
-                                <div className="textContainer">
-                
-                                    <div>
-                                        <GiPositionMarker className="icon" />
-                                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={city} onChange={(e) => useEffect()}/>
-                                    </div>
-                                    <div>
-                                        <GiGardeningShears className="icon" />
-                                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" value={job} onChange={(e) => setJob(e.target.value)}/>
-                                        <datalist id="jobs">
-                                            <option value="Fotografo" />
-                                            <option value="Sguattera" />
-                                            <option value="Taglia erba" />
-                                            <option value="Baby-sitter" />
-                                            <option value="Pet-sitter" />
-                                        </datalist>
-                                    </div>
-                                    <input type="text" placeholder="Inserisci titolo dell'annuncio" className="formSpace"/>
-                                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" className="formSpace"/>
-                                </div>
-                
-                                
-                
-                                <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>
-                            </form>
-                        )}
+
+                <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>
+            </form>)}
 
             {formType === 'login' && (
                 <form action="" className="HomepageForm">
