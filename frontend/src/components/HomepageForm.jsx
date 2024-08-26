@@ -2,7 +2,7 @@ import { FaPhoneAlt } from "react-icons/fa"
 import { GiPositionMarker } from "react-icons/gi"
 import { GiGardeningShears } from "react-icons/gi"
 import { GiWorld } from "react-icons/gi"
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -47,17 +47,28 @@ function HomepageForm({formType,buttonText}){
     const [city, setCity] = useState('');
     const [job, setJob] = useState('');
     const navigate = useNavigate();
-    
+    const [isAuthenticated,setIsAuthenticated] = useState('false');
+
+
+    useEffect(() => {
+        setCity(sessionStorage.getItem('city'));
+        setJob(sessionStorage.getItem('job'));
+        if(sessionStorage.getItem('isAuthenticated') === null){
+            sessionStorage.setItem('isAuthenticated', 'false')
+        }
+        setIsAuthenticated(sessionStorage.getItem('isAuthenticated'));
+    }, []);
     
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const prefixedNumber = addPrefix(phoneNumber);
         console.log(prefixedNumber);
+        
+        sessionStorage.setItem('city', city);
+        sessionStorage.setItem('job', job);
+        sessionStorage.setItem('number', prefixedNumber);
 
-        localStorage.setItem('city', city);
-        localStorage.setItem('job', job);
-        localStorage.setItem('number', prefixedNumber);
 
         const data = {
             number: prefixedNumber
@@ -118,13 +129,12 @@ function HomepageForm({formType,buttonText}){
 
     }
 
-    const isAuthenticated = sessionStorage.getItem('isAuthenticated');
-    console.log(isAuthenticated)
     
+
 
     return(
         <div>
-            {formType === 'register'  && (isAuthenticated==='false' || isAuthenticated === null) && (
+            {formType === 'register'  && isAuthenticated==='false' && (
                 
                 <form className="HomepageForm" onSubmit={handleSubmit}>
                 <div className="textContainer">
@@ -156,12 +166,14 @@ function HomepageForm({formType,buttonText}){
             </form>)}
 
             {formType === 'register' && isAuthenticated==='true' &&(
+                
+                
                                 <form className="HomepageForm">
                                 <div className="textContainer">
                 
                                     <div>
                                         <GiPositionMarker className="icon" />
-                                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={city} onChange={(e) => setCity(e.target.value)}/>
+                                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={city} onChange={(e) => useEffect()}/>
                                     </div>
                                     <div>
                                         <GiGardeningShears className="icon" />
@@ -174,6 +186,8 @@ function HomepageForm({formType,buttonText}){
                                             <option value="Pet-sitter" />
                                         </datalist>
                                     </div>
+                                    <input type="text" placeholder="Inserisci titolo dell'annuncio" className="formSpace"/>
+                                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" className="formSpace"/>
                                 </div>
                 
                                 
