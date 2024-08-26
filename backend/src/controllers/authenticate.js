@@ -1,5 +1,4 @@
 const User = require("../models/userSchema");
-const Annuncio = require("../models/annuncioSchema");
 const generateToken = require("../utils/generateToken");
 
 // Funzione per autenticare l'utente
@@ -36,12 +35,10 @@ const authenticate = async (req, res, next) => {
       return res.status(400).json({ message: "OTP has expired" });
     }
 
-    // Verifica se l'utente ha già creato un annuncio
-    let annuncio;
-    try {
-      annuncio = await Annuncio.findOne({ user_id: user._id });
-    } catch (error) {
-      return next({ statusCode: 500, message: "Errore durante la ricerca dell'annuncio" });
+    // Verifica se l'utente ha completato la registrazione
+    let isRegistered = false;
+    if (user.nome && user.cognome) {
+      isRegistered = true;
     }
 
     try {
@@ -59,7 +56,7 @@ const authenticate = async (req, res, next) => {
       });
 
       // Risposta con il token
-      return res.json({ message: 'Autenticazione riuscita', token });
+      return res.json({ message: 'Autenticazione riuscita', token, isRegistered });
     } catch (error) {
       return next({ statusCode: 500, message: "Errore durante la creazione del token o l'impostazione del cookie" });
     }
