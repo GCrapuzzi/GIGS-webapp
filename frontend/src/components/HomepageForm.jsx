@@ -97,7 +97,7 @@ function HomepageForm({formType,buttonText}){
             }
         }
         console.log(otp);
-        const prefixedNumber = localStorage.getItem('number');
+        const prefixedNumber = sessionStorage.getItem('number');
         const data = {
             number: prefixedNumber,
             otp: otp
