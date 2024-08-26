@@ -20,6 +20,6 @@ const verifyToken = (req, res) => {
     });
 };
 
-module.exports = verifyToken;
+module.exports = verifyToken; 
 
 

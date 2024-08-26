@@ -4,7 +4,11 @@ const mongoose=require("mongoose");
 const annuncioSchema=mongoose.Schema({
       number: String,
       città: String,
-      lavoretto: String
+      lavoretto: String,
+      tariffa: String,
+      descrizione: String,
+      orario: String,
+      userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
 })
 
 // Modello per gli annunci
