@@ -1,6 +1,6 @@
 const User = require("../models/userSchema");
+const Annuncio = require("../models/annuncioSchema");
 const generateToken = require("../utils/generateToken");
-const config = require("../config/config");
 
 // Funzione per autenticare l'utente
 const authenticate = async (req, res, next) => {
@@ -21,8 +21,11 @@ const authenticate = async (req, res, next) => {
     }
 
     // Verifica che l'utente esista e che l'OTP sia corretto
-    if (!user || otp !== user.otp) {
-      return res.status(404).json({ message: "Invalid otp" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found"+number });
+    }
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
     }
 
     // Verifica se l'OTP è scaduto
@@ -31,6 +34,14 @@ const authenticate = async (req, res, next) => {
 
     if (otpExpiresAt < currentTime) {
       return res.status(400).json({ message: "OTP has expired" });
+    }
+
+    // Verifica se l'utente ha già creato un annuncio
+    let annuncio;
+    try {
+      annuncio = await Annuncio.findOne({ user_id: user._id });
+    } catch (error) {
+      return next({ statusCode: 500, message: "Errore durante la ricerca dell'annuncio" });
     }
 
     try {
