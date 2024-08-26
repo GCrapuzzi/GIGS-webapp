@@ -8,7 +8,8 @@ const userSchema=mongoose.Schema({
       profileImageUrl: String,
       description: String,
       otp: String,
-      otpExpiresAt: Date
+      otpExpiresAt: Date,
+      biography: String 
 })
 
 // Modello per l'utente
