@@ -47,16 +47,12 @@ const authenticate = async (req, res, next) => {
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
-        domain: "localhost",
-        path: "/",
         expires: new Date(Date.now() + 86400000),
-        secure: true,
         httpOnly: true,
-        sameSite: 'None', 
       });
 
-      // Risposta con il token
-      return res.json({ message: 'Autenticazione riuscita', token, isRegistered });
+      // Risposta con messaggio di autenticazione riuscita
+      return res.json({ message: 'Autenticazione riuscita', isRegistered });
     } catch (error) {
       return next({ statusCode: 500, message: "Errore durante la creazione del token o l'impostazione del cookie" });
     }
