@@ -44,29 +44,68 @@ function addPrefix(phoneNumber) {
 
 function HomepageForm({formType,buttonText}){
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [city, setCity] = useState('');
-    const [job, setJob] = useState('');
     const navigate = useNavigate();
     const [isAuthenticated,setIsAuthenticated] = useState('false');
+    const [isRegistered, setIsRegistered] = useState('false');
+    const [step, setStep] = useState(1);
+    const [formData, setFormData] = useState({
+      fotoProfilo: '',
+      nome: '',
+      cognome: '',
+      città: '',
+      lavoro: '',
+      titolo: '',
+      descrizione: '',
+      tariffa: '',
+      orario: '',
+    });
 
+    
+    // Handle input change
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    };
+  
+    // Proceed to next step
+    const nextStep = () => {
+      setStep(step + 1);
+    };
+  
+    // Go back to previous step
+    const prevStep = () => {
+      setStep(step - 1);
+    };
 
     useEffect(() => {
-        setCity(sessionStorage.getItem('city'));
-        setJob(sessionStorage.getItem('job'));
+        setFormData({
+            ...formData,
+            città: sessionStorage.getItem('città'),
+            lavoro: sessionStorage.getItem('lavoro')
+        });
+
         if(sessionStorage.getItem('isAuthenticated') === null){
             sessionStorage.setItem('isAuthenticated', 'false')
         }
         setIsAuthenticated(sessionStorage.getItem('isAuthenticated'));
+        if(sessionStorage.getItem('isRegistered') === null){
+            sessionStorage.setItem('isRegistered', 'false')
+        }
+        setIsRegistered(sessionStorage.getItem('isRegistered'));
     }, []);
     
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const prefixedNumber = addPrefix(phoneNumber);
         console.log(prefixedNumber);
         
-        sessionStorage.setItem('city', city);
-        sessionStorage.setItem('job', job);
+        sessionStorage.setItem('città', formData.città);
+        sessionStorage.setItem('lavoro', formData.lavoro);
         sessionStorage.setItem('number', prefixedNumber);
 
 
@@ -107,18 +146,20 @@ function HomepageForm({formType,buttonText}){
             const response = await axios.post('http://localhost:5000/users/authenticate', data , { withCredentials: true });
             if (response.status === 200) {
 
+                if(response.isRegistered===true){
+                    sessionStorage.setItem('isRegistered', 'true')
+                };
+
                 console.log('Otp validato correttamente');
                 const isLoggedResponse = await axios.get('http://localhost:5000/users/loggedin', { withCredentials: true });
                 
-                if (isLoggedResponse.data.isAuthenticated) {
+                if (isLoggedResponse.status === 200) {
                     sessionStorage.setItem('isAuthenticated', 'true')
                     navigate('../OfferingGigs')
                 } 
                 else {
                     sessionStorage.setItem('isAuthenticated', 'false')
-                    setMessage('Utente non autenticato.');
                   }
-
             } else {
                 console.error('Errore durante la verifica:', response.status, response.statusText);
             }
@@ -129,6 +170,7 @@ function HomepageForm({formType,buttonText}){
 
     }
 
+    
     
 
 
@@ -145,11 +187,11 @@ function HomepageForm({formType,buttonText}){
 
                     <div>
                         <GiPositionMarker className="icon" />
-                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={city} onChange={(e) => setCity(e.target.value)}/>
+                        <input type="text" placeholder="Inserisci città:" className="formSpace" name="città" value={formData.città} onChange={handleChange}/>
                     </div>
                     <div>
                         <GiGardeningShears className="icon" />
-                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" value={job} onChange={(e) => setJob(e.target.value)}/>
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} onChange={handleChange}/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
                             <option value="Sguattera" />
@@ -165,18 +207,18 @@ function HomepageForm({formType,buttonText}){
                 <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>
             </form>)}
 
-            {formType === 'register' && isAuthenticated==='true' &&(
+            {formType === 'register' && isAuthenticated==='true' && isRegistered==='true' &&(
                 
                 <form className="HomepageForm">
                 <div className="textContainer">
 
                     <div>
                         <GiPositionMarker className="icon" />
-                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={city} onChange={(e) => useEffect()}/>
+                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={formData.città} onChange={(e) => useEffect()}/>
                     </div>
                     <div>
                         <GiGardeningShears className="icon" />
-                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" value={job} onChange={(e) => setJob(e.target.value)}/>
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" value={formData.lavoro}/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
                             <option value="Sguattera" />
@@ -185,13 +227,53 @@ function HomepageForm({formType,buttonText}){
                             <option value="Pet-sitter" />
                         </datalist>
                     </div>
-                    <input type="text" placeholder="Inserisci titolo dell'annuncio" className="formSpace"/>
-                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" className="formSpace"/>
+                    <input type="text" placeholder="Inserisci titolo dell'annuncio:" className="formSpace"/>
+                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio:" className="formSpace"/>
+                    <input type="text" placeholder="Inserisci tariffa oraria:" className="formSpace"/>
+                    <input type="text" placeholder="Inserisci orario di disponibilità:" className="formSpace"/>
                 </div>
 
                 
 
                 <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>
+            </form>)}
+
+            {formType === 'register' && isAuthenticated==='true' && isRegistered==='false' &&(
+                
+                <form className="HomepageForm">
+                {step === 1 &&(
+                <div className="textContainer">
+                    <input type="text" placeholder="fotoProfilo" name="fotoProfilo" value={formData.fotoProfilo} onChange={handleChange} className="formSpace"/>
+                    <input type="text" placeholder="Nome" name="nome" value={formData.nome} onChange={handleChange} className="formSpace"/>
+                    <input type="text" placeholder="Cognome" name="cognome" value={formData.cognome} onChange={handleChange} className="formSpace"/>
+
+                        <GiPositionMarker className="icon" />
+                        <input type="text" placeholder="Inserisci città:" className="formSpace"  name="città" value={formData.città}  autoComplete="città" onChange={handleChange}/>
+                        <GiGardeningShears className="icon" />
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} autoComplete="formData.lavoro" onChange={handleChange}/>
+                        <datalist id="jobs">
+                            <option value="Fotografo" />
+                            <option value="Sguattera" />
+                            <option value="Taglia erba" />
+                            <option value="Baby-sitter" />
+                            <option value="Pet-sitter" />
+                        </datalist>
+                    <button type="button" onClick={nextStep} id="nextButton">Avanti&gt;</button>
+                </div>)}
+                {step === 2 &&(
+                <div>
+                    <input type="text" placeholder="Inserisci titolo dell'annuncio" name="titolo" value={formData.titolo} onChange={handleChange} className="formSpace"/>
+                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" name="descrizione" value={formData.descrizione} onChange={handleChange} className="formSpace"/>
+                    <input type="text" placeholder="Inserisci tariffa oraria:" name="tariffa" value={formData.tariffa } onChange={handleChange} className="formSpace"/>
+                    <input type="text" placeholder="Inserisci orario di disponibilità:" name="orario" value={formData.orario} onChange={handleChange} className="formSpace"/>        
+                    <button type="button" onClick={prevStep} id="prevButton">&lt;Indietro</button>   
+                    <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>    
+                </div>)}
+
+
+                
+
+                
             </form>)}
 
             {formType === 'login' && (
