@@ -1,13 +1,19 @@
-const User = require('../models/userSchema'); 
-const Annunci = require('../models/annuncioSchema');
+const annuncio = require('../models/annuncioSchema');
 
-// Funzione per creare un annuncio con la foto profilo dell'utente
-async function createAnnuncio(req, res, next) {
+// Funzione per creare un annuncio 
+const createAnnuncio = async (req, res, next) => {
+
+    // Estrae i dati dall'oggetto req.body
     const { città, lavoretto, titolo, descrizione, userId, tariffa, orario } = req.body;
 
+    // Verifica che tutti i campi siano presenti
+    if (!città || !lavoretto || !titolo || !descrizione || !userId || !tariffa || !orario) {
+        return res.status(400).json({ message: 'Tutti i campi sono obbligatori' });
+    }
+
+    // Crea un nuovo annuncio
     try {
-        // Crea un nuovo annuncio con il link al profilo dell'utente
-        const nuovoAnnuncio = new Annunci({
+        const newAnnuncio = new annuncio({
             titolo: titolo,
             descrizione: descrizione,
             città: città,
@@ -18,10 +24,10 @@ async function createAnnuncio(req, res, next) {
         });
 
         // Salva il nuovo annuncio nel database
-        await nuovoAnnuncio.save();
+        await newAnnuncio.save();
 
         // Invia la risposta al client
-        res.status(201).json({ message: 'Annuncio creato con successo', annuncio: nuovoAnnuncio });
+        res.status(201).json({ message: 'Annuncio creato con successo', annuncio: newAnnuncio });
     } catch (error) {
         // Passa l'errore al middleware di gestione degli errori
         next(error);

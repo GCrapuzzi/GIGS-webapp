@@ -4,7 +4,7 @@ const User = require("../models/userSchema");
 const sendOTP = require("../utils/sendOTP");
 
 // Funzione che verifica se un utente è registrato e invia un OTP
-const verifyUser = async (req, res, next) => {
+const signupUser = async (req, res, next) => {
 
     // Verifica che il numero sia presente nella richiesta
     try {
@@ -54,10 +54,9 @@ const verifyUser = async (req, res, next) => {
   
       // Invia una risposta di successo
       return res.status(200).json({ message: "OTP inviato con successo" });
-  
     } catch (error) {
       return next(error);
     }
   };
   
-module.exports = verifyUser;
+module.exports = signupUser;

@@ -3,10 +3,10 @@ const router = express.Router();
 const auth = require("../middleware/authMiddleware");
 
 // Importa i controller
-const verifyUser = require("../controllers/verifyUser");
-const authenticate = require("../controllers/authenticate");
-const verifyToken = require("../controllers/verifyToken");
-const logout = require("../controllers/logout");
+const verifyUser = require("../controllers/signupUser");
+const authenticate = require("../controllers/authUser");
+const verifyToken = require("../controllers/validateToken");
+const logout = require("../controllers/logoutUser");
 
 router.post("/verify", verifyUser);
 router.post("/authenticate", authenticate);

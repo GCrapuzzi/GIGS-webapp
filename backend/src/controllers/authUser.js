@@ -1,17 +1,25 @@
 const User = require("../models/userSchema");
 const generateToken = require("../utils/generateToken");
+const validateNumber = require("../validators/validateNumber");
 
 // Funzione per autenticare l'utente
-const authenticate = async (req, res, next) => {
+const authUser = async (req, res, next) => {
   try {
+
+    // Estrae l'OTP e il numero di telefono dalla richiesta
     const { otp, number } = req.body;
 
-    // Verifica che l'OTP sia presente
-    if (!otp) {
-      return res.status(400).json({ message: "OTP is required" });
+    // Verifica che l'OTP sia presente e di 6 cifre
+    if (!otp || otp.length !== 6) {
+      return res.status(400).json({ message: "OTP non valido" });
     }
 
-    // Verifica che il numero di telefono sia presente
+    // Verifica che il numero di telefono sia valido
+    if (!validateNumber(number)) {
+      return res.status(400).json({ message: "Numero di telefono non valido" });
+    }    
+
+    // Cerca l'utente nel database
     let user;
     try {
       user = await User.findOne({ number });
@@ -19,12 +27,14 @@ const authenticate = async (req, res, next) => {
       return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" });
     }
 
-    // Verifica che l'utente esista e che l'OTP sia corretto
+    // Verifica che l'utente esista
     if (!user) {
-      return res.status(404).json({ message: "User not found"+number });
+      return res.status(404).json({ message: "User not found"});
     }
+
+    // Verifica che l'OTP corrisponda a quello salvato nel database
     if (user.otp !== otp) {
-      return res.status(400).json({ message: "Invalid OTP" });
+      return res.status(400).json({ message: "OTP non valido" });
     }
 
     // Verifica se l'OTP è scaduto
@@ -32,10 +42,10 @@ const authenticate = async (req, res, next) => {
     const currentTime = new Date();
 
     if (otpExpiresAt < currentTime) {
-      return res.status(400).json({ message: "OTP has expired" });
+      return res.status(400).json({ message: "OTP scaduto" });
     }
 
-    // Verifica se l'utente ha completato la registrazione
+    // Verifica se l'utente ha completato la registrazione (da completare con gli altri campi)
     let isRegistered = false;
     if (user.nome && user.cognome) {
       isRegistered = true;
@@ -61,4 +71,4 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-module.exports = authenticate;
+module.exports = authUser;
