@@ -1,5 +1,4 @@
 const mongoose=require("mongoose");
-const { Stream } = require("twilio/lib/twiml/VoiceResponse");
 
 // Schema per gli annunci
 const annuncioSchema=mongoose.Schema({
