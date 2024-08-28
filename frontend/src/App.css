@@ -170,6 +170,25 @@ li:focus{
 
 }
 
+#prevButton{
+  float: left;
+  padding: 5px;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 50px;
+  background-color: rgba(251, 220, 192, 0.996);
+}
+
+#nextButton{
+  float: right;
+  padding: 5px;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 50px;
+  background-color: rgba(251, 220, 192, 0.996)
+}
+
+
 .formSpace{
   border-radius: 50px;
   padding: 10px;
@@ -187,7 +206,7 @@ li:focus{
 #description{
   overflow: hidden;
   height: 50px;
-  border-radius: 20px;
+  border-radius: 10px;
   resize:none;
 }
 
