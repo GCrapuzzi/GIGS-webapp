@@ -1,6 +1,6 @@
 const Annuncio = require('../models/annuncioSchema');
 
-const filterAnnunci = async (req, res) => {
+const filtraAnnunci = async (req, res) => {
   const { prezzoMin, prezzoMax, lavoro, zona } = req.body;
 
   // Controllo generale sui parametri - verifica che tutti i parametri siano presenti
@@ -60,4 +60,4 @@ const filterAnnunci = async (req, res) => {
   }
 };
 
-module.exports = filterAnnunci;
+module.exports = filtraAnnunci;
