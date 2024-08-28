@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectToDatabase = require('./src/config/database');
-const errorHandler = require('./src/middleware/errorHandler');
 
 // Importo le route
 const userRoutes = require('./src/routes/userRoutes');
@@ -18,7 +17,6 @@ app.use(cors({
   credentials: true
 }));
 app.use(cookieParser());
-app.use(errorHandler);
 
 // Connessione al database
 connectToDatabase();

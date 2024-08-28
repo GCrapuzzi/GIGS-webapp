@@ -14,5 +14,4 @@ async function sendOTP(number, otp) {
     }
   }
   
-
 module.exports = sendOTP;
