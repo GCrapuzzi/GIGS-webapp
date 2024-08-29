@@ -1,5 +1,5 @@
 const validateNumber = require("../validators/validateNumber");
-const generateOTP = require("../utils/generateOTP");
+// const generateOTP = require("../utils/generateOTP");
 const User = require("../models/userSchema");
 const sendOTP = require("../utils/sendOTP");
 
@@ -26,8 +26,9 @@ const signupUser = async (req, res, next) => {
         return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" });
       }
   
-      // Genera un OTP e la data di scadenza
-      const { otp, otpExpiresAt } = generateOTP();
+      // Genera un OTP e la data di scadenza (da modificare)
+      const otp = "123456";
+      const otpExpiresAt = new Date(Date.now() + 600000); // 10 minuti
   
       if (user) {
         // Se l'utente esiste, aggiorna il campo otp
@@ -46,11 +47,11 @@ const signupUser = async (req, res, next) => {
       }
       
       // Invia l'OTP all'utente
-      try {
-        await sendOTP(number, otp);
-      } catch (error) {
-        return next({ statusCode: 500, message: "Errore durante l'invio dell'OTP" });
-      }
+      //try {
+        //await sendOTP(number, otp);
+      //} catch (error) {
+        //return next({ statusCode: 500, message: "Errore durante l'invio dell'OTP" });
+      //}
   
       // Invia una risposta di successo
       return res.status(200).json({ message: "OTP inviato con successo" });
