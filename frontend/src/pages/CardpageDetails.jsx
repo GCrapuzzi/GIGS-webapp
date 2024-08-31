@@ -37,7 +37,7 @@ Terapie naturali
 Ebook sul benessere
 
 
-Sono disponibile a chiacchierare con te sulle tue idee per il progetto e a definire tutti i dettagli riguardanti la copia e lo stile del tuo eBook :</p>
+Sono disponibile a chiacchierare con te sulle tue idee per il progetto e a definire tutti i dettagli riguardanti la copia e lo stile del tuo eBook</p>
             </div>
             <div className='secondColumn'>
                 <div className='asideBox'>

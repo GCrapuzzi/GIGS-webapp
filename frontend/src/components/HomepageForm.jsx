@@ -170,6 +170,12 @@ function HomepageForm({formType,buttonText}){
 
     }
 
+    const handleisRegisteredSubmit = async (event) => {
+        const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', formData , { withCredentials: true });
+        if(response.status===200){
+            console.log("annuncio correttamente pubblicato")
+        }
+    }
     
     
 
@@ -240,7 +246,7 @@ function HomepageForm({formType,buttonText}){
 
             {formType === 'register' && isAuthenticated==='true' && isRegistered==='false' &&(
                 
-                <form className="HomepageForm">
+                <form className="HomepageForm" onSubmit={handleisRegisteredSubmit}>
                 {step === 1 &&(
                 <div className="textContainer">
                     <input type="text" placeholder="fotoProfilo" name="fotoProfilo" value={formData.fotoProfilo} onChange={handleChange} className="formSpace"/>

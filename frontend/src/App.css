@@ -338,8 +338,6 @@ footer{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
-  margin-right: 250px;
-  margin-left: 250px;
   row-gap: 50px;
 }
 
@@ -392,6 +390,7 @@ footer{
 }
 
 .cardpageDetailsText{
+  word-wrap: break-word;
 }
 
 .asideBox{
@@ -422,5 +421,6 @@ footer{
   color: white;
   height: 40px;
   cursor: pointer;
+  width: 300px;
 }
 

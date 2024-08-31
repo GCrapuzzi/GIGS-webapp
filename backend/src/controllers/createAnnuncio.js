@@ -4,10 +4,10 @@ const annuncio = require('../models/annuncioSchema');
 const createAnnuncio = async (req, res, next) => {
 
     // Estrae i dati dall'oggetto req.body
-    const { città, lavoretto, titolo, descrizione, userId, tariffa, orario } = req.body;
+    const { città, lavoro, titolo, descrizione, userId, tariffa, orario } = req.body;
 
     // Verifica che tutti i campi siano presenti
-    if (!città || !lavoretto || !titolo || !descrizione || !tariffa || !orario) {
+    if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario) {
         return res.status(400).json({ message: 'Tutti i campi sono obbligatori' });
     }
 
@@ -17,7 +17,7 @@ const createAnnuncio = async (req, res, next) => {
             titolo: titolo,
             descrizione: descrizione,
             città: città,
-            lavoretto: lavoretto,
+            lavoro: lavoro,
             user_id: userId,
             tariffa: tariffa,
             orario: orario

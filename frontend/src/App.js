@@ -27,7 +27,7 @@ function App(){
         <Route path="/otp" element={<Otp buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
         {/*</Routes><Route path="/" element={<Homepage buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />*/}
         <Route path="/offeringGigs" element={<OfferingGigs buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
-        <Route path="/" element={<CardpageDetails/>}/>
+        <Route path="/" element={<Cardpage/>}/>
       </Routes>
     </>
   );
