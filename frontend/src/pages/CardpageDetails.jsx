@@ -40,12 +40,12 @@ Ebook sul benessere
 Sono disponibile a chiacchierare con te sulle tue idee per il progetto e a definire tutti i dettagli riguardanti la copia e lo stile del tuo eBook :</p>
             </div>
             <div className='secondColumn'>
-                <aside className='asideBox'>
+                <div className='asideBox'>
                     <h1>Informazioni aggiuntive:</h1>
                     <p>Fascia oraria di disponibilità: 8:00-12:00</p>
                     <p>Tariffa oraria: &euro;20</p>
                     <button className='buttonInfoCard'>Contatta</button>
-                </aside>
+                </div>
             </div>
         </div>
     )

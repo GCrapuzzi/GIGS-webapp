@@ -255,6 +255,7 @@ footer{
   padding: 5px;
   background-color: green;
   color: white;
+  margin-right: 10px;
 }
 
 .loginPage{
@@ -334,18 +335,18 @@ footer{
 }
 
 .cardContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  margin-right: 250px;
+  margin-left: 250px;
+  row-gap: 50px;
 }
 
 .cardSlot{
-  width: 315px;
-  height: auto;
-  margin:20px;
-  margin-top:40px;
+  width: 300px;
+  margin: auto;
+  margin-top: 50px;
 }
 
 
@@ -386,8 +387,8 @@ footer{
 
 .cardpageDetailsContainer{
   display: flex;
-  flex-direction: row;
   margin-left: 50px;
+  width: 100%;
 }
 
 .cardpageDetailsText{
@@ -396,17 +397,13 @@ footer{
 .asideBox{
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   border: rgba(128, 128, 128, 0.477) solid 1px;
-  margin-left: 20px;
-  margin-top: 100px;
-  width: 400px;
-  margin-right: 50px;
   font-size:large;
   padding: 20px;
-  padding-top:100px;
-  padding-bottom: 100px;
-  margin-bottom: 200px;
+  width: 60%;
+  height: 400px;
 }
 
 .firstColumn{
@@ -417,11 +414,13 @@ footer{
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 40%;
 }
 
 .buttonInfoCard{
-  width: 300px;
   background-color: black;
   color: white;
   height: 40px;
+  cursor: pointer;
 }
+
