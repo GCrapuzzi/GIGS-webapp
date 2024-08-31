@@ -57,8 +57,10 @@ const authUser = async (req, res, next) => {
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
+        domain: 'localhost',
         expires: new Date(Date.now() + 86400000),
         httpOnly: true,
+
       });
 
       // Risposta con messaggio di autenticazione riuscita

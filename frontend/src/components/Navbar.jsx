@@ -14,8 +14,8 @@ function Navbar({ toggleButtonState }) {
                 <li id="logo"><a href="/">GIGS</a></li>
 
                 <div className = "centralContainer">
-                    <li><Link to="/">Cerca un lavoretto</Link></li>
-                    <li><Link to="/offeringGigs">Offri un lavoretto</Link></li>
+                    <li><Link to="/" className='navbarLink'>Cerca un lavoretto</Link></li>
+                    <li><Link to="/offeringGigs" className='navbarLink'>Offri un lavoretto</Link></li>
                 </div>
 
                 <li ><a href="" id="login" onClick={handleClick}>Accedi</a></li>

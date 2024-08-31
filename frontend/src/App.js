@@ -5,6 +5,8 @@ import OfferingGigs from './pages/OfferingGigs.jsx';
 import Navbar from './components/Navbar.jsx';
 import './App.css'
 import Otp from './pages/Otp.jsx';
+import Cardpage from './pages/Cardpage.jsx';
+import CardpageDetails from './pages/CardpageDetails.jsx';
 
  
 function App(){
@@ -23,8 +25,9 @@ function App(){
       <Navbar toggleButtonState={toggleButtonState}/>
       <Routes>
         <Route path="/otp" element={<Otp buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
-        <Route path="/" element={<Homepage buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
+        {/*</Routes><Route path="/" element={<Homepage buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />*/}
         <Route path="/offeringGigs" element={<OfferingGigs buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+        <Route path="/" element={<CardpageDetails/>}/>
       </Routes>
     </>
   );

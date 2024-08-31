@@ -13,16 +13,33 @@
   background-color:rgb(243, 241, 241);
 }
 
+li{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);  
+}
+
+.navbarLink{
+  font-weight:bold;
+  font-size: 20px;
+  text-align: center;
+  min-height: inherit;
+  font-size: large;
+  margin: 0;
+  max-height:min-content;
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+}
+
 
 .container{
   margin: 0;
 }
 
-li{
-  list-style: none;
-  font-weight:bold;
-  font-size: 20px;
-}
 
 #logo{
   font-size: 50px;
@@ -40,31 +57,10 @@ body{
   margin: 0;
   background-color:rgb(243, 241, 241);
   overflow-x: hidden;
-  overflow-y: hidden;
-}
-
-a{
-  margin: 0;
-  max-height:min-content;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  color: rgb(0, 0, 0);
-  margin-right: 30px;
 }
 
 a:hover{
   color: rgb(35, 117, 10);
-}
-
-li{
-  text-align: center;
-  min-height: inherit;
-  font-size: large;
-}
-
-li:focus{
-  text-decoration: underline;
 }
 
 .HomepageContainer{
@@ -91,12 +87,12 @@ li:focus{
   border-style: solid;
   border-color: rgb(220, 216, 216);
   box-shadow: 5px 10px rgb(220, 216, 216);
+  border-radius: 50px;
   padding-top: 150px;
   padding-bottom: 150px;
   padding-left: 20px;
   padding-right: 20px;
   margin-top: 50px;
-  border-radius: 50px;
   width: 1000px;
   height: 400px;
   display: flex;
@@ -335,4 +331,97 @@ footer{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.cardContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.cardSlot{
+  width: 315px;
+  height: auto;
+  margin:20px;
+  margin-top:40px;
+}
+
+
+.cardImage{
+  width: 315px;
+  border-radius: 10px;
+}
+
+
+.cardTitle h3{
+  word-wrap: break-word;
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+  font-weight: normal;
+  margin-top: 5px;
+}
+
+.cardPrice{
+  font-weight: bold;
+  font-size: large;
+}
+
+.cardPrice p {
+  margin-bottom: 0;
+}
+
+
+.cardTitle:hover h3{
+  text-decoration: underline;
+  color: black;
+}
+
+.cardAuthor p{
+  margin-bottom: 0;
+}
+
+.cardpageDetailsContainer{
+  display: flex;
+  flex-direction: row;
+  margin-left: 50px;
+}
+
+.cardpageDetailsText{
+}
+
+.asideBox{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: rgba(128, 128, 128, 0.477) solid 1px;
+  margin-left: 20px;
+  margin-top: 100px;
+  width: 400px;
+  margin-right: 50px;
+  font-size:large;
+  padding: 20px;
+  padding-top:100px;
+  padding-bottom: 100px;
+  margin-bottom: 200px;
+}
+
+.firstColumn{
+  width: 60%;
+}
+
+.secondColumn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonInfoCard{
+  width: 300px;
+  background-color: black;
+  color: white;
+  height: 40px;
 }

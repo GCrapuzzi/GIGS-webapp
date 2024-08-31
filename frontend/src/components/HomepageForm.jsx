@@ -114,7 +114,7 @@ function HomepageForm({formType,buttonText}){
           };
       
           try {
-            const response = await axios.post('http://localhost:5000/users/verify', data);
+            const response = await axios.post('http://localhost:5000/users/verify', data, { withCredentials: true });
       
             if (response.status === 200) {
               navigate('/otp');
