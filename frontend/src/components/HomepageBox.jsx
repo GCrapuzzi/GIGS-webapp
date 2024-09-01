@@ -1,11 +1,12 @@
 import HomepageForm from "./HomepageForm"
 import HomepageText from "./HomepageText"
 
-function HomepageBox({backgroundImage, formType, buttonText}){
+function HomepageBox({backgroundImage, formType, buttonText, onAuthChange}){
 
     const styles = {
         backgroundImage: `url(${backgroundImage})`
     };
+
     
     return(
         <div>
@@ -22,7 +23,7 @@ function HomepageBox({backgroundImage, formType, buttonText}){
                 <div>
                     <div className="HomepageBox" style={styles}>
                         <HomepageText formType={formType} />
-                        <HomepageForm formType={formType} buttonText={buttonText} />
+                        <HomepageForm onAuthChange={onAuthChange} formType={formType} buttonText={buttonText} />
                     </div>
                 </div>
             )}

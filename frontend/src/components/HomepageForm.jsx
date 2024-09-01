@@ -1,7 +1,6 @@
 import { FaPhoneAlt } from "react-icons/fa"
 import { GiPositionMarker } from "react-icons/gi"
 import { GiGardeningShears } from "react-icons/gi"
-import { GiWorld } from "react-icons/gi"
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -148,6 +147,7 @@ function HomepageForm({formType,buttonText}){
 
                 if(response.isRegistered===true){
                     sessionStorage.setItem('isRegistered', 'true')
+                    
                 };
 
                 console.log('Otp validato correttamente');
@@ -155,10 +155,12 @@ function HomepageForm({formType,buttonText}){
                 
                 if (isLoggedResponse.status === 200) {
                     sessionStorage.setItem('isAuthenticated', 'true')
+                    onAuthChange(true)
                     navigate('../OfferingGigs')
                 } 
                 else {
                     sessionStorage.setItem('isAuthenticated', 'false')
+                    onAuthChange(false);
                   }
             } else {
                 console.error('Errore durante la verifica:', response.status, response.statusText);
@@ -171,20 +173,10 @@ function HomepageForm({formType,buttonText}){
     }
 
     const handleisRegisteredSubmit = async (event) => {
-        event.preventDefault();
-        
-        try{
-            const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', formData , { withCredentials: true });
-            if(response.status===201){
-                console.log("annuncio correttamente pubblicato");
-            }
-            else{
-                console.log("error")
-            }
-        }catch(error){
-            console.error('Error submitting form:', error.response ? error.response.data : error.message);
+        const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', formData , { withCredentials: true });
+        if(response.status===200){
+            console.log("annuncio correttamente pubblicato")
         }
-
     }
     
     
@@ -203,11 +195,11 @@ function HomepageForm({formType,buttonText}){
 
                     <div>
                         <GiPositionMarker className="icon" />
-                        <input type="text" placeholder="Inserisci città:" className="formSpace" name="città" value={formData.città} required onChange={handleChange}/>
+                        <input type="text" placeholder="Inserisci città:" className="formSpace" name="città" value={formData.città} onChange={handleChange}/>
                     </div>
                     <div>
                         <GiGardeningShears className="icon" />
-                        <input type="text"  onKeyDown={(e) => e.preventDefault()} placeholder="Inserisci Lavoretto da offrire:" list="jobs" required className="formSpace" name="lavoro" value={formData.lavoro} onChange={handleChange}/>
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} onChange={handleChange}/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
                             <option value="Sguattera" />
@@ -230,11 +222,11 @@ function HomepageForm({formType,buttonText}){
 
                     <div>
                         <GiPositionMarker className="icon" />
-                        <input type="text" placeholder="Inserisci città:" className="formSpace" required value={formData.città} onChange={(e) => useEffect()}/>
+                        <input type="text" placeholder="Inserisci città:" className="formSpace" value={formData.città} onChange={(e) => useEffect()}/>
                     </div>
                     <div>
                         <GiGardeningShears className="icon" />
-                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" required className="formSpace" value={formData.lavoro}/>
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" value={formData.lavoro}/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
                             <option value="Sguattera" />
@@ -243,10 +235,10 @@ function HomepageForm({formType,buttonText}){
                             <option value="Pet-sitter" />
                         </datalist>
                     </div>
-                    <input type="text" placeholder="Inserisci titolo dell'annuncio:" required className="formSpace"/>
-                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio:" required className="formSpace"/>
-                    <input type="text" placeholder="Inserisci tariffa oraria:" required className="formSpace"/>
-                    <input type="text" placeholder="Inserisci orario di disponibilità:" required className="formSpace"/>
+                    <input type="text" placeholder="Inserisci titolo dell'annuncio:" className="formSpace"/>
+                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio:" className="formSpace"/>
+                    <input type="text" placeholder="Inserisci tariffa oraria:" className="formSpace"/>
+                    <input type="text" placeholder="Inserisci orario di disponibilità:" className="formSpace"/>
                 </div>
 
                 
@@ -259,14 +251,14 @@ function HomepageForm({formType,buttonText}){
                 <form className="HomepageForm" onSubmit={handleisRegisteredSubmit}>
                 {step === 1 &&(
                 <div className="textContainer">
-                    <input type="text" placeholder="fotoProfilo" name="fotoProfilo" value={formData.fotoProfilo} onChange={handleChange} required className="formSpace"/>
-                    <input type="text" placeholder="Nome" name="nome" value={formData.nome} onChange={handleChange} required className="formSpace"/>
-                    <input type="text" placeholder="Cognome" name="cognome" value={formData.cognome} onChange={handleChange} required className="formSpace"/>
+                    <input type="text" placeholder="fotoProfilo" name="fotoProfilo" value={formData.fotoProfilo} onChange={handleChange} className="formSpace"/>
+                    <input type="text" placeholder="Nome" name="nome" value={formData.nome} onChange={handleChange} className="formSpace"/>
+                    <input type="text" placeholder="Cognome" name="cognome" value={formData.cognome} onChange={handleChange} className="formSpace"/>
 
                         <GiPositionMarker className="icon" />
-                        <input type="text" placeholder="Inserisci città:" className="formSpace"  required name="città" value={formData.città}  autoComplete="città" onChange={handleChange}/>
+                        <input type="text" placeholder="Inserisci città:" className="formSpace"  name="città" value={formData.città}  autoComplete="città" onChange={handleChange}/>
                         <GiGardeningShears className="icon" />
-                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" required list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} autoComplete="formData.lavoro" onChange={handleChange}/>
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} autoComplete="formData.lavoro" onChange={handleChange}/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
                             <option value="Sguattera" />
@@ -278,10 +270,10 @@ function HomepageForm({formType,buttonText}){
                 </div>)}
                 {step === 2 &&(
                 <div>
-                    <input type="text" placeholder="Inserisci titolo dell'annuncio" name="titolo" value={formData.titolo} onChange={handleChange} className="formSpace" required/>
-                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" name="descrizione" value={formData.descrizione} onChange={handleChange} className="formSpace" required/>
-                    <input type="text" placeholder="Inserisci tariffa oraria:" name="tariffa" value={formData.tariffa } onChange={handleChange} className="formSpace" required/>
-                    <input type="text" placeholder="Inserisci orario di disponibilità:" name="orario" value={formData.orario} onChange={handleChange} className="formSpace" required/>        
+                    <input type="text" placeholder="Inserisci titolo dell'annuncio" name="titolo" value={formData.titolo} onChange={handleChange} className="formSpace"/>
+                    <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" name="descrizione" value={formData.descrizione} onChange={handleChange} className="formSpace"/>
+                    <input type="text" placeholder="Inserisci tariffa oraria:" name="tariffa" value={formData.tariffa } onChange={handleChange} className="formSpace"/>
+                    <input type="text" placeholder="Inserisci orario di disponibilità:" name="orario" value={formData.orario} onChange={handleChange} className="formSpace"/>        
                     <button type="button" onClick={prevStep} id="prevButton">&lt;Indietro</button>   
                     <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>    
                 </div>)}
@@ -297,11 +289,11 @@ function HomepageForm({formType,buttonText}){
                 <div className="textContainer">
                     <div>
                         <GiPositionMarker className="icon" />
-                        <input type="text" placeholder="Inserisci città:" className="formSpace" required/>
+                        <input type="text" placeholder="Inserisci città:" className="formSpace"/>
                     </div>
                     <div>
                         <GiGardeningShears className="icon" />
-                        <input type="text" placeholder="Inserisci Lavoretto da cercare:" list="jobs" className="formSpace" required/>
+                        <input type="text" placeholder="Inserisci Lavoretto da cercare:" list="jobs" className="formSpace"/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
                             <option value="Sguattera" />

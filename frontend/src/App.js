@@ -20,13 +20,20 @@ function App(){
   const offeringGig = require("./assets/homepage.png")
   const otpGig = require("./assets/otp.png")
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+
+  const handleAuthChange = (authStatus) => {
+      setIsAuthenticated(authStatus);
+  };
+
   return (
     <>
-      <Navbar toggleButtonState={toggleButtonState}/>
+      <Navbar isAuthenticated={isAuthenticated} toggleButtonState={toggleButtonState}/>
       <Routes>
         <Route path="/otp" element={<Otp buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
-        {/*</Routes><Route path="/" element={<Homepage buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />*/}
-        <Route path="/offeringGigs" element={<OfferingGigs buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+        {/*</Routes><Route path="/" element={<Homepage onAuthChange={handleAuthChange} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />*/}
+        <Route path="/offeringGigs" element={<OfferingGigs onAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/" element={<Cardpage/>}/>
       </Routes>
     </>
