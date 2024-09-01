@@ -1,7 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function Navbar({ toggleButtonState ,isAuthenticated }) {
+function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
+    const navigate = useNavigate();
+
     const handleClick = (event) => {
       event.preventDefault();
       toggleButtonState();
@@ -11,9 +15,12 @@ function Navbar({ toggleButtonState ,isAuthenticated }) {
         event.preventDefault();
         try {
             const response = await axios.get('http://localhost:5000/users/logout',{ withCredentials: true });
+            handleAuthChange()
       
             if (response.status === 200) {
               console.log("logout effettuato correttamente");
+              sessionStorage.clear();
+              navigate('/');
             } else {
               console.error('Errore durante la verifica:', response.status, response.statusText);
             }
@@ -26,21 +33,22 @@ function Navbar({ toggleButtonState ,isAuthenticated }) {
     return(
         <nav className="container">
             <ul className="navbar">
-                <li id="logo"><a href="/">GIGS</a></li>
+              <li id="logo"><a href="/">GIGS</a></li>
 
-                <div className = "centralContainer">
-                    <li><Link to="/" className='navbarLink'>Cerca un lavoretto</Link></li>
-                    <li><Link to="/offeringGigs" className='navbarLink'>Offri un lavoretto</Link></li>
-                </div>
+              <div className = "centralContainer">
+                <li><Link to="/" className='navbarLink'>Cerca un lavoretto</Link></li>
+                <li><Link to="/offeringGigs" className='navbarLink'>Offri un lavoretto</Link></li>
+              </div>
 
-            {isAuthenticated === false && (
+
+              {isAuthenticated === false && (
                 <li ><a href="#" id="login" onClick={handleClick}>Accedi</a></li>
-            )};
+              )}
 
-            {isAuthenticated === true && (
-                
+              {isAuthenticated === true && (
+                  
                 <li ><a href="#" id="login" onClick={handleLogout}>Logout</a></li>
-            )}
+              )}
 
             </ul>
         </nav>

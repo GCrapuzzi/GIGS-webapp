@@ -41,7 +41,7 @@ function addPrefix(phoneNumber) {
 }
 
 
-function HomepageForm({formType,buttonText}){
+function HomepageForm({formType,buttonText, handleAuthChange}){
     const [phoneNumber, setPhoneNumber] = useState('');
     const navigate = useNavigate();
     const [isAuthenticated,setIsAuthenticated] = useState('false');
@@ -148,6 +148,7 @@ function HomepageForm({formType,buttonText}){
                 if(response.isRegistered===true){
                     sessionStorage.setItem('isRegistered', 'true')
                     
+
                 };
 
                 console.log('Otp validato correttamente');
@@ -155,12 +156,13 @@ function HomepageForm({formType,buttonText}){
                 
                 if (isLoggedResponse.status === 200) {
                     sessionStorage.setItem('isAuthenticated', 'true')
-                    onAuthChange(true)
+                    console.log(typeof(handleAuthChange))
+                    console.log(handleAuthChange)
+                    handleAuthChange()
                     navigate('../OfferingGigs')
                 } 
                 else {
                     sessionStorage.setItem('isAuthenticated', 'false')
-                    onAuthChange(false);
                   }
             } else {
                 console.error('Errore durante la verifica:', response.status, response.statusText);
@@ -173,8 +175,9 @@ function HomepageForm({formType,buttonText}){
     }
 
     const handleisRegisteredSubmit = async (event) => {
+        event.preventDefault();
         const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', formData , { withCredentials: true });
-        if(response.status===200){
+        if(response.status===201){
             console.log("annuncio correttamente pubblicato")
         }
     }

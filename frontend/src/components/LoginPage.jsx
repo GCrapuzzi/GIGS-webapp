@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { FaPhoneAlt } from "react-icons/fa"
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 function LoginPage({toggleButtonState, buttonState}){
   const [phoneNumber, setPhoneNumber] = useState('');
+  const navigate = useNavigate();
   const handleClick = (event) => {
     event.preventDefault();
     toggleButtonState();
@@ -19,7 +21,7 @@ function LoginPage({toggleButtonState, buttonState}){
     event.preventDefault();
     const prefixedNumber = addPrefix(phoneNumber);
     console.log(prefixedNumber);
-    
+    sessionStorage.setItem('number', prefixedNumber);
     const data = {
         number: prefixedNumber
       };
@@ -28,6 +30,7 @@ function LoginPage({toggleButtonState, buttonState}){
         const response = await axios.post('http://localhost:5000/users/verify', data, { withCredentials: true });
   
         if (response.status === 200) {
+          toggleButtonState();
           navigate('/otp');
         } else {
           console.error('Errore durante la verifica:', response.status, response.statusText);
