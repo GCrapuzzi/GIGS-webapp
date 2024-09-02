@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -9,14 +9,15 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
     const handleClick = (event) => {
       event.preventDefault();
       toggleButtonState();
-    };
+    }
+
+    console.log(isAuthenticated)
 
     const handleLogout = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.get('http://localhost:5000/users/logout',{ withCredentials: true });
             handleAuthChange()
-      
             if (response.status === 200) {
               console.log("logout effettuato correttamente");
               sessionStorage.clear();
@@ -33,12 +34,12 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
     return(
         <nav className="container">
             <ul className="navbar">
-              <li id="logo"><a href="/">GIGS</a></li>
+              <li id="logo"><Link to="/">GIGS</Link></li>
 
-              <div className = "centralContainer">
-                <li><Link to="/" className='navbarLink'>Cerca un lavoretto</Link></li>
-                <li><Link to="/offeringGigs" className='navbarLink'>Offri un lavoretto</Link></li>
-              </div>
+              <li className = "centralContainer">
+                <Link to="/" className='navbarLink'>Cerca un lavoretto</Link>
+                <Link to="/offeringGigs" className='navbarLink'>Offri un lavoretto</Link>
+              </li>
 
 
               {isAuthenticated === false && (

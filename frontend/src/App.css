@@ -394,6 +394,7 @@ footer{
 }
 
 .asideBox{
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -401,7 +402,7 @@ footer{
   border: rgba(128, 128, 128, 0.477) solid 1px;
   font-size:large;
   padding: 20px;
-  width: 60%;
+  width: 600px;
   height: 400px;
 }
 
@@ -413,7 +414,8 @@ footer{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40%;
+  width: 700px;
+  height: 90vh;
 }
 
 .buttonInfoCard{
