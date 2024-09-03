@@ -23,8 +23,8 @@ function App(){
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 
-  const handleAuthChange = () => {
-    setIsAuthenticated(!isAuthenticated);
+  const handleAuthChange = (newAuthState) => {
+    setIsAuthenticated(newAuthState);
   };
 
   

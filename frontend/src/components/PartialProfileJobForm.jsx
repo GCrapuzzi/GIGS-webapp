@@ -17,14 +17,14 @@ function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange
         <form className="HomepageForm" onSubmit={handleisRegisteredSubmit}>
         {step === 1 &&(
         <div className="textContainer">
-            <input type="text" placeholder="fotoProfilo" name="fotoProfilo" value={formData.fotoProfilo} onChange={handleChange} className="formSpace"/>
-            <input type="text" placeholder="Nome" name="nome" value={formData.nome} onChange={handleChange} className="formSpace"/>
-            <input type="text" placeholder="Cognome" name="cognome" value={formData.cognome} onChange={handleChange} className="formSpace"/>
+            <input type="text" placeholder="fotoProfilo" name="fotoProfilo" value={formData.fotoProfilo} onChange={handleChange} className="formSpace" required title="Aggiungi un'immagine di profilo."/>
+            <input type="text" placeholder="Nome" name="nome" value={formData.nome} onChange={handleChange} className="formSpace" required title="Aggiungi un nome." />
+            <input type="text" placeholder="Cognome" name="cognome" value={formData.cognome} onChange={handleChange} className="formSpace" required title="Aggiungi un cognome."/>
 
                 <GiPositionMarker className="icon" />
-                <input type="text" placeholder="Inserisci città:" className="formSpace"  name="città" value={formData.città}  autoComplete="città" onChange={handleChange}/>
+                <input type="text" placeholder="Inserisci città:" className="formSpace"  name="città" value={formData.città} onChange={handleChange} required title="Inserisci la città."/>
                 <GiGardeningShears className="icon" />
-                <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} autoComplete="formData.lavoro" onChange={handleChange}/>
+                <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} onChange={handleChange} required title="Inserisci la tipologia di lavoro."/>
                 <datalist id="jobs">
                     <option value="Fotografo" />
                     <option value="Sguattera" />
@@ -36,10 +36,10 @@ function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange
         </div>)}
         {step === 2 &&(
         <div>
-            <input type="text" placeholder="Inserisci titolo dell'annuncio" name="titolo" value={formData.titolo} onChange={handleChange} className="formSpace"/>
-            <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" name="descrizione" value={formData.descrizione} onChange={handleChange} className="formSpace"/>
-            <input type="text" placeholder="Inserisci tariffa oraria:" name="tariffa" value={formData.tariffa } onChange={handleChange} className="formSpace"/>
-            <input type="text" placeholder="Inserisci orario di disponibilità:" name="orario" value={formData.orario} onChange={handleChange} className="formSpace"/>        
+            <input type="text" placeholder="Inserisci titolo dell'annuncio" name="titolo" value={formData.titolo} onChange={handleChange} className="formSpace" required title="Inserisci il titolo dell'annuncio"/>
+            <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" name="descrizione" value={formData.descrizione} onChange={handleChange} className="formSpace" required title="Inserisci la descrizione dell'annuncio"/>
+            <input type="text" placeholder="Inserisci tariffa oraria:" name="tariffa" value={formData.tariffa } onChange={handleChange} className="formSpace" required title="Inserisci unatariffa oraria"/>
+            <input type="text" placeholder="Inserisci orario di disponibilità:" name="orario" value={formData.orario} onChange={handleChange} className="formSpace" required title="Inserisci un orario di disponibilità indicativo"/>        
             <button type="button" onClick={prevStep} id="prevButton">&lt;Indietro</button>   
             <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>    
         </div>)}

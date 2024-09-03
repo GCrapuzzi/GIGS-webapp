@@ -54,7 +54,7 @@ function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
                 
                 if (isLoggedResponse.status === 200) {
                     sessionStorage.setItem('isAuthenticated', 'true')
-                    handleAuthChange()
+                    handleAuthChange(true)
                     navigate('../OfferingGigs')
                 } 
                 else {

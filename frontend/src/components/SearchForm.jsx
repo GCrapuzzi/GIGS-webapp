@@ -1,3 +1,5 @@
+import { GiGardeningShears, GiPositionMarker } from "react-icons/gi"
+
 function SearchForm({buttonVisitorStyle, buttonText}){
     return(
         <form action="" className="HomepageForm">

@@ -18,8 +18,8 @@ const buttonGigStyle ={
 function HomepageForm({formType,buttonText, handleAuthChange}){
     
     const navigate = useNavigate();
-    const [isAuthenticated,setIsAuthenticated] = useState('false');
-    const [isRegistered, setIsRegistered] = useState('false');
+    const [isAuthenticated,setIsAuthenticated] = useState(false);
+    const [isRegistered, setIsRegistered] = useState(false);
     const [formData, setFormData] = useState({
       fotoProfilo: '',
       nome: '',
@@ -49,13 +49,13 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
         });
 
         if(sessionStorage.getItem('isAuthenticated') === null){
-            sessionStorage.setItem('isAuthenticated', 'false')
+            sessionStorage.setItem('isAuthenticated', false)
         }
-        setIsAuthenticated(sessionStorage.getItem('isAuthenticated'));
+        setIsAuthenticated(sessionStorage.getItem('isAuthenticated') === 'true');
         if(sessionStorage.getItem('isRegistered') === null){
-            sessionStorage.setItem('isRegistered', 'false')
+            sessionStorage.setItem('isRegistered', false)
         }
-        setIsRegistered(sessionStorage.getItem('isRegistered'));
+        setIsRegistered(sessionStorage.getItem('isRegistered') === 'true');
     }, []);
     
     const handleisRegisteredSubmit = async (event) => {
@@ -68,15 +68,15 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
     
     return(
         <div>
-            {formType === 'offer'  && isAuthenticated==='false' && (
+            {formType === 'offer'  && isAuthenticated===false && (
                 <SignupForm navigate={navigate} handleChange={handleChange} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
             )}
 
-            {formType === 'offer' && isAuthenticated==='true' && isRegistered==='true' &&(
+            {formType === 'offer' && isAuthenticated===true && isRegistered===true &&(
                 <CompleteProfileJobForm buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
             )}
 
-            {formType === 'offer' && isAuthenticated==='true' && isRegistered==='false' &&(
+            {formType === 'offer' && isAuthenticated===true && isRegistered===false &&(
                 <PartialProfileJobForm handleisRegisteredSubmit={handleisRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
             )}
 
