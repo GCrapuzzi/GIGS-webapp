@@ -19,7 +19,7 @@ function HomepageBox({backgroundImage, formType, buttonText, handleAuthChange}){
                 </div>
             )}
 
-            {(formType === 'register' || formType === 'login') && (
+            {(formType === 'offer' || formType === 'search') && (
                 <div>
                     <div className="HomepageBox" style={styles}>
                         <HomepageText formType={formType} />

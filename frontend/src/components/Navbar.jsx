@@ -6,6 +6,13 @@ import { useNavigate } from 'react-router-dom';
 function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
     const navigate = useNavigate();
 
+    if(isAuthenticated === true){
+      sessionStorage.setItem('isAuthenticated2', isAuthenticated)
+    }
+    
+    isAuthenticated = sessionStorage.getItem('isAuthenticated2') === 'true'
+
+
     const handleClick = (event) => {
       event.preventDefault();
       toggleButtonState();
@@ -45,7 +52,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
               {isAuthenticated === false && (
                 <li ><a href="#" id="login" onClick={handleClick}>Accedi</a></li>
               )}
-
+              
               {isAuthenticated === true && (
                   
                 <li ><a href="#" id="login" onClick={handleLogout}>Logout</a></li>

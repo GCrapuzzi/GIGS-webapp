@@ -4,7 +4,7 @@ import Footer from "../components/Footer.jsx";
 function Homepage({buttonText, backgroundImage, toggleButtonState, buttonState}){
   return(
     <>
-      <HomepageContainer buttonText={buttonText} backgroundImage ={backgroundImage} formType="login" toggleButtonState={toggleButtonState} buttonState={buttonState} />
+      <HomepageContainer buttonText={buttonText} backgroundImage ={backgroundImage} formType="search" toggleButtonState={toggleButtonState} buttonState={buttonState} />
 
       <Footer></Footer>
     </>
