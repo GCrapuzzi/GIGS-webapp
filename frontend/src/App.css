@@ -346,6 +346,11 @@ footer{
   margin: auto;
 }
 
+.cardImageSlot{
+  width: 315px;
+  height: 200px;
+  overflow: scroll;
+}
 
 .cardImage{
   width: 315px;
@@ -459,3 +464,4 @@ footer{
   top: 5px;
   color: white;
 }
+

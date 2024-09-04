@@ -1,9 +1,11 @@
-import image from "../assets/foto.png";
+import image from "../assets/login.png";
 
 function Card(){
     return(
     <div className="cardSlot">
-        <a href=""><img src={image} className="cardImage" alt="" /></a>
+        <div className="cardImageSlot">
+            <a href=""><img src={image} className="cardImage" alt="" /></a>
+        </div>
         <div className="cardAuthor">
             <p>Annuncio di <a href=""><b>Pincopallo</b></a></p>
         </div>
