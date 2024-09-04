@@ -9,6 +9,6 @@ const listingAnnunci = require("../controllers/listingAnnunci");
 
 router.post("/createAnnuncio", auth, createAnnuncio);
 router.post("/filtra", auth, filtraAnnunci);
-router.get("/listing", auth, listingAnnunci);
+router.get("/listing", listingAnnunci);
 
 module.exports = router;

@@ -2,9 +2,10 @@ const mongoose=require("mongoose");
 
 // Schema per gli annunci
 const annuncioSchema=mongoose.Schema({
+      titolo: String,
       number: String,
       città: String,
-      lavoretto: String,
+      lavoro: String,
       tariffa: String,
       descrizione: String,
       orario: String,
