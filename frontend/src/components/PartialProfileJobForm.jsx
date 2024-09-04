@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { GiPositionMarker } from "react-icons/gi"
 import { GiGardeningShears } from "react-icons/gi"
+import { FaRegIdCard } from "react-icons/fa";
+import { FaDatabase } from "react-icons/fa";
 
 function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText}){
     const [step, setStep] = useState(1);
@@ -17,8 +19,11 @@ function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange
         <form className="HomepageForm" onSubmit={handleisRegisteredSubmit}>
         {step === 1 &&(
         <div className="textContainer">
+            <FaRegIdCard className="icon" />
             <input type="text" placeholder="fotoProfilo" name="fotoProfilo" value={formData.fotoProfilo} onChange={handleChange} className="formSpace" required title="Aggiungi un'immagine di profilo."/>
+            <FaRegIdCard className="icon" />
             <input type="text" placeholder="Nome" name="nome" value={formData.nome} onChange={handleChange} className="formSpace" required title="Aggiungi un nome." />
+            <FaRegIdCard className="icon" />
             <input type="text" placeholder="Cognome" name="cognome" value={formData.cognome} onChange={handleChange} className="formSpace" required title="Aggiungi un cognome."/>
 
                 <GiPositionMarker className="icon" />
@@ -36,9 +41,13 @@ function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange
         </div>)}
         {step === 2 &&(
         <div>
+            <FaDatabase className="icon"/>
             <input type="text" placeholder="Inserisci titolo dell'annuncio" name="titolo" value={formData.titolo} onChange={handleChange} className="formSpace" required title="Inserisci il titolo dell'annuncio"/>
+            <FaDatabase className="icon"/>
             <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" name="descrizione" value={formData.descrizione} onChange={handleChange} className="formSpace" required title="Inserisci la descrizione dell'annuncio"/>
+            <FaDatabase className="icon"/>
             <input type="text" placeholder="Inserisci tariffa oraria:" name="tariffa" value={formData.tariffa } onChange={handleChange} className="formSpace" required title="Inserisci unatariffa oraria"/>
+            <FaDatabase className="icon"/>
             <input type="text" placeholder="Inserisci orario di disponibilità:" name="orario" value={formData.orario} onChange={handleChange} className="formSpace" required title="Inserisci un orario di disponibilità indicativo"/>        
             <button type="button" onClick={prevStep} id="prevButton">&lt;Indietro</button>   
             <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>    

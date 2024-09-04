@@ -7,11 +7,14 @@ import './App.css'
 import Otp from './pages/Otp.jsx';
 import Cardpage from './pages/Cardpage.jsx';
 import CardpageDetails from './pages/CardpageDetails.jsx';
+import Profilepage from './components/Profilepage.jsx';
 
  
 function App(){
 
   const [buttonState, setButtonState] = useState(false);
+  const [hasClickedProfile, sethasClickedProfile] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   const toggleButtonState = () => {
     setButtonState(!buttonState);
@@ -20,12 +23,17 @@ function App(){
   const offeringGig = require("./assets/homepage.png")
   const otpGig = require("./assets/otp.png")
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+ 
 
 
   const handleAuthChange = (newAuthState) => {
     setIsAuthenticated(newAuthState);
   };
+
+  const handleClick = () => {
+    sethasClickedProfile(true);
+    sessionStorage.setItem('hasClickedProfile', true);
+};
 
   
 
@@ -36,7 +44,8 @@ function App(){
         <Route path="/otp" element={<Otp handleAuthChange={handleAuthChange} buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
         <Route path="/" element={<Homepage handleAuthChange={handleAuthChange} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
         <Route path="/offeringGigs" element={<OfferingGigs handleAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
-        <Route path="/logo" element={<CardpageDetails/>}/>
+        <Route path="/logo" element={<CardpageDetails toggleButtonState={toggleButtonState} buttonState={buttonState}/>}/>
+        <Route path="/profile" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
       </Routes>
     </>
   );
