@@ -2,26 +2,23 @@ const User = require("../models/userSchema");
 
 async function completeAccount(req, res) {
 
-    const { userId, nome, cognome, fotoBase64 } = req.body;
+    const { userId, nome, cognome, fotoProfilo } = req.body;
 
         // Verifica che l'ID dell'account e i dati necessari siano forniti
-        if (!accountId || !nome || !cognome || !fotoBase64) {
-            return res.status(400).json({ message: 'Tutti i campi (accountId, nome, cognome e foto) sono obbligatori' });
+        if (!nome || !cognome || !fotoProfilo) {
+            return res.status(400).json({ message: 'Tutti i campi (nome, cognome e foto) sono obbligatori' });
         }
 
        
     try {
 
         // Trova l'account esistente e aggiorna i campi nome, cognome, e fotoProfilo
-        const accountAggiornato = await Account.findByIdAndUpdate(
+        const accountCompleto = await Account.findByIdAndUpdate(
             userId,  // ID dell'account da aggiornare
             {
                 nome: nome,
                 cognome: cognome,
-                profileImageUrl: {
-                    data: buffer,
-                    contentType: 'image/png'  // Specifica il tipo MIME corretto
-                }
+                profileImageUrl: fotoProfilo
             },
             { new: true }  // Restituisce il documento aggiornato
         );
