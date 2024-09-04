@@ -6,13 +6,13 @@ import { GiGardeningShears, GiPositionMarker } from "react-icons/gi"
 
 function SearchForm({buttonVisitorStyle, buttonText}){
 
-    const [citta, setCitta] = useState('');
+    const [città, setCitta] = useState('');
     const [tipoLavoro, setTipoLavoro] = useState('');
 
     const handleSearch = async (event) => {
         event.preventDefault();
         const data = {
-            citta: citta,
+            città: città,
             tipoLavoro: tipoLavoro
         };
 
@@ -21,7 +21,7 @@ function SearchForm({buttonVisitorStyle, buttonText}){
                 params: data
             });
             if(response.status === 200){
-                console.log(response.annuncio)
+                console.log(response.data)
             }
         }catch (error) {
             console.error('Error submitting form:', error.response ? error.response.data : error.message);
@@ -34,7 +34,7 @@ function SearchForm({buttonVisitorStyle, buttonText}){
             <div className="textContainer">
                 <div>
                     <GiPositionMarker className="icon" />
-                    <input type="text" placeholder="Inserisci città:" className="formSpace" value={citta} onChange={(e) => setCitta(e.target.value)} />
+                    <input type="text" placeholder="Inserisci città:" className="formSpace" value={città} onChange={(e) => setCitta(e.target.value)} />
                 </div>
                 <div>
                     <GiGardeningShears className="icon" />
