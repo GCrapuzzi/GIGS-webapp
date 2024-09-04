@@ -13,7 +13,7 @@ async function completeAccount(req, res) {
     try {
 
         // Trova l'account esistente e aggiorna i campi nome, cognome, e fotoProfilo
-        const accountCompleto = await Account.findByIdAndUpdate(
+        const accountCompleto = await User.findByIdAndUpdate(
             userId,  // ID dell'account da aggiornare
             {
                 nome: nome,
