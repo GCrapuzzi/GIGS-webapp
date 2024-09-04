@@ -4,7 +4,7 @@ const annuncio = require('../models/annuncioSchema');
 const createAnnuncio = async (req, res, next) => {
 
     // Estrae i dati dall'oggetto req.body
-    const { città, lavoro, titolo, descrizione, userId, tariffa, orario } = req.body;
+    const { città, fotoProfilo, lavoro, titolo, descrizione, userId, tariffa, orario } = req.body;
 
     // Verifica che tutti i campi siano presenti
     if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario) {
@@ -15,6 +15,7 @@ const createAnnuncio = async (req, res, next) => {
     try {
         const newAnnuncio = new annuncio({
             titolo: titolo,
+            fotoProfilo: profileimageUrl,
             descrizione: descrizione,
             città: città,
             lavoro: lavoro,
