@@ -23,9 +23,6 @@ function App(){
   const offeringGig = require("./assets/homepage.png")
   const otpGig = require("./assets/otp.png")
 
- 
-
-
   const handleAuthChange = (newAuthState) => {
     setIsAuthenticated(newAuthState);
   };
