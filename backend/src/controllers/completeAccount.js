@@ -25,7 +25,7 @@ async function completeAccount(req, res) {
 
 
         // Restituisce il documento aggiornato come conferma
-        res.status(200).json({ message: 'Account aggiornato con successo', account: accountAggiornato });
+        res.status(200).json({ message: 'Account aggiornato con successo', account: accountCompleto});
     } catch (err) {
         console.error('Errore durante il\' completamento del\'profilo:', err);
         res.status(500).json({ message: 'Errore interno del server' });
