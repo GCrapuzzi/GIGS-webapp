@@ -2,16 +2,16 @@ const Annuncio = require('../models/annuncioSchema'); // Assumiamo che il modell
 
 async function listingAnnunci(req, res) {
     // Estrai i parametri direttamente dalla richiesta
-    const { citta, tipoLavoro } = req.body;
+    const { citta, lavoro } = req.query;
 
     // Verifica se i parametri sono presenti e validi
-    if (!citta || !tipoLavoro) {
+    if (!citta || !lavoro) {
         return res.status(400).json({ error: 'I parametri citta e tipoLavoro sono obbligatori' });
     }
 
     try {
         // Trova gli annunci che corrispondono ai parametri città e tipo di lavoro
-        const annunci = await Annuncio.find({ citta: citta, tipoLavoro: tipoLavoro });
+        const annunci = await Annuncio.find({ citta: citta, lavoro: tipoLavoro });
 
         // Se non ci sono annunci, restituisci un messaggio informativo
         if (annunci.length === 0) {
