@@ -18,7 +18,7 @@ const createAnnuncio = async (req, res, next) => {
             descrizione: descrizione,
             città: città,
             lavoro: lavoro,
-            user_id: userId,
+            userId: userId,
             tariffa: tariffa,
             orario: orario
         });
