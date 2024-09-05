@@ -60,9 +60,10 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
     
     const handleisRegisteredSubmit = async (event) => {
         event.preventDefault();
-        const response1 = await axios.post('http://localhost:5000/users/completeAccount', formData , { withCredentials: true });
+        const response1 = await axios.post('http://localhost:5000/users/updateAccount', formData , { withCredentials: true });
         const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', formData , { withCredentials: true });
-        if(response1.status===201){
+        console.log(response1.status)
+        if(response1.status===200){
             console.log("profilo correttamente completato")
         }
         if(response.status===201){

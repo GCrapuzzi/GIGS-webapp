@@ -3,7 +3,7 @@ const User = require('../models/userSchema');
 
 async function listingAnnunci(req, res) {
     // Estrai i parametri direttamente dalla richiesta
-    const { città, tipoLavoro} = req.query;
+    const { città, tipoLavoro, fotoProfilo} = req.query;
 
     // Verifica se i parametri sono presenti e validi
     if (!città || !tipoLavoro) {
