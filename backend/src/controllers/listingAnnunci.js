@@ -1,4 +1,5 @@
-const Annuncio = require('../models/annuncioSchema'); // Assumiamo che il modello sia in un file separato
+const Annuncio = require('../models/annuncioSchema');
+const User = require('../models/userSchema');
 
 async function listingAnnunci(req, res) {
     // Estrai i parametri direttamente dalla richiesta
@@ -11,7 +12,7 @@ async function listingAnnunci(req, res) {
 
     try {
         // Trova gli annunci che corrispondono ai parametri città e tipo di lavoro
-        const annunci = await Annuncio.find({ città: città, lavoro: tipoLavoro });
+        const annunci = await Annuncio.find({ città: città, lavoro: tipoLavoro }).populate('userId', 'fotoProfilo');
 
         // Se non ci sono annunci, restituisci un messaggio informativo
         if (annunci.length === 0) {
