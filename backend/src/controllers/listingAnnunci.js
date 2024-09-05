@@ -1,5 +1,4 @@
 const Annuncio = require('../models/annuncioSchema');
-const User = require('../models/userSchema');
 
 async function listingAnnunci(req, res) {
     // Estrai i parametri direttamente dalla richiesta

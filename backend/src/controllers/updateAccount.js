@@ -1,7 +1,8 @@
 const User = require("../models/userSchema");
 
 async function updateAccount(req, res) {
-    const { userId, nome, cognome, fotoProfilo, descrizione } = req.body;
+    const {nome, cognome, fotoProfilo, descrizione } = req.body;
+    const userId = req.userId;
 
     // Verifica che l'ID dell'account e i dati necessari siano forniti
     if (!nome || !cognome || !fotoProfilo || !descrizione) {
