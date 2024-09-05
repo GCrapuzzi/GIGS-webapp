@@ -1,10 +1,10 @@
 const User = require("../models/userSchema");
 
 async function updateAccount(req, res) {
-    const { userId, nome, cognome, fotoProfilo, description } = req.body;
+    const { userId, nome, cognome, fotoProfilo, descrizione } = req.body;
 
     // Verifica che l'ID dell'account e i dati necessari siano forniti
-    if (!nome || !cognome || !fotoProfilo || !description) {
+    if (!nome || !cognome || !fotoProfilo || !descrizione) {
         return res.status(400).json({ message: 'Tutti i campi (nome, cognome e foto) sono obbligatori' });
     }
     
@@ -16,7 +16,7 @@ async function updateAccount(req, res) {
                 nome: nome,
                 cognome: cognome,
                 profileImageUrl: fotoProfilo,
-                description: description
+                description: descrizione
             },
             { new: true }
         );

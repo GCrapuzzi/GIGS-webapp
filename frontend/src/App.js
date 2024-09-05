@@ -43,6 +43,7 @@ function App(){
         <Route path="/offeringGigs" element={<OfferingGigs handleAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/logo" element={<Cardpage toggleButtonState={toggleButtonState} buttonState={buttonState}/>}/>
         <Route path="/profile" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+        <Route path="/cardPage" element={<Cardpage buttonState={buttonState} toggleButtonState={toggleButtonState}/>} />
       </Routes>
     </>
   );
