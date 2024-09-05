@@ -1,8 +1,8 @@
-const Annuncio = require('../models/annuncioSchema'); // Assumiamo che il modello sia in un file separato
+const Annuncio = require('../models/annuncioSchema');
 
 async function listingAnnunci(req, res) {
     // Estrai i parametri direttamente dalla richiesta
-    const { città, tipoLavoro} = req.query;
+    const { città, tipoLavoro, fotoProfilo} = req.query;
 
     // Verifica se i parametri sono presenti e validi
     if (!città || !tipoLavoro) {
