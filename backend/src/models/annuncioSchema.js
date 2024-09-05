@@ -8,7 +8,7 @@ const annuncioSchema=mongoose.Schema({
       tariffa: String, 
       descrizione: String,
       orario: String,
-      userId: String
+      userId: ObjectId
 })
 
 // Modello per gli annunci
