@@ -1,10 +1,11 @@
 import axios from "axios"
 import { useState } from "react";
 import { GiGardeningShears, GiPositionMarker } from "react-icons/gi"
-
+import { useNavigate } from "react-router-dom";
 
 
 function SearchForm({buttonVisitorStyle, buttonText}){
+    const navigate = useNavigate();
 
     const [città, setCitta] = useState('');
     const [tipoLavoro, setTipoLavoro] = useState('');
@@ -21,7 +22,7 @@ function SearchForm({buttonVisitorStyle, buttonText}){
                 params: data
             });
             if(response.status === 200){
-                console.log(response.data)
+                navigate('/cardPage', { state: { data: response.data } });
             }
         }catch (error) {
             console.error('Error submitting form:', error.response ? error.response.data : error.message);
