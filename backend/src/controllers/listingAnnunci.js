@@ -3,7 +3,7 @@ const User = require('../models/userSchema');
 
 async function listingAnnunci(req, res) {
     // Estrai i parametri direttamente dalla richiesta
-    const { città, tipoLavoro, fotoProfilo} = req.query;
+    const { città, tipoLavoro} = req.query;
 
     // Verifica se i parametri sono presenti e validi
     if (!città || !tipoLavoro) {
@@ -12,7 +12,7 @@ async function listingAnnunci(req, res) {
 
     try {
         // Trova gli annunci che corrispondono ai parametri città e tipo di lavoro
-        const annunci = await Annuncio.find({ città: città, lavoro: tipoLavoro }).populate('userId', 'fotoProfilo');
+        const annunci = await Annuncio.find({ città: città, lavoro: tipoLavoro }).populate('userId', 'profileImageUrl');
 
         // Se non ci sono annunci, restituisci un messaggio informativo
         if (annunci.length === 0) {
@@ -28,4 +28,4 @@ async function listingAnnunci(req, res) {
     }
 }
 
-module.exports = listingAnnunci; 
+module.exports = listingAnnunci;
