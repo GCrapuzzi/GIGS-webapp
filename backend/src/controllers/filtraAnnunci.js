@@ -3,7 +3,7 @@ const Annuncio = require('../models/annuncioSchema');
 const filtraAnnunci = async (req, res) => {
   const { prezzoMin, prezzoMax, lavoro, zona } = req.body;
 
-  // Controllo generale sui parametri - verifica che tutti i parametri siano presenti
+  // Controllo generale sui parametri - verifica che tutti i parametri siano presenti (tutti e quattro applicati contemporaneamente)
   if (prezzoMin === undefined || prezzoMax === undefined || lavoro === undefined || zona === undefined) {
     return res.status(400).json({ message: 'Tutti i parametri (prezzoMin, prezzoMax, lavoro, zona) sono richiesti' });
   }
@@ -37,7 +37,7 @@ const filtraAnnunci = async (req, res) => {
     return res.status(400).json({ message: 'prezzoMin non può essere maggiore di prezzoMax' });
   }
 
-  // Normalizza il parametro zona
+  // Normalizza il parametro zona (quando salviamo nel database non lo facciamo però)
   const zonaNormalized = zona.trim().toLowerCase();
 
   // Costruisci l'oggetto filtro

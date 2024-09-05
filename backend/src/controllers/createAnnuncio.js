@@ -4,10 +4,10 @@ const annuncio = require('../models/annuncioSchema');
 const createAnnuncio = async (req, res, next) => {
 
     // Estrae i dati dall'oggetto req.body
-    const { città, fotoProfilo, lavoro, titolo, descrizione, userId, tariffa, orario } = req.body;
+    const { città, lavoro, titolo, descrizione, userId, tariffa, orario } = req.body;
 
     // Verifica che tutti i campi siano presenti
-    if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario || !fotoProfilo) {
+    if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario) {
         return res.status(400).json({ message: 'Tutti i campi sono obbligatori' });
     }
 
@@ -29,8 +29,7 @@ const createAnnuncio = async (req, res, next) => {
         // Invia la risposta al client
         res.status(201).json({ message: 'Annuncio creato con successo', annuncio: newAnnuncio });
     } catch (error) {
-        // Passa l'errore al middleware di gestione degli errori
-        next(error);
+        return next({ statusCode: 500, message: 'Errore durante la creazione dell\'annuncio' });
     }
 }
 
