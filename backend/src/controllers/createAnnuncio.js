@@ -11,6 +11,12 @@ const createAnnuncio = async (req, res, next) => {
         return res.status(400).json({ message: 'Tutti i campi sono obbligatori' });
     }
 
+    // Verifica che l'annuncio non sia già presente nel database
+    const existingAnnuncio = await annuncio.findOne({ userId: userId, lavoro: lavoro, città: città });
+    if (existingAnnuncio) {
+        return res.status(400).json({ message: 'Annuncio già presente' });
+    }
+
     // Crea un nuovo annuncio
     try {
         const newAnnuncio = new annuncio({
