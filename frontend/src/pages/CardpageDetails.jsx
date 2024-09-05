@@ -6,6 +6,8 @@ import AdDetails from '../components/AdDetails'
 function CardpageDetails({handleClick, toggleButtonState, buttonState}){
 
     const location = useLocation();
+    const { annuncio } = location.state || {};
+
     const [hasClickedProfile, setHasClickedProfile] = useState(() => {
         return sessionStorage.getItem('hasClickedProfile') === 'true';
     });
@@ -28,7 +30,7 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
         </div>
 
         {hasClickedProfile === false && (
-            <AdDetails handleClick={handleClick}/>
+            <AdDetails handleClick={handleClick} annuncio={annuncio} />
         )}
 
         {hasClickedProfile === true && (
