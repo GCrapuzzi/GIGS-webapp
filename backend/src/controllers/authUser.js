@@ -29,7 +29,7 @@ const authUser = async (req, res, next) => {
 
     // Verifica che l'utente esista
     if (!user) {
-      return res.status(404).json({ message: "User not found"});
+      return res.status(404).json({ message: "Utente non trovato" });
     }
 
     // Verifica che l'OTP corrisponda a quello salvato nel database
