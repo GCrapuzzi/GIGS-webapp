@@ -22,7 +22,8 @@ function SearchForm({buttonVisitorStyle, buttonText}){
                 params: data
             });
             if(response.status === 200){
-                navigate('/cardPage', { state: { data: response.data } });
+                //navigate('/cardPage', { state: { data: response.data } });
+                console.log(response.data)
             }
         }catch (error) {
             console.error('Error submitting form:', error.response ? error.response.data : error.message);

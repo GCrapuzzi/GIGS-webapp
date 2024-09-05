@@ -1,21 +1,31 @@
 import image from "../assets/login.png";
 
-function Card(){
-    return(
+function Card({ annuncio }) {
+  return (
     <div className="cardSlot">
-        <div className="cardImageSlot">
-            <a href=""><img src={image} className="cardImage" alt="" /></a>
-        </div>
-        <div className="cardAuthor">
-            <p>Annuncio di <a href=""><b>Pincopallo</b></a></p>
-        </div>
-        <div className="cardTitle">
-            <a href=""><h3>Mi occuperò dei bambini mentre voi siete via a rilassarvi!</h3></a>
-        </div>
-        <div className="cardPrice">
-            <p>A partire da &euro;20</p>
-        </div>
+      {/* Immagine dell'annuncio */}
+      <div className="cardImageSlot">
+        <a href="">
+          <img src={image} className="cardImage" alt={annuncio.titolo} />
+        </a>
+      </div>
+
+      {/* Autore dell'annuncio */}
+      <div className="cardAuthor">
+        <p>Annuncio di <a href=""><b>Pincopallo</b></a></p>
+      </div>
+
+      {/* Titolo dell'annuncio */}
+      <div className="cardTitle">
+        <a href=""><h3>{annuncio.titolo}</h3></a>
+      </div>
+
+      {/* Tariffa dell'annuncio */}
+      <div className="cardPrice">
+        <p>A partire da &euro;{annuncio.tariffa}</p>
+      </div>
     </div>
-    )
+  );
 }
-export default Card
+
+export default Card;
