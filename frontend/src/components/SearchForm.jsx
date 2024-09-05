@@ -22,7 +22,7 @@ function SearchForm({buttonVisitorStyle, buttonText}){
                 params: data
             });
             if(response.status === 200){
-                //navigate('/cardPage', { state: { data: response.data } });
+                navigate('/cardPage', { state: { annunci: response.data } });
                 console.log(response.data)
             }
         }catch (error) {
