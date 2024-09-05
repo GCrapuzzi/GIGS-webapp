@@ -7,12 +7,12 @@ const verifyUser = require("../controllers/signupUser");
 const authenticate = require("../controllers/authUser");
 const verifyToken = require("../controllers/validateToken");
 const logout = require("../controllers/logoutUser");
-const completeAccount = require("../controllers/completeAccount");
+const updateAccount = require("../controllers/updateAccount");
 
 router.post("/verify", verifyUser);
 router.post("/authenticate", authenticate);
 router.get("/loggedin", auth, verifyToken);
 router.get("/logout", auth, logout);
-router.post("/completeAccount", auth, completeAccount);
+router.post("/updateAccount", auth, updateAccount);
 
 module.exports = router;
