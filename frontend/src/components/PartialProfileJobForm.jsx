@@ -8,7 +8,7 @@ import React from 'react';
 
 function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText}){
     const [step, setStep] = useState(1);
-    const [formattedAddress, setFormattedAddress] = useState(''); // Stato per l'indirizzo formattato
+    const [formattedAddress, setFormattedAddress] = useState(''); 
 
     const nextStep = () => {
         setStep(step + 1);
