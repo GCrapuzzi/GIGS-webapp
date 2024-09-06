@@ -2,13 +2,13 @@ import axios from "axios"
 import { useState } from "react";
 import { GiGardeningShears, GiPositionMarker } from "react-icons/gi"
 import { useNavigate } from "react-router-dom";
-
+import { APILoader, PlacePicker } from '@googlemaps/extended-component-library/react';
 
 function SearchForm({buttonVisitorStyle, buttonText}){
     const navigate = useNavigate();
-
     const [città, setCitta] = useState('');
     const [tipoLavoro, setTipoLavoro] = useState('');
+    const [formattedAddress, setFormattedAddress] = useState('');
 
     const handleSearch = async (event) => {
         event.preventDefault();
@@ -16,6 +16,15 @@ function SearchForm({buttonVisitorStyle, buttonText}){
             città: città,
             tipoLavoro: tipoLavoro
         };
+
+    // Funzione per gestire il cambiamento di luogo
+    const handlePlaceChange = (e) => {
+        setFormattedAddress(e.target.value?.formattedAddress ?? '');
+    };
+
+    {/* Caricamento dell'API Google Maps con la chiave API */}
+    <APILoader apiKey="AIzaSyARF1BL37wVgEXC6u33fhaDSCB1G2LOpIY" solutionChannel="GMP_GCC_placepicker_v1" />
+
 
         try{
             const response = await axios.get('http://localhost:5000/annunci/listing', {
@@ -36,7 +45,15 @@ function SearchForm({buttonVisitorStyle, buttonText}){
             <div className="textContainer">
                 <div>
                     <GiPositionMarker className="icon" />
-                    <input type="text" placeholder="Inserisci città:" className="formSpace" value={città} onChange={(e) => setCitta(e.target.value)} />
+                    <PlacePicker
+                       placeholder="Inserisci città"
+                       onPlaceChange={handlePlaceChange}
+                       types={['(cities)']}
+                    />
+                    {/* Visualizzazione dell'indirizzo formattato */}
+                    <div className="result">
+                       {formattedAddress}
+                    </div>
                 </div>
                 <div>
                     <GiGardeningShears className="icon" />
