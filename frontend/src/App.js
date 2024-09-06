@@ -44,6 +44,7 @@ function App(){
         <Route path="/logo" element={<Cardpage toggleButtonState={toggleButtonState} buttonState={buttonState}/>}/>
         <Route path="/profile" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/cardPage" element={<Cardpage buttonState={buttonState} toggleButtonState={toggleButtonState}/>} />
+        <Route path="/cardPageDetails" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
       </Routes>
     </>
   );

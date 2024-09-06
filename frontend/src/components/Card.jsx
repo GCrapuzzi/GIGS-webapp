@@ -1,23 +1,29 @@
-import image from "../assets/login.png";
 
+import { Link } from "react-router-dom";
 function Card({ annuncio }) {
+
+  const images = require.context('../assets', true);
+
+  const imageUrl = images(`./${annuncio.userId.profileImageUrl}`);
+
   return (
+    
     <div className="cardSlot">
       {/* Immagine dell'annuncio */}
       <div className="cardImageSlot">
-        <a href="">
-          <img src={image} className="cardImage" alt={annuncio.titolo} />
-        </a>
+        <Link to="/cardpageDetails" state={{ annuncio }}>
+          <img src={imageUrl} className="cardImage" alt={annuncio.userId.profileImageUrl} />
+        </Link>
       </div>
 
       {/* Autore dell'annuncio */}
       <div className="cardAuthor">
-        <p>Annuncio di <a href=""><b>Pincopallo</b></a></p>
+        <p>Annuncio di <Link to="" ><b>{annuncio.userId.nome} {annuncio.userId.cognome}</b></Link></p>
       </div>
 
       {/* Titolo dell'annuncio */}
       <div className="cardTitle">
-        <a href=""><h3>{annuncio.titolo}</h3></a>
+        <Link to="/cardpageDetails" state={{ annuncio }}><h3>{annuncio.titolo}</h3></Link>
       </div>
 
       {/* Tariffa dell'annuncio */}

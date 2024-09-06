@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const User = require('./userSchema');
 
 // Schema per gli annunci
 const annuncioSchema=mongoose.Schema({
@@ -8,7 +9,7 @@ const annuncioSchema=mongoose.Schema({
       tariffa: String, 
       descrizione: String,
       orario: String,
-      userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+      userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
 })
 
 // Modello per gli annunci
