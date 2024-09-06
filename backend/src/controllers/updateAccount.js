@@ -17,7 +17,7 @@ async function updateAccount(req, res) {
                 nome: nome,
                 cognome: cognome,
                 profileImageUrl: fotoProfilo,
-                description: descrizione
+                biografia: descrizione
             },
             { new: true }
         );

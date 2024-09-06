@@ -349,7 +349,7 @@ footer{
 .cardImageSlot{
   width: 315px;
   height: 200px;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .cardImage{
@@ -419,6 +419,7 @@ footer{
 
 .firstColumn{
   width: 60%;
+  max-height: 80vh;
 }
 
 .secondColumn{
@@ -426,7 +427,7 @@ footer{
   align-items: center;
   justify-content: center;
   width: 700px;
-  height: 80vh;
+
 }
 
 .buttonInfoCard{

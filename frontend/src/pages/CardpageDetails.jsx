@@ -34,7 +34,7 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
         )}
 
         {hasClickedProfile === true && (
-            <Profilepage/>
+            <Profilepage annuncio={annuncio}/>
         )}
         <LoginPage toggleButtonState={toggleButtonState} buttonState={buttonState}/>
         </>

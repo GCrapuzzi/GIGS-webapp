@@ -5,8 +5,8 @@ import LoginPage from "../components/LoginPage";
 
 function Cardpage({ buttonState, toggleButtonState }) {
   const location = useLocation();  // Usa useLocation per ottenere lo stato
-  const { annunci } = location.state || { annunci: [] };  // Recupera gli annunci o un array vuoto
-
+  const  { annunci } = location.state || { annunci: [] }; 
+  
   return (
     <>
       <div className={`overlay ${buttonState ? 'active' : ''}`}></div>

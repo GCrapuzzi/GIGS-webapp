@@ -1,21 +1,26 @@
 import image from "../assets/foto.png"
 import Cardpage from "../pages/Cardpage"
 import { FaPaperPlane } from "react-icons/fa";
-function Profilepage(){
+function Profilepage({annuncio}){
+
+    const images = require.context('../assets', true);
+
+    const imageUrl = images(`./${annuncio.userId.profileImageUrl}`);
+
     return(
         <>
         <div className='cardpageDetailsContainer'>
         <div className='firstColumn'>
-            <h1 className='cardpageDetailsText'>Nome e Cognome</h1>
-            <img src={image} alt="" />
+            <h1 className='cardpageDetailsText'>{annuncio.userId.nome} {annuncio.userId.cognome}</h1>
+            <img src={imageUrl} alt="" />
             <h2>Biografia</h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita ut obcaecati, possimus, omnis nam eligendi ab perspiciatis, quidem fugiat iusto ipsum consequatur eaque rerum illo quisquam quam odit? Tenetur, impedit.</p>
+            <p>{annuncio.descrizione}</p>
         </div>
         <div className='secondColumn'>
             <div className='asideBox' id='asideBoxProfile'>
                 <div>
                     <h3>Informazioni aggiuntive:</h3>
-                    <p>Fascia oraria di disponibilità: 8:00-12:00</p>
+                    <p>Fascia oraria di disponibilità: {annuncio.orario}</p>
                 </div>
                 <div>
                     <FaPaperPlane className="iconButton" />
@@ -30,9 +35,10 @@ function Profilepage(){
             <h2>I miei servizi:</h2>
         </div>       
 
-        <div className="cardProfilePage">
+
+        {/*<div className="cardProfilePage">
             <Cardpage />
-        </div>
+        </div>*/}
     </div>
     </>
     )

@@ -6,7 +6,7 @@ const userSchema=mongoose.Schema({
       cognome:String,
       number:String,
       profileImageUrl: String,
-      description: String,
+      biografia: String,
       otp: String,
       otpExpiresAt: Date
 })
