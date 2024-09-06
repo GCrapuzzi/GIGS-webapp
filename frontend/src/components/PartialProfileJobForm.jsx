@@ -4,7 +4,6 @@ import { GiGardeningShears } from "react-icons/gi";
 import { FaRegIdCard } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import { APILoader, PlacePicker } from '@googlemaps/extended-component-library/react';
-import React from 'react';
 
 function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText}){
     const [step, setStep] = useState(1);

@@ -4,7 +4,6 @@ import { GiGardeningShears, GiPositionMarker } from "react-icons/gi"
 import { useNavigate } from "react-router-dom";
 import { APILoader, PlacePicker } from '@googlemaps/extended-component-library/react';
 
-
 function SearchForm({buttonVisitorStyle, buttonText}){
     const navigate = useNavigate();
     const [città, setCitta] = useState('');
