@@ -1,30 +1,21 @@
 import axios from "axios"
 import { useState } from "react";
-import { GiGardeningShears, GiPositionMarker } from "react-icons/gi"
+import { GiGardeningShears} from "react-icons/gi"
 import { useNavigate } from "react-router-dom";
-import { APILoader, PlacePicker } from '@googlemaps/extended-component-library/react';
+import SearchCityInput from "./SearchCityInput";
 
-function SearchForm({buttonVisitorStyle, buttonText}){
+function SearchForm({buttonVisitorStyle, buttonText, formData}){
     const navigate = useNavigate();
     const [città, setCitta] = useState('');
     const [tipoLavoro, setTipoLavoro] = useState('');
-    const [formattedAddress, setFormattedAddress] = useState('');
 
+    
     const handleSearch = async (event) => {
         event.preventDefault();
         const data = {
             città: città,
             tipoLavoro: tipoLavoro
         };
-
-    // Funzione per gestire il cambiamento di luogo
-    const handlePlaceChange = (e) => {
-        setFormattedAddress(e.target.value?.formattedAddress ?? '');
-    };
-
-    {/* Caricamento dell'API Google Maps con la chiave API */}
-    <APILoader apiKey="AIzaSyARF1BL37wVgEXC6u33fhaDSCB1G2LOpIY" solutionChannel="GMP_GCC_placepicker_v1" />
-
 
         try{
             const response = await axios.get('http://localhost:5000/annunci/listing', {
@@ -41,18 +32,12 @@ function SearchForm({buttonVisitorStyle, buttonText}){
     }
 
     return(
-        <form onSubmit={handleSearch} className="HomepageForm">
+        <>
+        <form onSubmit={handleSearch} className="HomepageForm"> 
             <div className="textContainer">
                 <div>
-                    <GiPositionMarker className="icon" />
-                    <PlacePicker
-                       placeholder="Inserisci città"
-                       onPlaceChange={handlePlaceChange}
-                       types={['(cities)']}
-                    />
-                    {/* Visualizzazione dell'indirizzo formattato */}
-                    <div className="result">
-                       {formattedAddress}
+                    <div>
+                        <SearchCityInput setCitta={setCitta} formData={formData}/>
                     </div>
                 </div>
                 <div>
@@ -69,6 +54,7 @@ function SearchForm({buttonVisitorStyle, buttonText}){
             </div>
             <button type="submit" className="submitButton" style={buttonVisitorStyle}>{buttonText}</button>
         </form>
+        </>
     )
 }
 export default SearchForm

@@ -1,11 +1,13 @@
-function CompleteProfileJobForm({formData, buttonGigStyle, buttonText}){
+import SearchCityInput from "./SearchCityInput"
+
+function CompleteProfileJobForm({formData, buttonGigStyle, buttonText, setCitta}){
+
     return(               
         <form className="HomepageForm">
             <div className="textContainer">
 
                 <div>
-                    <GiPositionMarker className="icon" />
-                    <input type="text" placeholder="Inserisci città:" className="formSpace" value={formData.città} onChange={(e) => useEffect()}/>
+                    <SearchCityInput setCitta={setCitta} formData={formData}/>
                 </div>
                 <div>
                     <GiGardeningShears className="icon" />

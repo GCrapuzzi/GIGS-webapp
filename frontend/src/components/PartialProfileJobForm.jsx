@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { GiPositionMarker } from "react-icons/gi";
 import { GiGardeningShears } from "react-icons/gi";
 import { FaRegIdCard } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
-import { APILoader, PlacePicker } from '@googlemaps/extended-component-library/react';
+import SearchCityInput from "./SearchCityInput";
 
-function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText}){
+function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText, setCitta}){
     const [step, setStep] = useState(1);
-    const [formattedAddress, setFormattedAddress] = useState(''); 
 
     const nextStep = () => {
         setStep(step + 1);
@@ -17,16 +15,9 @@ function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange
         setStep(step - 1);
     };
 
-    // Funzione per gestire il cambiamento di luogo
-    const handlePlaceChange = (e) => {
-        setFormattedAddress(e.target.value?.formattedAddress ?? '');
-    };
 
     return(             
         <form className="HomepageForm" onSubmit={handleisRegisteredSubmit}>
-        
-        {/* Caricamento dell'API Google Maps con la chiave API */}
-        <APILoader apiKey="AIzaSyARF1BL37wVgEXC6u33fhaDSCB1G2LOpIY" solutionChannel="GMP_GCC_placepicker_v1" />
 
         {step === 1 &&(
         <div className="textContainer">
@@ -37,16 +28,8 @@ function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange
             <FaRegIdCard className="icon" />
             <input type="text" placeholder="Cognome" name="cognome" value={formData.cognome} onChange={handleChange} className="formSpace" required title="Aggiungi un cognome."/>
 
-            <GiPositionMarker className="icon" />
-            {/* Sostituzione del campo di input della città con PlacePicker */}
-            <PlacePicker
-                placeholder="Inserisci città"
-                onPlaceChange={handlePlaceChange}
-                types={['(cities)']}
-            />
-            {/* Visualizzazione dell'indirizzo formattato */}
-            <div className="result">
-                {formattedAddress}
+            <div>
+                <SearchCityInput setCitta={setCitta} formData={formData} />
             </div>
 
             <GiGardeningShears className="icon" />

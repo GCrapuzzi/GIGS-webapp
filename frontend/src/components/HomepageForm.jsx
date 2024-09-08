@@ -40,6 +40,15 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
         [name]: value
       });
     };
+
+
+    const setCitta = (e) => {
+        const {città} = e;
+        setFormData({
+            ...formData,
+            [città]: città
+        });
+    }
   
     useEffect(() => {
         setFormData({
@@ -74,19 +83,19 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
     return(
         <div>
             {formType === 'offer'  && isAuthenticated===false && (
-                <SignupForm navigate={navigate} handleChange={handleChange} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
+                <SignupForm  setCitta={setCitta} navigate={navigate} handleChange={handleChange} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
             )}
 
             {formType === 'offer' && isAuthenticated===true && isRegistered===true &&(
-                <CompleteProfileJobForm buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
+                <CompleteProfileJobForm setCitta={setCitta} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
             )}
 
             {formType === 'offer' && isAuthenticated===true && isRegistered===false &&(
-                <PartialProfileJobForm handleisRegisteredSubmit={handleisRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
+                <PartialProfileJobForm setCitta={setCitta} handleisRegisteredSubmit={handleisRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
             )}
 
             {formType === 'search' && (
-                <SearchForm buttonText={buttonText} buttonVisitorStyle={buttonVisitorStyle}/>
+                <SearchForm  formData={formData} buttonText={buttonText} buttonVisitorStyle={buttonVisitorStyle}/>
             )} 
 
             {formType === 'otp' && (

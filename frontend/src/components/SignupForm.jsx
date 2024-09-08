@@ -1,10 +1,10 @@
 import axios from "axios"
 import { useState } from "react"
 import { FaPhoneAlt } from "react-icons/fa"
-import { GiPositionMarker } from "react-icons/gi"
 import { GiGardeningShears } from "react-icons/gi"
+import SearchCityInput from "./SearchCityInput"
 
-function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChange}){
+function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChange, setCitta}){
     const [phoneNumber, setPhoneNumber] = useState('');
 
     const handleSubmit = async (event) => {
@@ -48,8 +48,7 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
                 </div>
 
                 <div>
-                    <GiPositionMarker className="icon" />
-                    <input type="text" placeholder="Inserisci città:" className="formSpace" name="città" value={formData.città} onChange={handleChange}/>
+                    <SearchCityInput setCitta={setCitta} formData={formData}/>
                 </div>
                 <div>
                     <GiGardeningShears className="icon" />
