@@ -37,7 +37,7 @@ function SearchForm({buttonVisitorStyle, buttonText, formData}){
             <div className="textContainer">
                 <div>
                     <div>
-                        <SearchCityInput setCitta={setCitta} formData={formData}/>
+                        <SearchCityInput setCitta={setCitta}/>
                     </div>
                 </div>
                 <div>
