@@ -1,47 +1,32 @@
 const Annuncio = require('../models/annuncioSchema');
 
 const filtraAnnunci = async (req, res) => {
-  const { prezzoMin, prezzoMax, lavoro, zona } = req.body;
+  const { prezzoMin, prezzoMax, lavoro, città } = req.query;
 
-  // Controllo generale sui parametri - verifica che tutti i parametri siano presenti (tutti e quattro applicati contemporaneamente)
-  if (prezzoMin === undefined || prezzoMax === undefined || lavoro === undefined || zona === undefined) {
-    return res.status(400).json({ message: 'Tutti i parametri (prezzoMin, prezzoMax, lavoro, zona) sono richiesti' });
+  // Initialize the filter object
+  const filtro = {};
+
+  // Parse and validate prezzoMin and prezzoMax, and apply them to "tariffa"
+  const prezzoMinNumero = prezzoMin !== '' ? parseInt(prezzoMin, 10) : null;
+  const prezzoMaxNumero = prezzoMax !== '' ? parseInt(prezzoMax, 10) : null;
+
+  if (prezzoMinNumero !== null && isNaN(prezzoMinNumero)) {
+    return res.status(400).json({ message: 'prezzoMin deve essere un numero intero valido' });
   }
 
-  // Controlla se prezzoMin è undefined
-  let prezzoMinNumero;
-  if (prezzoMin !== undefined) {
-    prezzoMinNumero = parseInt(prezzoMin, 10);
-    // Verifica se la conversione a numero è valida
-    if (isNaN(prezzoMinNumero)) {
-      return res.status(400).json({ message: 'prezzoMin deve essere un numero intero valido' });
-    }
-  } else {
-    return res.status(400).json({ message: 'prezzoMin è richiesto' });
+  if (prezzoMaxNumero !== null && isNaN(prezzoMaxNumero)) {
+    return res.status(400).json({ message: 'prezzoMax deve essere un numero intero valido' });
   }
-  
-  // Controlla se prezzoMax è undefined
-  let prezzoMaxNumero;
-  if (prezzoMax !== undefined) {
-    prezzoMaxNumero = parseInt(prezzoMax, 10);
-    // Verifica se la conversione a numero è valida
-    if (isNaN(prezzoMaxNumero)) {
-      return res.status(400).json({ message: 'prezzoMax deve essere un numero intero valido' });
-    }
-  } else {
-    return res.status(400).json({ message: 'prezzoMax è richiesto' });
-  }
-  
-  // Verifica che prezzoMin non sia maggiore di prezzoMax
-  if (prezzoMinNumero > prezzoMaxNumero) {
+
+  // Ensure prezzoMin is not greater than prezzoMax, if both are present
+  if (prezzoMinNumero !== null && prezzoMaxNumero !== null && prezzoMinNumero > prezzoMaxNumero) {
     return res.status(400).json({ message: 'prezzoMin non può essere maggiore di prezzoMax' });
   }
 
   // Normalizza il parametro zona (quando salviamo nel database non lo facciamo però)
   const zonaNormalized = zona.trim().toLowerCase();
 
-   // Filtro
-   const filtro = {};
+   
    if (prezzoMin && prezzoMax) {
      filtro.$expr = {
        $and: [
@@ -59,7 +44,7 @@ const filtraAnnunci = async (req, res) => {
  
 
   try {
-    const annunci = await Annuncio.find(filtro);
+    const annunci = await Annuncio.find(filtro).populate('userId', 'profileImageUrl nome cognome');;
     res.json(annunci);
   } catch (error) {
     res.status(500).json({ message: error.message });
