@@ -40,17 +40,23 @@ const filtraAnnunci = async (req, res) => {
   // Normalizza il parametro zona (quando salviamo nel database non lo facciamo però)
   const zonaNormalized = zona.trim().toLowerCase();
 
-  // Costruisci l'oggetto filtro
-  const filtro = {};
-  if (prezzoMin && prezzoMax) {
-    filtro.prezzo = { $gte: prezzoMinNumero, $lte: prezzoMaxNumero };
-  }
-  if (lavoro) {
-    filtro.lavoro = lavoro;
-  }
-  if (zonaNormalized) {
-    filtro.zona = zonaNormalized;
-  }
+   // Filtro
+   const filtro = {};
+   if (prezzoMin && prezzoMax) {
+     filtro.$expr = {
+       $and: [
+         { $gte: [{ $toInt: "$prezzo" }, prezzoMinNumero] },
+         { $lte: [{ $toInt: "$prezzo" }, prezzoMaxNumero] }
+       ]
+     };
+   }
+   if (lavoro) {
+     filtro.lavoro = lavoro;
+   }
+   if (zonaNormalized) {
+     filtro.zona = zonaNormalized;
+   }
+ 
 
   try {
     const annunci = await Annuncio.find(filtro);
