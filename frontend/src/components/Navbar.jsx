@@ -39,7 +39,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
     return(
       <nav className="container">
         <ul className="navbar">
-          <li id="logo"><Link to="/logo">GIGS</Link></li>
+          <li id="logo"><Link to="/">GIGS</Link></li>
 
           <li className = "centralContainer">
             <Link to="/" className='navbarLink'>Cerca un lavoretto</Link>

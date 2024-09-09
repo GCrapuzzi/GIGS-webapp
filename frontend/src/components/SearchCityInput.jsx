@@ -3,7 +3,7 @@ import { LoadScript } from "@react-google-maps/api";
 import config from '../config';
 import { useState } from 'react';
 
-function SearchCityInput({setCitta, formData}){
+function SearchCityInput({setCitta}){
 
     const [cittàPrint, setCittàPrint]  = useState('')
     const handleChangeCity = (e) =>{
