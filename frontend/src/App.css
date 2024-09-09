@@ -9,7 +9,7 @@
   border-bottom-color: rgb(220, 216, 216);
   padding-left: 10px;
   position: relative;
-  z-index: 3;
+  z-index: 9;
   background-color:rgb(243, 241, 241);
 }
 
@@ -69,7 +69,7 @@ a:hover{
   justify-content: center;
 }
 
-.overlay{
+.overlay, .overlay2{
   position: absolute;
   z-index: -1;
   height: 100vh;
@@ -79,7 +79,12 @@ a:hover{
 
 .overlay.active{
   backdrop-filter: blur(4px);
-  z-index: 1;
+  z-index: 7;
+}
+
+.overlay2.active{
+  backdrop-filter: blur(4px);
+  z-index: 5;
 }
 
 .HomepageBox{
@@ -265,7 +270,7 @@ footer{
   right: -460px;
   background-color: rgb(252, 220, 193);
   border-right: 0;
-  z-index: 2;
+  z-index: 7;
   transition: right 0.5s ease;
   border-color: rgb(220, 216, 216);
   width: 413px;
@@ -338,7 +343,7 @@ footer{
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
   row-gap: 50px;
-  margin-top: 50px;
+  margin-top: 60px;
 }
 
 .cardSlot{
@@ -481,3 +486,53 @@ footer{
 #cityInput{
   width:412px;
 }
+
+.filterContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: -5;
+  right:-5000px;
+}
+
+.filterSubContainer{
+  margin-top: -150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-style: solid;
+  border-color: rgb(220, 216, 216);
+  box-shadow: 0px 10px 15px rgb(220, 216, 216);
+  height: auto;
+  padding: 200px;
+  border-radius: 50px;
+  background-color:rgb(243, 241, 241);
+  height: auto;
+}
+
+.filterContainer.active{
+  z-index: 6;
+  right:initial;
+}
+
+#buttonFilter{
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  left: 20px;
+  top:80px;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  font-size: large;
+  justify-content: center;
+  border-radius: 50px;
+  border-style: solid;
+  border-color: rgb(220, 216, 216);
+  background-color: white;
+  box-shadow: 0
+};
+
