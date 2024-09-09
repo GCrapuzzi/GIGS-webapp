@@ -34,19 +34,19 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
 
     // Handle input change
     const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name]: value
-      });
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
     };
 
 
     const setCitta = (e) => {
-        const {città} = e;
         setFormData({
             ...formData,
-            [città]: città
+            città: e
+            
         });
     }
   
