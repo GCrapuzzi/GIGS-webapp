@@ -28,12 +28,10 @@ const filtraAnnunci = async (req, res) => {
 
   // Filtro per il prezzo
   if (prezzoMinNumero !== null || prezzoMaxNumero !== null) {
-    filtro.$expr = {
-      $and: [
-        prezzoMinNumero !== null ? { $gte: [{ $toInt: "$tariffa" }, prezzoMinNumero] } : {},
-        prezzoMaxNumero !== null ? { $lte: [{ $toInt: "$tariffa" }, prezzoMaxNumero] } : {}
-      ].filter(Boolean) // Rimuove oggetti vuoti
-    };
+    filtro.$and = [
+      prezzoMinNumero !== null ? { tariffa: { $gte: prezzoMinNumero } } : {},
+      prezzoMaxNumero !== null ? { tariffa: { $lte: prezzoMaxNumero } } : {}
+    ]
   }
 
   // Filtro per il lavoro, se presente

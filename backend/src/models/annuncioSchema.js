@@ -6,7 +6,7 @@ const annuncioSchema=mongoose.Schema({
       titolo: String,
       città: String,
       lavoro: String,
-      tariffa: String, 
+      tariffa: Number, 
       descrizione: String,
       orario: String,
       userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
