@@ -28,7 +28,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
       lavoro: '',
       titolo: '',
       descrizione: '',
-      tariffa: '',
+      tariffa: null,
       orario: '',
     });
 

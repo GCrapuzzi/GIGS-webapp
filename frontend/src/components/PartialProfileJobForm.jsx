@@ -51,7 +51,7 @@ function PartialProfileJobForm({handleisRegisteredSubmit, formData, handleChange
             <FaDatabase className="icon"/>
             <textarea id="description" placeholder="Inserisci descrizione dell'annuncio" name="descrizione" value={formData.descrizione} onChange={handleChange} className="formSpace" required title="Inserisci la descrizione dell'annuncio"/>
             <FaDatabase className="icon"/>
-            <input type="text" placeholder="Inserisci tariffa oraria:" name="tariffa" value={formData.tariffa } onChange={handleChange} className="formSpace" required title="Inserisci una tariffa oraria"/>
+            <input type="number" placeholder="Inserisci tariffa oraria:" name="tariffa" value={formData.tariffa } onChange={handleChange} className="formSpace" required title="Inserisci una tariffa oraria"/>
             <FaDatabase className="icon"/>
             <input type="text" placeholder="Inserisci orario di disponibilità:" name="orario" value={formData.orario} onChange={handleChange} className="formSpace" required title="Inserisci un orario di disponibilità indicativo"/>        
             <button type="button" onClick={prevStep} id="prevButton">&lt;Indietro</button>   
