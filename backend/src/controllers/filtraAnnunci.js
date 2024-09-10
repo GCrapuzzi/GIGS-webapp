@@ -5,8 +5,11 @@ const filtraAnnunci = async (req, res) => {
 
   const filtro = {};
 
-  let prezzoMinNumero = prezzoMin !== null ? parseInt(prezzoMin, 10) : null;
-  let prezzoMaxNumero = prezzoMax !== null ? parseInt(prezzoMax, 10) : null;
+  const prezzoMinimo = prezzoMin ?? null;
+  const prezzoMassimo = prezzoMax ?? null;
+  
+  let prezzoMinNumero = prezzoMinimo !== null ? parseInt(prezzoMinimo, 10) : null;
+  let prezzoMaxNumero = prezzoMassimo !== null ? parseInt(prezzoMassimo, 10) : null;
   
   // Validazioni e filtri
   if (prezzoMinNumero !== null && isNaN(prezzoMinNumero)) {
