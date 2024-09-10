@@ -23,28 +23,31 @@ const filtraAnnunci = async (req, res) => {
     return res.status(400).json({ message: 'prezzoMin non può essere maggiore di prezzoMax' });
   }
 
-  // Normalizza il parametro zona (quando salviamo nel database non lo facciamo però)
-  const zonaNormalized = zona.trim().toLowerCase();
+  // Normalizza il parametro città (verificando se viene passato)
+  const zonaNormalized = città ? città.trim().toLowerCase() : null;
 
-   
-   if (prezzoMin && prezzoMax) {
-     filtro.$expr = {
-       $and: [
-         { $gte: [{ $toInt: "$prezzo" }, prezzoMinNumero] },
-         { $lte: [{ $toInt: "$prezzo" }, prezzoMaxNumero] }
-       ]
-     };
-   }
-   if (lavoro) {
-     filtro.lavoro = lavoro;
-   }
-   if (zonaNormalized) {
-     filtro.zona = zonaNormalized;
-   }
- 
+  // Filtro per il prezzo
+  if (prezzoMinNumero !== null || prezzoMaxNumero !== null) {
+    filtro.$expr = {
+      $and: [
+        prezzoMinNumero !== null ? { $gte: [{ $toInt: "$tariffa" }, prezzoMinNumero] } : {},
+        prezzoMaxNumero !== null ? { $lte: [{ $toInt: "$tariffa" }, prezzoMaxNumero] } : {}
+      ].filter(Boolean) // Rimuove oggetti vuoti
+    };
+  }
+
+  // Filtro per il lavoro, se presente
+  if (lavoro) {
+    filtro.lavoro = lavoro;
+  }
+
+  // Filtro per la città (zona), se presente
+  if (zonaNormalized) {
+    filtro.zona = zonaNormalized;
+  }
 
   try {
-    const annunci = await Annuncio.find(filtro).populate('userId', 'profileImageUrl nome cognome');;
+    const annunci = await Annuncio.find(filtro).populate('userId', 'profileImageUrl nome cognome');
     res.json(annunci);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -52,3 +55,4 @@ const filtraAnnunci = async (req, res) => {
 };
 
 module.exports = filtraAnnunci;
+
