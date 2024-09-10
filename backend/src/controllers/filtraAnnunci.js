@@ -34,12 +34,15 @@ const filtraAnnunci = async (req, res) => {
   }
 
   // Filtro per il lavoro, se presente
-  if (lavoro !== '') {
+  if (lavoro) {
+    console.log('Lavoro filtrato:', lavoro); // Log di debug
     filtro.lavoro = lavoro;
   }
 
+
   // Filtro per la città (zona), se presente
   if (città !== '') {
+    console.log('Città filtrata:', città), // Log di debug
     filtro.città = città;
   }
 
