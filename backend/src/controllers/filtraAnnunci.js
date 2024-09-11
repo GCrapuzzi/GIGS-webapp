@@ -2,11 +2,11 @@ const Annuncio = require('../models/annuncioSchema');
 
 const filtraAnnunci = async (req, res) => {
   const { prezzoMin, prezzoMax, lavoro, città } = req.query;
-
+  console.log('Query ricevuta:', req.query); // Log dei parametri ricevuti
   const filtro = {};
 
-  let prezzoMinNumero = prezzoMin !== null ? parseInt(prezzoMin, 10) : null;
-  let prezzoMaxNumero = prezzoMax !== null ? parseInt(prezzoMax, 10) : null;
+  let prezzoMinNumero = prezzoMin !== undefined ? parseInt(prezzoMin, 10) : null;
+  let prezzoMaxNumero = prezzoMax !== undefined ? parseInt(prezzoMax, 10) : null;
   
   // Validazioni e filtri
   if (prezzoMinNumero !== null && isNaN(prezzoMinNumero)) {
