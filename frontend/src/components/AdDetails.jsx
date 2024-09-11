@@ -1,5 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
-import image from '../assets/foto.png'
+import {useNavigate } from "react-router-dom"
 import { FaPaperPlane } from "react-icons/fa";
 useNavigate
 
@@ -22,14 +21,15 @@ function AdDetails({handleClick, annuncio}){
             <div className="imageContainer">
                 <img src={imageUrl} alt="" />
             </div>
-            <h2>Descrizione dell'annuncio</h2><p></p>
+            <h2>Descrizione dell'annuncio</h2>
+            <p>{annuncio.descrizione}</p>
         </div>
         <div className='secondColumn'>
             <div className='asideBox'>
                 <div>
                     <h3>Informazioni aggiuntive:</h3>
-                    <p>Fascia oraria di disponibilità: 8:00-12:00</p>
-                    <p>Tariffa oraria: &euro;20</p>
+                    <p>Fascia oraria di disponibilità:{annuncio.orario}</p>
+                    <p>Tariffa oraria: &euro;{annuncio.tariffa}</p>
                 </div>
                 <div>
                     <FaPaperPlane className="iconButton"/>

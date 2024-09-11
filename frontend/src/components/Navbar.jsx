@@ -52,7 +52,14 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
           )}
               
           {isAuthenticated === true && (
-          <Link to="#" id="login" onClick={handleLogout}>Logout</Link>
+            <div class="dropdown" id="login">
+              <button class="dropbtn">Dropdown</button>
+              <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+              </div>
+            </div>
           )}
         </ul>
       </nav>
