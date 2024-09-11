@@ -1,6 +1,6 @@
 const Annuncio = require('../models/annuncioSchema');
 
-async function listingAnnunciDiUnUtente(req, res) {
+const listingAnnunciDiUnUtente = async (req, res) => {
     const userId = req.userId;
 
     try{
