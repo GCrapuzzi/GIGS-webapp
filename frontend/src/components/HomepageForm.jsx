@@ -81,7 +81,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
                 console.log('Profilo correttamente aggiornato');
             }
     
-            // Invia il form per creare l'annuncio (puoi anche inviare solo i dati necessari per l'annuncio)
+            // Invia il form per creare l'annuncio
             const annuncioData = {
                 titolo: formData.titolo,
                 descrizione: formData.descrizione,
@@ -89,15 +89,23 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
                 orario: formData.orario,
             };
     
+            console.log("Dati annuncio inviati:", annuncioData); // Verifica cosa viene inviato
+    
             const response2 = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, { withCredentials: true });
     
             if (response2.status === 201) {
-                console.log('Annuncio correttamente pubblicato'); 
+                console.log('Annuncio correttamente pubblicato');
             }
         } catch (error) {
-            console.error('Errore durante l\'invio del form', error);
+            // Log più dettagliato dell'errore
+            if (error.response) {
+                console.error('Errore durante l\'invio del form:', error.response.status, error.response.data);
+            } else {
+                console.error('Errore durante l\'invio del form:', error.message);
+            }
         }
     };
+    
     
     
     return(
