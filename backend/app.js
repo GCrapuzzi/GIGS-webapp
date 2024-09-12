@@ -19,7 +19,7 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
-// Servi i file statici dalla cartella "public"
+// Servi la cartella "uploads" come file statici
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // Connessione al database
