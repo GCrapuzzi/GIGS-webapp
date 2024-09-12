@@ -69,7 +69,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
     
     const handleisRegisteredSubmit = async (event) => {
         event.preventDefault();
-        const response1 = await axios.post('http://localhost:5000/users/updateAccount', formData , { withCredentials: true });
+        const response1 = await axios.post('http://localhost:5000/users/updateAccount', formData , { headers: {'Content-Type': 'multipart/form-data'},withCredentials: true });
         const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', formData , { withCredentials: true });
         console.log(response1.status)
         if(response1.status===200){
