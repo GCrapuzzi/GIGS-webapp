@@ -1,10 +1,8 @@
 
 import { Link } from "react-router-dom";
 function Card({ annuncio }) {
-
-  const images = require.context('../assets', true);
-
-  const imageUrl = images(`./${annuncio.userId.profileImageUrl}`);
+  const user = annuncio.userId;
+  const imageUrl = `http://localhost:5000${user.profileImageUrl}`;
 
   return (
     
