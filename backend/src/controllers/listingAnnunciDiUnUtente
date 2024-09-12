@@ -1,11 +1,11 @@
 const Annuncio = require('../models/annuncioSchema');
 
 async function listingAnnunciDiUnUtente(req, res) {
-    const userId = req.userId;
+    const userId = req.userId || req.body.userId;
+    console.log(userId)
 
     try{
-        const annunci = await Annuncio.find({userId: userId});
-        console.log(annunci);
+        const annunci = await Annuncio.find({userId: userId}).populate('userId', 'profileImageUrl nome cognome');;
 
         // Se non ci sono annunci per un determinato utente
         if (annunci.length === 0) {
@@ -21,4 +21,4 @@ async function listingAnnunciDiUnUtente(req, res) {
     }
 }
 
-module.exports = listingAnnunciDiUnUtente;
+module.exports = listingAnnunciDiUnUtente

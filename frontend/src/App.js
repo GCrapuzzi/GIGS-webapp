@@ -7,6 +7,7 @@ import './App.css'
 import Otp from './pages/Otp.jsx';
 import Cardpage from './pages/Cardpage.jsx';
 import CardpageDetails from './pages/CardpageDetails.jsx';
+import Myprofile from './pages/Myprofile.jsx';
 
  
 function App(){
@@ -40,9 +41,10 @@ function App(){
         <Route path="/otp" element={<Otp handleAuthChange={handleAuthChange} buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
         <Route path="/" element={<Homepage handleAuthChange={handleAuthChange} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
         <Route path="/offeringGigs" element={<OfferingGigs handleAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
-        <Route path="/profile" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+        <Route path="/profile" element={<CardpageDetails  handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/cardPage" element={<Cardpage buttonState={buttonState} toggleButtonState={toggleButtonState}/>} />
         <Route path="/cardPageDetails" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+        <Route path ="/myProfile" element={<Myprofile buttonState={buttonState} toggleButtonState={toggleButtonState}/>}/>
       </Routes>
     </>
   );

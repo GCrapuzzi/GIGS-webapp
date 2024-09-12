@@ -12,8 +12,8 @@ const listingAnnunciDiUnUtente = require("../controllers/listingAnnunciDiUnUtent
 router.post("/createAnnuncio", auth, createAnnuncio);
 router.get("/filtra", filtraAnnunci);
 router.get("/listing", listingAnnunci);
-router.get("/listingAnnunciUtente", auth, listingAnnunciDiUnUtente);
-router.get("listingAnnunciVisitatore", listingAnnunciDiUnUtente);
+router.post("/listingAnnunciUtente", auth, listingAnnunciDiUnUtente);
+router.post("/listingAnnunciVisitatore", listingAnnunciDiUnUtente);
 
 
 module.exports = router;

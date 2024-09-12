@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { CgProfile } from "react-icons/cg";
 
 function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
       event.preventDefault();
       try {
         const response = await axios.get('http://localhost:5000/users/logout',{ withCredentials: true });
+        
         if (response.status === 200) {
         console.log("logout effettuato correttamente");
         sessionStorage.clear();
@@ -35,6 +37,28 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
         }
     }
   
+
+
+    const showProfile = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/users/trovaUser',{ withCredentials: true });
+        console.log(response.status)
+        const response2 = await axios.post('http://localhost:5000/annunci/listingAnnunciUtente', {},{ withCredentials: true })
+        console.log(response2.status)
+        const data = {
+          utente: response.data,
+          listaPropriAnnunci: response2.data
+        };
+
+        console.log(data.utente, data.listaPropriAnnunci)
+
+        if(response.status === 200 && response2.status === 200){
+          navigate('/myProfile', { state: { data } });
+        }
+      } catch (error) {
+        
+      }
+    }
 
     return(
       <nav className="container">
@@ -52,12 +76,11 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
           )}
               
           {isAuthenticated === true && (
-            <div class="dropdown" id="login">
-              <button class="dropbtn">Dropdown</button>
+            <div class="dropdown">
+              <button id="loginbtn"><CgProfile color='forestgreen'/></button>
               <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <Link to="#" onClick={showProfile} >Profilo</Link>
+                <Link to="#" onClick={handleLogout}>Logout</Link>
               </div>
             </div>
           )}

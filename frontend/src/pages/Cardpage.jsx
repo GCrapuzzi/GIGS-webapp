@@ -7,10 +7,19 @@ import SearchCityInput from '../components/SearchCityInput';
 import { VscSettings } from "react-icons/vsc";
 import axios from 'axios';
 
-function Cardpage({ buttonState, toggleButtonState}) {
+function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
   const location = useLocation();  // Usa useLocation per ottenere lo stato
+
+  if(sessionStorage.getItem('listaAnnunci') !== null){
+    listaAnnunci = JSON.parse(sessionStorage.getItem('listaAnnunci'))
+  }
+
+  if(listaAnnunci && sessionStorage.getItem('listaAnnunci') === null){
+    sessionStorage.setItem('listaAnnunci', JSON.stringify(listaAnnunci))
+  }
+  
   const navigate = useNavigate();
-  const  { annunci } = location.state || { annunci: [] }; 
+  const { annunci } = location.state?.annunci  ? { annunci: location.state.annunci } : listaAnnunci  ? { annunci: listaAnnunci}  : { annunci: [] };
   const [buttonStatus, setButtonStatus] = useState(false);
   const [formData, setFormData] = useState({
     città: '',
@@ -43,7 +52,6 @@ function Cardpage({ buttonState, toggleButtonState}) {
       });
       if(response.status === 200){
           navigate('/cardPage', { state: { annunci: response.data } });
-          console.log(response.data)
       }
     }catch (error) {
         console.error('Error submitting form:', error.response ? error.response.data : error.message);
@@ -54,6 +62,20 @@ function Cardpage({ buttonState, toggleButtonState}) {
 
   return (
     <>
+    {noFilter === true &&(
+      <>
+      <div className="cardContainer">
+        {annunci.map((annuncio) => (
+          <Card key={annuncio._id} annuncio={annuncio} />
+        ))}
+      </div>
+
+      <LoginPage toggleButtonState={toggleButtonState} buttonState={buttonState} />
+      </>
+      )}
+      
+    {!noFilter && (
+      <>
       <button onClick={() => setButtonStatus(!buttonStatus)} id="buttonFilter"><VscSettings height = '3x' />Filtri</button>
       <div className={`filterContainer ${buttonStatus ? 'active' : ''}`}>
         <form className='filterSubContainer' onSubmit={handleFilterForm}>
@@ -83,6 +105,8 @@ function Cardpage({ buttonState, toggleButtonState}) {
       </div>
 
       <LoginPage toggleButtonState={toggleButtonState} buttonState={buttonState} />
+      </>      
+    )}
     </>
   );
 }

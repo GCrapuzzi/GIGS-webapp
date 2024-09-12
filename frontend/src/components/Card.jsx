@@ -2,6 +2,8 @@
 import { Link } from "react-router-dom";
 function Card({ annuncio }) {
 
+  console.log(annuncio)
+
   const images = require.context('../assets', true);
 
   const imageUrl = images(`./${annuncio.userId.profileImageUrl}`);
