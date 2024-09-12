@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/authMiddleware");
+const upload = require("../middleware/fotoMiddleware");
 
 // Importa i controller
 const verifyUser = require("../controllers/signupUser");
@@ -16,5 +17,6 @@ router.get("/loggedin", auth, verifyToken);
 router.get("/logout", auth, logout);
 router.post("/updateAccount", auth, updateAccount);
 router.get("/trovaUser", auth, trovaUser)
+router.post("/updateAccount", auth, upload.single('fotoProfilo'), updateAccount);
 
 module.exports = router;

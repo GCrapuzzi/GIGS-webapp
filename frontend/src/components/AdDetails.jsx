@@ -3,9 +3,8 @@ import { FaPaperPlane } from "react-icons/fa";
 useNavigate
 
 function AdDetails({handleClick, annuncio}){
+    const user = annuncio.userId
 
-    const images = require.context('../assets', true);
-    const imageUrl = images(`./${annuncio.userId.profileImageUrl}`);
     const navigate = useNavigate();
 
     const viewProfile = () =>{
@@ -17,9 +16,9 @@ function AdDetails({handleClick, annuncio}){
         <div className='cardpageDetailsContainer'>
         <div className='firstColumn'>
             <h1 className='cardpageDetailsText'>{annuncio.titolo}</h1>
-            <p>Annuncio di <a path="" onClick={viewProfile}><b>{annuncio.userId.nome} {annuncio.userId.cognome}</b></a></p>
+            <p>Annuncio di <a path="" onClick={viewProfile}><b>{user.nome} {user.cognome}</b></a></p>
             <div className="imageContainer">
-                <img src={imageUrl} alt="" />
+                <img src={`http://localhost:5000${user.profileImageUrl}`} alt="Foto Profilo" />
             </div>
             <h2>Descrizione dell'annuncio</h2>
             <p>{annuncio.descrizione}</p>
