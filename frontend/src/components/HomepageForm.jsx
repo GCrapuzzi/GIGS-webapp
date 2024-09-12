@@ -83,6 +83,8 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
     
             // Invia il form per creare l'annuncio (come JSON)
             const annuncioData = {
+                città: formData.città,
+                lavoro: formData.lavoro,
                 titolo: formData.titolo,
                 descrizione: formData.descrizione,
                 tariffa: formData.tariffa,
