@@ -67,18 +67,38 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
         setIsRegistered(sessionStorage.getItem('isRegistered') === 'true');
     }, []);
     
-    const handleisRegisteredSubmit = async (event) => {
-        event.preventDefault();
-        const response1 = await axios.post('http://localhost:5000/users/updateAccount', formData , { withCredentials: true });
-        const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', formData , { withCredentials: true });
-        console.log(response1.status)
-        if(response1.status===200){
-            console.log("profilo correttamente completato")
+    const handleisRegisteredSubmit = async (formDataToSend) => {
+        try {
+            // Invia il form per aggiornare il profilo
+            const response1 = await axios.post('http://localhost:5000/users/updateAccount', formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                withCredentials: true,
+            });
+    
+            if (response1.status === 200) {
+                console.log('Profilo correttamente aggiornato');
+            }
+    
+            // Invia il form per creare l'annuncio (puoi anche inviare solo i dati necessari per l'annuncio)
+            const annuncioData = {
+                titolo: formData.titolo,
+                descrizione: formData.descrizione,
+                tariffa: formData.tariffa,
+                orario: formData.orario,
+            };
+    
+            const response2 = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, { withCredentials: true });
+    
+            if (response2.status === 201) {
+                console.log('Annuncio correttamente pubblicato');
+            }
+        } catch (error) {
+            console.error('Errore durante l\'invio del form', error);
         }
-        if(response.status===201){
-            console.log("annuncio correttamente pubblicato")
-        }
-    }
+    };
+    
     
     return(
         <div>

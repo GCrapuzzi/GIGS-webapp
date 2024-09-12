@@ -516,6 +516,7 @@ footer{
 .filterContainer.active{
   z-index: 6;
   right:initial;
+  
 }
 
 #buttonFilter{
