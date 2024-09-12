@@ -81,7 +81,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
                 console.log('Profilo correttamente aggiornato');
             }
     
-            // Invia il form per creare l'annuncio
+            // Invia il form per creare l'annuncio (come JSON)
             const annuncioData = {
                 titolo: formData.titolo,
                 descrizione: formData.descrizione,
@@ -91,7 +91,12 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
     
             console.log("Dati annuncio inviati:", annuncioData); // Verifica cosa viene inviato
     
-            const response2 = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, { withCredentials: true });
+            const response2 = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true
+            });
     
             if (response2.status === 201) {
                 console.log('Annuncio correttamente pubblicato');
@@ -105,6 +110,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             }
         }
     };
+    
     
     
     
