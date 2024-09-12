@@ -1,13 +1,17 @@
 const User = require("../models/userSchema");
 
 async function updateAccount(req, res) {
-    const {nome, cognome, fotoProfilo, descrizione } = req.body;
+    const {nome, cognome } = req.body;
+    const biografia = req.body.biografia || '';
     const userId = req.userId;
 
     // Verifica che l'ID dell'account e i dati necessari siano forniti
-    if (!nome || !cognome || !fotoProfilo || !descrizione) {
+    if (!nome || !cognome || !req.file) {
         return res.status(400).json({ message: 'Tutti i campi (nome, cognome e foto) sono obbligatori' });
     }
+
+    // Salva il percorso dell'immagine caricata
+    const fotoProfilo = `/uploads/${req.file.filename}`;
     
     // Cerca l'account nel database e aggiorna i campi
     try {
@@ -17,7 +21,7 @@ async function updateAccount(req, res) {
                 nome: nome,
                 cognome: cognome,
                 profileImageUrl: fotoProfilo,
-                biografia: descrizione
+                biografia: biografia
             },
             { new: true }
         );

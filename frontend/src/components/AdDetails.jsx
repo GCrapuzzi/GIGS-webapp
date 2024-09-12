@@ -4,8 +4,7 @@ useNavigate
 
 function AdDetails({handleClick, annuncio}){
 
-    const images = require.context('../assets', true);
-    const imageUrl = images(`./${annuncio.userId.profileImageUrl}`);
+    const images = require.context('../assets', true);;
     const navigate = useNavigate();
 
     const viewProfile = () =>{
@@ -19,7 +18,7 @@ function AdDetails({handleClick, annuncio}){
             <h1 className='cardpageDetailsText'>{annuncio.titolo}</h1>
             <p>Annuncio di <a path="" onClick={viewProfile}><b>{annuncio.userId.nome} {annuncio.userId.cognome}</b></a></p>
             <div className="imageContainer">
-                <img src={imageUrl} alt="" />
+                <img src={`http://localhost:5000${user.profileImageUrl}`} alt="Foto Profilo" />
             </div>
             <h2>Descrizione dell'annuncio</h2>
             <p>{annuncio.descrizione}</p>
