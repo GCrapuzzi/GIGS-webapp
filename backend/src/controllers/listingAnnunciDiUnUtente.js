@@ -1,7 +1,7 @@
 const Annuncio = require('../models/annuncioSchema');
 
 const listingAnnunciDiUnUtente = async (req, res) => {
-    const userId = req.userId;
+    const userId = req.userId || req.body.userId;
 
     try{
         const annunci = await Annuncio.find({userId: userId});

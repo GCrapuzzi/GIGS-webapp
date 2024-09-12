@@ -12,7 +12,6 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
     const [listaAnnunci, setListAnnunci] = useState({});
 
 
-
     const [hasClickedProfile, setHasClickedProfile] = useState(() => {
         return sessionStorage.getItem('hasClickedProfile') === 'true';
     });
@@ -47,6 +46,7 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
             if (location.pathname === '/profile') {
                 await listAnnunci();  // Attendi che la funzione asincrona finisca
                 setHasClickedProfile(true);
+                console.log(listaAnnunci)
                 console.log('lo sto eseguendo')  // Aggiorna lo stato
             } else {
                 setHasClickedProfile(false);
