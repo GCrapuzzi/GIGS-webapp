@@ -92,7 +92,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             const response2 = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, { withCredentials: true });
     
             if (response2.status === 201) {
-                console.log('Annuncio correttamente pubblicato');
+                console.log('Annuncio correttamente pubblicato'); 
             }
         } catch (error) {
             console.error('Errore durante l\'invio del form', error);
