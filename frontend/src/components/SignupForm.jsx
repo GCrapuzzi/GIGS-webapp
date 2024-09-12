@@ -52,7 +52,7 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
                 </div>
                 <div>
                     <GiGardeningShears className="icon" />
-                    <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} onChange={handleChange}/>
+                    <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} onChange={handleChange} required/>
                     <datalist id="jobs">
                         <option value="Fotografo" />
                         <option value="Sguattera" />

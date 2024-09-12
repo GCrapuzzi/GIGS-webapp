@@ -47,7 +47,10 @@ function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
                     sessionStorage.setItem('isRegistered', 'true')
                     
 
-                };
+                }
+                else if(response.isRegistered === false){
+                    sessionStorage.setItem('isRegistered', 'false')
+                }
 
                 console.log('Otp validato correttamente');
                 const isLoggedResponse = await axios.get('http://localhost:5000/users/loggedin', { withCredentials: true });

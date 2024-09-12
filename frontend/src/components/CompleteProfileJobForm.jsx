@@ -22,7 +22,7 @@ function CompleteProfileJobForm({formData, buttonGigStyle, buttonText, setCitta}
                 </div>
                 <input type="text" placeholder="Inserisci titolo dell'annuncio:" className="formSpace"/>
                 <textarea id="description" placeholder="Inserisci descrizione dell'annuncio:" className="formSpace"/>
-                <input type="text" placeholder="Inserisci tariffa oraria:" className="formSpace"/>
+                <input type="number" placeholder="Inserisci tariffa oraria:" className="formSpace"/>
                 <input type="text" placeholder="Inserisci orario di disponibilità:" className="formSpace"/>
             </div>
 
