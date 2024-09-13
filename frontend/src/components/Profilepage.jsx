@@ -17,7 +17,7 @@ function Profilepage({annuncio, listaAnnunci, utente}){
         <div className='cardpageDetailsContainer'>
             <div className='firstColumn'>
                 <h1 className='cardpageDetailsText'>{annuncio.userId.nome} {annuncio.userId.cognome}</h1>
-                <img src={imageUrl} alt="" />
+                <img src={imageUrl} alt="" className="imageContainer"/>
                 <h2>Biografia</h2>
                 <p>{annuncio.descrizione}</p>
             </div>

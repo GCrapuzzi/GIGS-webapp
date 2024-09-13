@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { FaLocationDot } from "react-icons/fa6";
 
 const SearchCityInput = ({setCitta, formData}) => {
   const [comuni, setComuni] = useState([]);
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  
 
 
   useEffect(() => {
@@ -45,6 +47,7 @@ const SearchCityInput = ({setCitta, formData}) => {
 
   return (
     <div>
+        <FaLocationDot className='icon'/>
       <input
         type="text"
         value={query}
