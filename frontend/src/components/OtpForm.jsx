@@ -43,12 +43,14 @@ function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
             const response = await axios.post('http://localhost:5000/users/authenticate', data , { withCredentials: true });
             if (response.status === 200) {
 
-                if(response.isRegistered===true){
+                const responseData = response.data;
+                console.log(responseData.isRegistered)
+                if(responseData.isRegistered === true){
                     sessionStorage.setItem('isRegistered', 'true')
                     
 
                 }
-                else if(response.isRegistered === false){
+                else if(responseData.isRegistered === false){
                     sessionStorage.setItem('isRegistered', 'false')
                 }
 

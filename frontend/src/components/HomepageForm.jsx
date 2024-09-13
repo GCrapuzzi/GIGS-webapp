@@ -67,7 +67,8 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
         setIsRegistered(sessionStorage.getItem('isRegistered') === 'true');
     }, []);
     
-    const handleisRegisteredSubmit = async (formDataToSend) => {
+    const handleisNotRegisteredSubmit = async (formDataToSend, event) => {
+        event.preventDefault();
         try {
             // Invia il form per aggiornare il profilo
             const response1 = await axios.post('http://localhost:5000/users/updateAccount', formDataToSend, {
@@ -112,6 +113,33 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             }
         }
     };
+
+    const handleisRegisteredSubmit = async (event) =>{
+        event.preventDefault()
+        const annuncioData = {
+            città: formData.città,
+            lavoro: formData.lavoro,
+            titolo: formData.titolo,
+            descrizione: formData.descrizione,
+            tariffa: formData.tariffa,
+            orario: formData.orario,
+        };
+
+        const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true
+        });
+        if (response.status === 201) {
+            console.log('Annuncio correttamente pubblicato');
+        }
+
+        // Invia il form per creare l'annuncio (come JSON)
+
+
+        console.log("Dati annuncio inviati:", annuncioData); // Verifica cosa viene inviato        
+    }
     
     
     
@@ -123,11 +151,11 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             )}
 
             {formType === 'offer' && isAuthenticated===true && isRegistered===true &&(
-                <CompleteProfileJobForm setCitta={setCitta} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
+                <CompleteProfileJobForm setCitta={setCitta} handleChange={handleChange} handleisRegisteredSubmit={handleisRegisteredSubmit} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
             )}
 
             {formType === 'offer' && isAuthenticated===true && isRegistered===false &&(
-                <PartialProfileJobForm setCitta={setCitta} handleisRegisteredSubmit={handleisRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
+                <PartialProfileJobForm setCitta={setCitta} handleisRegisteredSubmit={handleisNotRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
             )}
 
             {formType === 'search' && (

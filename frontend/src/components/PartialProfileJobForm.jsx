@@ -4,7 +4,7 @@ import { FaRegIdCard } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import SearchCityInput from "./SearchCityInput";
 
-function PartialProfileJobForm({ handleisRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText, setCitta }) {
+function PartialProfileJobForm({ handleisNotRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText, setCitta }) {
     const [step, setStep] = useState(1);
     const [selectedFile, setSelectedFile] = useState(null); // Stato per gestire il file immagine
 
@@ -30,7 +30,7 @@ function PartialProfileJobForm({ handleisRegisteredSubmit, formData, handleChang
             formDataToSend.append(key, formData[key]);
         }
         // Inviamo il form al parent che gestisce le due richieste
-        handleisRegisteredSubmit(formDataToSend);
+        handleisNotRegisteredSubmit(formDataToSend);
     };
 
     return (
