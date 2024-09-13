@@ -67,8 +67,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
         setIsRegistered(sessionStorage.getItem('isRegistered') === 'true');
     }, []);
     
-    const handleisNotRegisteredSubmit = async (formDataToSend, event) => {
-        event.preventDefault();
+    const handleisNotRegisteredSubmit = async (formDataToSend) => {
         try {
             // Invia il form per aggiornare il profilo
             const response1 = await axios.post('http://localhost:5000/users/updateAccount', formDataToSend, {
