@@ -1,6 +1,5 @@
 import {useNavigate } from "react-router-dom"
 import { FaPaperPlane } from "react-icons/fa";
-useNavigate
 
 function AdDetails({handleClick, annuncio}){
     const user = annuncio.userId

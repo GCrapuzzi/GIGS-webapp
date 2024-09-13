@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const SearchCityInput = () => {
+const SearchCityInput = ({setCitta, formData}) => {
   const [comuni, setComuni] = useState([]);
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -16,7 +16,6 @@ const SearchCityInput = () => {
       })
       .then((data) => {
         setComuni(data);
-        console.log('Comuni caricati:', data);
       })
       .catch((error) => console.error('Errore nel caricamento dei dati:', error));
   }, []);
@@ -32,7 +31,6 @@ const SearchCityInput = () => {
         comune.comune.toLowerCase().startsWith(userInput.toLowerCase())
       );
       setSuggestions(filteredSuggestions);
-      console.log('Suggerimenti:', filteredSuggestions);
     } else {
       setSuggestions([]);
     }
@@ -42,6 +40,7 @@ const SearchCityInput = () => {
   const handleSuggestionClick = (comune) => {
     setQuery(comune.comune); 
     setSuggestions([]); 
+    setCitta(`${comune.comune} (${comune.provincia})`)
   };
 
   return (
