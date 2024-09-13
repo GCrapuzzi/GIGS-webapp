@@ -15,7 +15,6 @@ router.post("/verify", verifyUser);
 router.post("/authenticate", authenticate);
 router.get("/loggedin", auth, verifyToken);
 router.get("/logout", auth, logout);
-router.post("/updateAccount", auth, updateAccount);
 router.get("/trovaUser", auth, trovaUser)
 router.post("/updateAccount", auth, upload.single('fotoProfilo'), updateAccount);
 
