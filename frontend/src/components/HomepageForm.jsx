@@ -155,7 +155,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             )}
 
             {formType === 'offer' && isAuthenticated===true && isRegistered===false &&(
-                <PartialProfileJobForm setCitta={setCitta} handleisRegisteredSubmit={handleisNotRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
+                <PartialProfileJobForm setCitta={setCitta} handleisNotRegisteredSubmit={handleisNotRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
             )}
 
             {formType === 'search' && (
