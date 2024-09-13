@@ -7,17 +7,25 @@ function Profilepage({annuncio, listaAnnunci, utente}){
     const [imageUrl, setImageUrl] = useState('')
 
     useEffect(() => {
+        if (!utente) {
             setImageUrl(`http://localhost:5000${annuncio.userId.profileImageUrl}`);
-        }, [annuncio]);
+        } else {
+            setImageUrl(`http://localhost:5000${utente.profileImageUrl}`);
+        }
+    }, [utente, annuncio]);
     
 
 
     return(
     <>
+        {!utente && (
+        <>
         <div className='cardpageDetailsContainer'>
             <div className='firstColumn'>
                 <h1 className='cardpageDetailsText'>{annuncio.userId.nome} {annuncio.userId.cognome}</h1>
-                <img src={imageUrl} alt="" className="imageContainer"/>
+                <div className="imageContainer">
+                    <img src={imageUrl} alt=""/>
+                </div>
                 <h2>Biografia</h2>
                 <p>{annuncio.descrizione}</p>
             </div>
@@ -46,6 +54,46 @@ function Profilepage({annuncio, listaAnnunci, utente}){
             </div>
         </div>
     </>
+        )}
+
+        {utente && (
+        <>
+        <div className='cardpageDetailsContainer'>
+            <div className='firstColumn'>
+                <h1 className='cardpageDetailsText'>{utente.nome} {utente.cognome}</h1>
+                <div className="imageContainer">
+                    <img src={imageUrl} alt=""/>
+                </div>
+                <h2>Biografia</h2>
+                <p></p>
+            </div>
+            <div className='secondColumn'>
+                <div className='asideBox' id='asideBoxProfile'>
+                    <div>
+                        <h3>Informazioni aggiuntive:</h3>
+                        <p>Fascia oraria di disponibilità: </p>
+                    </div>
+                    <div>
+                        <FaPaperPlane className="iconButton" />
+                        <button className='buttonInfoCard'>Contatta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div id="PresentationGigs">
+                <h2>I miei servizi:</h2>
+            </div>       
+
+
+            <div className="cardProfilePage">
+                <Cardpage listaAnnunci={listaAnnunci} noFilter={true}/>
+            </div>
+        </div>
+    </>            
+        )}
+        </>
     )
 }
 

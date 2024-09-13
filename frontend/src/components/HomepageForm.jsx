@@ -65,7 +65,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             sessionStorage.setItem('isRegistered', false)
         }
         setIsRegistered(sessionStorage.getItem('isRegistered') === 'true');
-    }, []);
+    }, [isRegistered]);
     
     const handleisNotRegisteredSubmit = async (formDataToSend) => {
         try {
@@ -78,6 +78,8 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             });
     
             if (response1.status === 200) {
+                sessionStorage.setItem('isRegistered', true)
+                setIsRegistered(true)
                 console.log('Profilo correttamente aggiornato');
             }
     

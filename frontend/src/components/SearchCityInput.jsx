@@ -60,7 +60,7 @@ const SearchCityInput = ({setCitta, formData}) => {
       {suggestions.length > 0 && (
         <div className="suggestions">
           {suggestions.map((comune, index) => (
-            <div
+            <div className='singleSuggestion'
               key={index}
               onClick={() => handleSuggestionClick(comune)}
             >
