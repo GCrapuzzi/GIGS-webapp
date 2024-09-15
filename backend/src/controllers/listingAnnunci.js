@@ -12,7 +12,7 @@ async function listingAnnunci(req, res) {
     try {
         // Trova gli annunci che corrispondono ai parametri città e tipo di lavoro
         const annunci = await Annuncio.find({ città: città, lavoro: tipoLavoro })
-            .populate('userId', 'profileImageUrl nome cognome');
+            .populate('userId', 'profileImageUrl nome cognome biografia');
 
         console.log(annunci)
         // Se non ci sono annunci, restituisci un messaggio informativo

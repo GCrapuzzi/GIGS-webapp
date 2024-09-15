@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../models/userSchema');
 
 // Funzione per elimiare i dati dell'utente
 const deleteUserdata = async (req, res, next) => {
@@ -17,6 +17,7 @@ const deleteUserdata = async (req, res, next) => {
     // Elimina l'utente dal database
     try {
         await User.deleteOne({ _id: userId });
+        res.clearCookie("token");
         res.json({ message: 'Utente eliminato con successo' });
     }
     catch (error) {

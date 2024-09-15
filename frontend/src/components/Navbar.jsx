@@ -1,17 +1,29 @@
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
+import {useEffect, useState } from 'react';
 
 function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange }) {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [currentPath, setCurrentPath] = useState(location.pathname);
+
+    useEffect(() => {
+        setCurrentPath(location.pathname);
+    }, [location.pathname]);
+
+    console.log(currentPath)
+    console.log(isAuthenticated)
 
     if(isAuthenticated === true){
       sessionStorage.setItem('isAuthenticated2', isAuthenticated)
     }
-    
+    console.log(sessionStorage.getItem('isAuthenticated2'))
     isAuthenticated = sessionStorage.getItem('isAuthenticated2') === 'true'
 
+    console.log(isAuthenticated)
+  
 
     const handleClick = (event) => {
       event.preventDefault();

@@ -8,6 +8,7 @@ import Otp from './pages/Otp.jsx';
 import Cardpage from './pages/Cardpage.jsx';
 import CardpageDetails from './pages/CardpageDetails.jsx';
 import Myprofile from './pages/Myprofile.jsx';
+import ChangeProfile from './components/ChangeProfile.jsx'
 
  
 function App(){
@@ -30,7 +31,7 @@ function App(){
   const handleClick = () => {
     sethasClickedProfile(true);
     sessionStorage.setItem('hasClickedProfile', true);
-};
+  };
 
   
 
@@ -46,6 +47,7 @@ function App(){
         <Route path="/cardPageDetails" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path ="/myProfile" element={<Myprofile buttonState={buttonState} toggleButtonState={toggleButtonState}/>}/>
       </Routes>
+      Ro
     </>
   );
 };

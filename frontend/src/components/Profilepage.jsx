@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Cardpage from "../pages/Cardpage"
 import { FaPaperPlane } from "react-icons/fa";
+import ChangeProfile from "./ChangeProfile";
 function Profilepage({annuncio, listaAnnunci, utente}){
 
 
@@ -16,6 +17,8 @@ function Profilepage({annuncio, listaAnnunci, utente}){
     
 
 
+
+
     return(
     <>
         {!utente && (
@@ -27,7 +30,7 @@ function Profilepage({annuncio, listaAnnunci, utente}){
                     <img src={imageUrl} alt=""/>
                 </div>
                 <h2>Biografia</h2>
-                <p>{annuncio.descrizione}</p>
+                <p>{annuncio.userId.biografia}</p>
             </div>
             <div className='secondColumn'>
                 <div className='asideBox' id='asideBoxProfile'>
@@ -58,17 +61,20 @@ function Profilepage({annuncio, listaAnnunci, utente}){
 
         {utente && (
         <>
+        <ChangeProfile utente={utente} />
         <div className='cardpageDetailsContainer'>
+
             <div className='firstColumn'>
                 <h1 className='cardpageDetailsText'>{utente.nome} {utente.cognome}</h1>
                 <div className="imageContainer">
                     <img src={imageUrl} alt=""/>
                 </div>
                 <h2>Biografia</h2>
-                <p></p>
+                <p>{utente.biografia}</p>
             </div>
             <div className='secondColumn'>
                 <div className='asideBox' id='asideBoxProfile'>
+                    
                     <div>
                         <h3>Informazioni aggiuntive:</h3>
                         <p>Fascia oraria di disponibilità: </p>
