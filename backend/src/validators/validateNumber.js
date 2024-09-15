@@ -13,6 +13,6 @@ function validateNumber(number) {
     const isValid = /^3\d{8,9}$/.test(plain);
 
     return isValid;
-}
+}u
 
 module.exports = validateNumber;

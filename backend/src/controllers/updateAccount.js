@@ -1,12 +1,15 @@
 const User = require("../models/userSchema");
 
 async function updateAccount(req, res) {
-    const {nome, cognome, oldPhoneNumber, newPhoneNumber, newPhoneNumberConferm } = req.body;
+    const {nome, cognome } = req.body;
+    const oldPhoneNumber = req.body.oldPhoneNumber;
+    const newPhoneNumber = req.body.newPhoneNumber;
+    const newPhoneNumberConferm = req.body.newPhoneNumberConferm;
     const biografia = req.body.biografia || '';
     const userId = req.userId;
 
 
-
+    console.log("Request body:", req.body); 
     // Salva il percorso dell'immagine caricata
     const fotoProfilo = req.file ? `/uploads/${req.file.filename}` : null;
     
@@ -14,19 +17,20 @@ async function updateAccount(req, res) {
     try {
         // Trova l'utente per ID
         const user = await User.findById(userId);
+        console.log(user)
 
         if (!user) {
             return res.status(404).json({ message: "Utente non trovato" });
         }
 
         // Verifica se il numero di telefono attuale corrisponde e aggiorna il numero
-        if (oldPhoneNumber || newPhoneNumber || newPhoneNumberConferm) {
-            if (!oldPhoneNumber || !newPhoneNumber || !newPhoneNumberConferm) {
+        if (oldPhoneNumber === "" && newPhoneNumber === "" && newPhoneNumberConferm === "") {
+            if (oldPhoneNumber !== "" || newPhoneNumber !== "" || !newPhoneNumberConferm !== "") {
                 return res.status(400).json({ message: "Tutti i campi del numero di telefono devono essere forniti" });
             }
 
             // Controllo se il vecchio numero di telefono corrisponde
-            if (user.phoneNumber !== oldPhoneNumber) {
+            if (user.number !== oldPhoneNumber) {
                 return res.status(400).json({ message: "Il numero di telefono attuale non corrisponde" });
             }
 
@@ -36,7 +40,7 @@ async function updateAccount(req, res) {
             }
 
             // Aggiorna il numero di telefono
-            user.phoneNumber = newPhoneNumber;
+            user.number = newPhoneNumber;
         }
 
         // Aggiungi i campi che devono essere aggiornati

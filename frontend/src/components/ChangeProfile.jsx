@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 function ChangeProfile({utente}){
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
-        nome: null,
-        cognome: null,
-        biografia: null,
-        oldPhoneNumber: null,
-        newPhoneNumber: null,
-        newPhoneNumberConferm: null,
+        nome: "",
+        cognome: "",
+        biografia: "",
+        oldPhoneNumber: "",
+        newPhoneNumber: "",
+        newPhoneNumberConferm: "",
     })
 
 
@@ -38,11 +38,10 @@ function ChangeProfile({utente}){
     const onChange = async (event) => {
         event.preventDefault();
         try {
+
             const response =  await axios.post('http://localhost:5000/users/updateAccount', userData, {withCredentials:true})
+            console.log(userData)
             console.log('eseguito')
-            if(response.status == 200){
-                setUserData(response)
-            }
         } catch (error) {
             console.log('fallito')
             
