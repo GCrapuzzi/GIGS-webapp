@@ -4,6 +4,7 @@ function Card({ annuncio }) {
   const user = annuncio.userId;
   const imageUrl = `http://localhost:5000${user.profileImageUrl}`;
 
+  console.log(annuncio)
   return (
     
     <div className="cardSlot">

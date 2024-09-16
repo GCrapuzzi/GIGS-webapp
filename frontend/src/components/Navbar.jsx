@@ -59,7 +59,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
     const showProfile = async () => {
       try {
         const response = await axios.get('http://localhost:5000/users/trovaUser',{ withCredentials: true });
-        const response2 = await axios.post('http://localhost:5000/annunci/listingAnnunciUtente',{}, { withCredentials: true })
+        const response2 = await axios.get('http://localhost:5000/annunci/listingAnnunciUtente',{ withCredentials: true })
         const data = {
           utente: response.data,
           listaPropriAnnunci: response2.data

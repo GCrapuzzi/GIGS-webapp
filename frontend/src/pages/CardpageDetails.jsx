@@ -17,24 +17,24 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
     });
 
 
-    const userId = annuncio.userId
+    const userId = annuncio.userId;
     const data = {
         userId: userId
-    }
-
-
-    const listAnnunci  = async () =>{
-        try {
-            const response = await axios.post('http://localhost:5000/annunci/listingAnnunciVisitatore', data);
-            if(response.status == 200){
-                setListAnnunci(response.data)
-            }
-
-        } catch (error) {
-            
-        }
-    }
+    };
     
+    const listAnnunci = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/annunci/listingAnnunciVisitatore', {
+                params: data
+            });
+            
+            if (response.status === 200) {
+                setListAnnunci(response.data);
+            }
+        } catch (error) {
+            console.error('Errore durante il caricamento degli annunci:', error);
+        }
+    };
     
 
     useEffect(() => {
