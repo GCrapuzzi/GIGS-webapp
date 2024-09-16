@@ -71,7 +71,7 @@ function App(){
       <Navbar isAuthenticated={isAuthenticated} notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} toggleButtonState={toggleButtonState}/>
       <Routes>
         <Route path="/otp" element={<Otp handleAuthChange={handleAuthChange} buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
-        <Route path="/" element={<Homepage handleAuthChange={handleAuthChange} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
+        <Route path="/" element={<Homepage notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
         <Route path="/offeringGigs" element={<OfferingGigs notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/profile" element={<CardpageDetails  handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/cardPage" element={<Cardpage buttonState={buttonState} toggleButtonState={toggleButtonState}/>} />

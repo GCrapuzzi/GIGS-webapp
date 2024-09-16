@@ -60,7 +60,7 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, no
         <div className="containerPage">
             <div className="flexContainer">
                 <div className="containerProfile">
-                    <button onClick={handleCloseForm}>Chiudi Modifica profilo</button>
+                    <button onClick={handleCloseForm}>X</button>
                     <h1>Aggiorna il tuo profilo</h1>
                     <h2>Aggiorna le tue generalità:</h2>
                     <form onSubmit={onChange}>

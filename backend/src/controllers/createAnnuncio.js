@@ -8,7 +8,7 @@ const createAnnuncio = async (req, res, next) => {
     const userId = req.userId;
 
     // Verifica che tutti i campi siano presenti
-    if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario) {
+    if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario || città==="null") {
         return res.status(400).json({ message: 'Tutti i campi sono obbligatori' });
     }
 

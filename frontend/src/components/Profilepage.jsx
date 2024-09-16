@@ -90,8 +90,10 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
         <div className='cardpageDetailsContainer'>
 
             <div className='firstColumn'>
-                <button onClick={() => setButtonStatus(!buttonStatus)}>Modifica il profilo</button>
-                <h1 className='cardpageDetailsText'>{utente.nome} {utente.cognome}</h1>
+                <div className="containerTitleProfile">     
+                    <h1 className='cardpageDetailsText'>{utente.nome} {utente.cognome}</h1>
+                    <button onClick={() => setButtonStatus(!buttonStatus)}>Modifica il profilo</button>
+                </div>
                 <div className="imageContainer">
                     <img src={imageUrl} alt=""/>
                 </div>

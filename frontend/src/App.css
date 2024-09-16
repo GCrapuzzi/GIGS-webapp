@@ -673,3 +673,24 @@ footer{
 #fileInput{
   padding-left: 0;
 }
+
+.containerTitleProfile{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.containerTitleProfile button{
+  height: 50px;
+  width: 200px;
+  border-radius: 50px;
+  border-style: solid;
+  border-color: rgb(220, 216, 216);
+  background-color: white;
+}
+
+.error-message{
+  color: red;
+  margin-top: 0;
+  margin-bottom: 0;
+}

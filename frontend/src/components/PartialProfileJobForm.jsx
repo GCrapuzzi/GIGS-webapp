@@ -4,7 +4,7 @@ import { FaRegIdCard } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import SearchCityInput from "./SearchCityInput";
 
-function PartialProfileJobForm({ handleisNotRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText, setCitta }) {
+function PartialProfileJobForm({ notifyError, handleisNotRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText, setCitta, setFormData }) {
     const [step, setStep] = useState(1);
     const [selectedFile, setSelectedFile] = useState(null); // Stato per gestire il file immagine
 
@@ -29,6 +29,17 @@ function PartialProfileJobForm({ handleisNotRegisteredSubmit, formData, handleCh
         for (let key in formData) {
             formDataToSend.append(key, formData[key]);
         }
+        setFormData({
+            fotoProfilo: '',
+            nome: '',
+            cognome: '',
+            città: '',
+            lavoro: '',
+            titolo: '',
+            descrizione: '',
+            tariffa: null,
+            orario: '',
+        })
         // Inviamo il form al parent che gestisce le due richieste
         handleisNotRegisteredSubmit(formDataToSend);
     };
@@ -44,7 +55,7 @@ function PartialProfileJobForm({ handleisNotRegisteredSubmit, formData, handleCh
                     <input type="text" placeholder="Cognome" name="cognome" value={formData.cognome} onChange={handleChange} className="formSpace" required title="Aggiungi un cognome." />
 
                     <div>
-                        <SearchCityInput setCitta={setCitta} formData={formData} />
+                        <SearchCityInput notifyError={notifyError} setCitta={setCitta} formData={formData} />
                     </div>
 
                     <GiGardeningShears className="icon" />
