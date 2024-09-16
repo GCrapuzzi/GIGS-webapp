@@ -6,11 +6,13 @@ function Profilepage({annuncio, listaAnnunci, utente}){
 
 
     const [imageUrl, setImageUrl] = useState('')
-
+    const[buttonStatus, setButtonStatus] = useState(false)
+    
     useEffect(() => {
         if (!utente) {
             setImageUrl(`http://localhost:5000${annuncio.userId.profileImageUrl}`);
         } else {
+       
             setImageUrl(`http://localhost:5000${utente.profileImageUrl}`);
         }
     }, [utente, annuncio]);
@@ -61,10 +63,14 @@ function Profilepage({annuncio, listaAnnunci, utente}){
 
         {utente && (
         <>
-        <ChangeProfile utente={utente} />
+        <div className={`overlay2 ${buttonStatus ? 'active' : ''}`}></div>
+        {buttonStatus === true && 
+            <ChangeProfile utente={utente} setButtonStatus={setButtonStatus} buttonStatus={buttonStatus}/>
+        }
         <div className='cardpageDetailsContainer'>
 
             <div className='firstColumn'>
+                <button onClick={() => setButtonStatus(!buttonStatus)}>Modifica il profilo</button>
                 <h1 className='cardpageDetailsText'>{utente.nome} {utente.cognome}</h1>
                 <div className="imageContainer">
                     <img src={imageUrl} alt=""/>
@@ -73,6 +79,7 @@ function Profilepage({annuncio, listaAnnunci, utente}){
                 <p>{utente.biografia}</p>
             </div>
             <div className='secondColumn'>
+                
                 <div className='asideBox' id='asideBoxProfile'>
                     
                     <div>

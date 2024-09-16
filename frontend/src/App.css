@@ -619,6 +619,7 @@ footer{
 .containerPage{
   position: absolute;
   width: 100vw;
+  z-index: 6;
 }
 
 .containerProfile{

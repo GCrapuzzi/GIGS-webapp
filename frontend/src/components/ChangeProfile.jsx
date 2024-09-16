@@ -3,15 +3,15 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 
 
-function ChangeProfile({utente}){
+function ChangeProfile({utente, setButtonStatus, buttonStatus}){
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
-        nome: "",
-        cognome: "",
-        biografia: "",
-        oldPhoneNumber: "",
-        newPhoneNumber: "",
-        newPhoneNumberConferm: "",
+        nome: null,
+        cognome: null,
+        biografia: null,
+        oldPhoneNumber: null,
+        newPhoneNumber: null,
+        newPhoneNumberConferm: null,
     })
 
 
@@ -53,7 +53,7 @@ function ChangeProfile({utente}){
         <div className="containerPage">
             <div className="flexContainer">
                 <div className="containerProfile">
-
+                    <button onClick={() => setButtonStatus(!buttonStatus)}>Chiudi Modifica profilo</button>
                     <h1>Aggiorna il tuo profilo</h1>
                     <h2>Aggiorna le tue generalità:</h2>
                     <form onSubmit={onChange}>
