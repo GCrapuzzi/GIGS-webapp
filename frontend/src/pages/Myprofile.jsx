@@ -19,11 +19,10 @@ function Myprofile({buttonState, toggleButtonState, notifyError, notifySuccess})
       }, [location.state])
 
 
-    console.log('Location state:', utente, listaPropriAnnunci);
-
 
     console.log("Utente:", utente);
     console.log("Lista Annunci:", listaPropriAnnunci);
+    
     return(
         <>
         <div className={`overlay ${buttonState ? 'active' : ''}`}>

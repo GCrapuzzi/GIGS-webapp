@@ -32,7 +32,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
           console.log(data.utente, data.listaPropriAnnunci)
   
           if(response.status === 200 && response2.status === 200){
-            navigate('/myProfile', { state: { data }, replace: true });
+            navigate('/myProfile', { state: { data }});
           }
         } catch (error) {
           notifyError("Per visualizzare il profilo devi prima pubblicare un annuncio!")

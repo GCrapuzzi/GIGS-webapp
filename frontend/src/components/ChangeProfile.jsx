@@ -27,7 +27,6 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, no
     const handleDelete = async () => {
         try {
             const response =  await axios.post('http://localhost:5000/users/deleteUserData', {}, {withCredentials:true})
-            sessionStorage.removeItem('isAuthenticated2')
             navigate("/")
             notifySuccess("L'account è stato correttamente eliminato")
         } catch (error) {
