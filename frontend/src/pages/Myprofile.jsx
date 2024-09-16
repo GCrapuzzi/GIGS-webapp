@@ -10,6 +10,14 @@ function Myprofile({buttonState, toggleButtonState, notifyError, notifySuccess})
     const [utente, setUtente] = useState(location.state?.data?.utente || {});
     const [listaPropriAnnunci, setListaPropriAnnunci] = useState(location.state?.data?.listaPropriAnnunci || []);
 
+    useEffect(() => {
+        // Aggiorna i dati se sono presenti nello stato
+        if (location.state && location.state.data) {
+          setUtente(location.state?.data?.utente || {});
+          setListaPropriAnnunci(location.state?.data?.listaPropriAnnunci || [])
+        }
+      }, [location.state])
+
 
     console.log('Location state:', utente, listaPropriAnnunci);
 

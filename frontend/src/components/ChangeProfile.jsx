@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 
 
-function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, notifyError}){
+function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, notifyError, showProfile}){
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
         nome: null,
@@ -27,7 +27,7 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, no
     const handleDelete = async () => {
         try {
             const response =  await axios.post('http://localhost:5000/users/deleteUserData', {}, {withCredentials:true})
-            sessionStorage.clear()
+            sessionStorage.removeItem('isAuthenticated2')
             navigate("/")
             notifySuccess("L'account è stato correttamente eliminato")
         } catch (error) {
@@ -43,10 +43,17 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, no
 
             const response =  await axios.post('http://localhost:5000/users/updateAccount', userData, {withCredentials:true})
             notifySuccess("L'account è stato correttamente aggiornato")
+            showProfile()
         } catch (error) {
+            
             notifyError("L'account non è stato correttamente aggiornato")
             
         }
+        
+    }
+
+    const handleCloseForm = () => {
+        setButtonStatus(!buttonStatus)
         
     }
 
@@ -54,7 +61,7 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, no
         <div className="containerPage">
             <div className="flexContainer">
                 <div className="containerProfile">
-                    <button onClick={() => setButtonStatus(!buttonStatus)}>Chiudi Modifica profilo</button>
+                    <button onClick={handleCloseForm}>Chiudi Modifica profilo</button>
                     <h1>Aggiorna il tuo profilo</h1>
                     <h2>Aggiorna le tue generalità:</h2>
                     <form onSubmit={onChange}>
@@ -64,15 +71,15 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, no
                         </div>
                         <div>
                             <h3>Inserisci il nuovo nome:</h3>
-                            <input type="text" placeholder="Cristian" className="formSpace formDetails" name="nome" value={userData.nome} onChange={handleChange}/>
+                            <input type="text" className="formSpace formDetails" name="nome" value={userData.nome} onChange={handleChange}/>
                         </div>
                         <div>
                             <h3>Inserisci il nuovo cognome:</h3>
-                            <input type="text" placeholder="Saracino" className="formSpace formDetails" name="cognome" value={userData.cognome} onChange={handleChange}/>
+                            <input type="text" className="formSpace formDetails" name="cognome" value={userData.cognome} onChange={handleChange}/>
                         </div>
                         <div>   
                           <h3>Inserisci la nuova biografia:</h3>                     
-                          <input type="textarea" placeholder="Inserisci la biografia:" className="formSpace formDetails" name="biografia" id="description" value={userData.biografia} onChange={handleChange}/>
+                          <input type="textarea" className="formSpace formDetails" name="biografia" id="description" value={userData.biografia} onChange={handleChange}/>
                         </div>
                         <button className="submitButton formDetails" type="submit">Invia</button>
                     </form>
@@ -83,7 +90,7 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, no
                     
                         <input type="text" placeholder="Inserisci il vecchio numero di telefono:" name="oldPhoneNumber" value={userData.oldPhoneNumber} onChange={handleChange} className="formSpace formDetails"/>
                         <input type="text" placeholder="Inserisci il nuovo numero di telefono:" name="newPhoneNumber" value={userData.newPhoneNumber} onChange={handleChange} className="formSpace formDetails" />
-                        <input type="textarea" placeholder="Conferma il nuovo numero di telefono" name="newPhoneNumberConferm" value={userData.newPhoneNumberConferm} onChange={handleChange} className="formSpace formDetails"/>
+                        <input type="text" placeholder="Conferma il nuovo numero di telefono" name="newPhoneNumberConferm" value={userData.newPhoneNumberConferm} onChange={handleChange} className="formSpace formDetails"/>
                         <button className="submitButton formDetails" type="submit">Invia</button>
                     </form> 
 

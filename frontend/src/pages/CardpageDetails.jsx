@@ -44,20 +44,16 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
     useEffect(() => {
         const fetchAnnunci = async () => {
             if (location.pathname === '/profile') {
-                await listAnnunci();  // Attendi che la funzione asincrona finisca
+                await listAnnunci();
                 setHasClickedProfile(true);
-                console.log(listaAnnunci)
-                console.log('lo sto eseguendo')  // Aggiorna lo stato
             } else {
                 setHasClickedProfile(false);
-                console.log('ciao')
             }
         };
 
-        fetchAnnunci();  // Chiama la funzione asincrona
+        fetchAnnunci();
     }, [location]);
 
-      // If a user exists, navigate to the profile page immediately
 
     return(
         <>
