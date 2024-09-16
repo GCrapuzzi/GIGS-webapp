@@ -15,7 +15,7 @@ const buttonGigStyle ={
     backgroundColor: 'rgba(251, 220, 192, 0.996)', 
 }
 
-function HomepageForm({formType,buttonText, handleAuthChange}){
+function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, notifyError}){
     
     const navigate = useNavigate();
     const [isAuthenticated,setIsAuthenticated] = useState(false);
@@ -80,7 +80,7 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             if (response1.status === 200) {
                 sessionStorage.setItem('isRegistered', true)
                 setIsRegistered(true)
-                console.log('Profilo correttamente aggiornato');
+                notifySuccess("L'account è stato correttamente aggiornato");
             }
     
             // Invia il form per creare l'annuncio (come JSON)
@@ -103,14 +103,20 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             });
     
             if (response2.status === 201) {
+                notifySuccess("L'annuncio è stato correttamente pubblicato")
                 console.log('Annuncio correttamente pubblicato');
             }
         } catch (error) {
             // Log più dettagliato dell'errore
             if (error.response) {
+                if (error.response.config.url.includes('/users/updateAccount')) {
+                    // Errore durante l'aggiornamento dell'account
+                    notifyError("L'account non è stato correttamente aggiornato");  // Chiama notifica di errore per l'aggiornamento dell'account
+                } else if (error.response.config.url.includes('/annunci/createAnnuncio')) {
+                    // Errore durante la creazione dell'annuncio
+                    notifyError("L'annuncio non è stato correttamente pubblicato");  // Chiama notifica di errore per l'annuncio
+                }
                 console.error('Errore durante l\'invio del form:', error.response.status, error.response.data);
-            } else {
-                console.error('Errore durante l\'invio del form:', error.message);
             }
         }
     };
@@ -126,20 +132,19 @@ function HomepageForm({formType,buttonText, handleAuthChange}){
             orario: formData.orario,
         };
 
-        const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true
-        });
-        if (response.status === 201) {
-            console.log('Annuncio correttamente pubblicato');
-        }
-
-        // Invia il form per creare l'annuncio (come JSON)
-
-
-        console.log("Dati annuncio inviati:", annuncioData); // Verifica cosa viene inviato        
+        try {
+            const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true
+            });
+            if (response.status === 201) {
+                notifySuccess("L'annuncio è stato correttamente pubblicato")
+            }
+        } catch (error) {
+            notifyError("L'annuncio non è stato correttamente pubblicato")
+        }        
     }
     
     

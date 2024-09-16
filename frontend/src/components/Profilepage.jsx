@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Cardpage from "../pages/Cardpage"
 import { FaPaperPlane } from "react-icons/fa";
 import ChangeProfile from "./ChangeProfile";
-function Profilepage({annuncio, listaAnnunci, utente}){
+function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess}){
 
 
     const [imageUrl, setImageUrl] = useState('')
@@ -55,7 +55,7 @@ function Profilepage({annuncio, listaAnnunci, utente}){
 
 
             <div className="cardProfilePage">
-                <Cardpage listaAnnunci={listaAnnunci} noFilter={true}/>
+                <Cardpage listaAnnunci={listaAnnunci} noFilter={true} />
             </div>
         </div>
     </>
@@ -65,7 +65,7 @@ function Profilepage({annuncio, listaAnnunci, utente}){
         <>
         <div className={`overlay2 ${buttonStatus ? 'active' : ''}`}></div>
         {buttonStatus === true && 
-            <ChangeProfile utente={utente} setButtonStatus={setButtonStatus} buttonStatus={buttonStatus}/>
+            <ChangeProfile utente={utente} setButtonStatus={setButtonStatus} buttonStatus={buttonStatus} notifyError={notifyError} notifySuccess={notifySuccess} />
         }
         <div className='cardpageDetailsContainer'>
 

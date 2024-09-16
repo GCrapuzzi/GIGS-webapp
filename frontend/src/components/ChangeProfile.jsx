@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 
 
-function ChangeProfile({utente, setButtonStatus, buttonStatus}){
+function ChangeProfile({utente, setButtonStatus, buttonStatus, notifySuccess, notifyError}){
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
         nome: null,
@@ -29,8 +29,10 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus}){
             const response =  await axios.post('http://localhost:5000/users/deleteUserData', {}, {withCredentials:true})
             sessionStorage.clear()
             navigate("/")
+            notifySuccess("L'account è stato correttamente eliminato")
         } catch (error) {
             console.log('fallito')
+            notifyError("L'account non è stato correttamente eliminato")
             
         }
     }
@@ -40,10 +42,9 @@ function ChangeProfile({utente, setButtonStatus, buttonStatus}){
         try {
 
             const response =  await axios.post('http://localhost:5000/users/updateAccount', userData, {withCredentials:true})
-            console.log(userData)
-            console.log('eseguito')
+            notifySuccess("L'account è stato correttamente aggiornato")
         } catch (error) {
-            console.log('fallito')
+            notifyError("L'account non è stato correttamente aggiornato")
             
         }
         

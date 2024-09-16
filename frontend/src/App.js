@@ -8,7 +8,8 @@ import Otp from './pages/Otp.jsx';
 import Cardpage from './pages/Cardpage.jsx';
 import CardpageDetails from './pages/CardpageDetails.jsx';
 import Myprofile from './pages/Myprofile.jsx';
-import ChangeProfile from './components/ChangeProfile.jsx'
+import { ToastContainer, toast, Bounce  } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
  
 function App(){
@@ -33,21 +34,64 @@ function App(){
     sessionStorage.setItem('hasClickedProfile', true);
   };
 
+
+  const notifySuccess = (message) => {
+    toast.success(message, {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+  }
+
+  const notifyError = (message) => {
+    toast.error(message, {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+  }
+
+
   
 
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} handleAuthChange={handleAuthChange} toggleButtonState={toggleButtonState}/>
+      <Navbar isAuthenticated={isAuthenticated} notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} toggleButtonState={toggleButtonState}/>
       <Routes>
         <Route path="/otp" element={<Otp handleAuthChange={handleAuthChange} buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
         <Route path="/" element={<Homepage handleAuthChange={handleAuthChange} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
-        <Route path="/offeringGigs" element={<OfferingGigs handleAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+        <Route path="/offeringGigs" element={<OfferingGigs notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/profile" element={<CardpageDetails  handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/cardPage" element={<Cardpage buttonState={buttonState} toggleButtonState={toggleButtonState}/>} />
         <Route path="/cardPageDetails" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
-        <Route path ="/myProfile" element={<Myprofile buttonState={buttonState} toggleButtonState={toggleButtonState}/>}/>
+        <Route path ="/myProfile" element={<Myprofile notifyError={notifyError} notifySuccess={notifySuccess} buttonState={buttonState} toggleButtonState={toggleButtonState}/>}/>
       </Routes>
-      Ro
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
+
     </>
   );
 };

@@ -1,7 +1,7 @@
 import HomepageForm from "./HomepageForm"
 import HomepageText from "./HomepageText"
 
-function HomepageBox({backgroundImage, formType, buttonText, handleAuthChange}){
+function HomepageBox({backgroundImage, formType, buttonText, handleAuthChange,notifySuccess, notifyError}){
 
     const styles = {
         backgroundImage: `url(${backgroundImage})`
@@ -23,7 +23,7 @@ function HomepageBox({backgroundImage, formType, buttonText, handleAuthChange}){
                 <div>
                     <div className="HomepageBox" style={styles}>
                         <HomepageText formType={formType} />
-                        <HomepageForm handleAuthChange={handleAuthChange} formType={formType} buttonText={buttonText} />
+                        <HomepageForm notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} formType={formType} buttonText={buttonText} />
                     </div>
                 </div>
             )}

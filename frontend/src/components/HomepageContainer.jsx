@@ -1,7 +1,7 @@
 import HomepageBox from "./HomepageBox"
 import LoginPage from "./LoginPage"
 
-function HomepageContainer({buttonState, toggleButtonState, backgroundImage, formType, buttonText, handleAuthChange}){
+function HomepageContainer({buttonState, toggleButtonState, backgroundImage, formType, buttonText, handleAuthChange, notifySuccess, notifyError}){
 
 
     return(
@@ -10,7 +10,7 @@ function HomepageContainer({buttonState, toggleButtonState, backgroundImage, for
             </div>
 
             <div className="HomepageContainer">
-                <HomepageBox handleAuthChange={handleAuthChange} formType={formType} backgroundImage ={backgroundImage} buttonState={buttonState} buttonText={buttonText}/>
+                <HomepageBox notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} formType={formType} backgroundImage ={backgroundImage} buttonState={buttonState} buttonText={buttonText}/>
                 <LoginPage toggleButtonState={toggleButtonState} buttonState={buttonState}/>
             </div>
         </>
