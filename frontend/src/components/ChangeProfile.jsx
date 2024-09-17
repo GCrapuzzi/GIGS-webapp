@@ -67,20 +67,11 @@ function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, n
             notifyError("Il nuovo numero di telefono e la conferma non coincidono");
             return;
         }
-
-        try {
-            await axios.post("http://localhost:5000/users/updateAccount", phoneData, { withCredentials: true });
-            notifySuccess("Il numero di telefono è stato correttamente aggiornato");
-        } catch (error) {
-            switch (error.response.data.message) {
-                case "Il numero di telefono attuale non corrisponde":
-                    toast.error("Il numero di telefono attuale non corrisponde");
-                    break;
-                default:
-                    toast.error('Si è verificato un errore sconosciuto.');
-                    break;
-            }
+        else{
+            sessionStorage.setItem('phoneData', JSON.stringify(phoneData));
+            navigate('/otp');
         }
+
     };
 
     const handleFileChange = (e) => {

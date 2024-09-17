@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
+function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
     function goToNext(event, nextInputId) {
         const currentInput = event.target;
         if (currentInput && currentInput.value.length === currentInput.maxLength) {
@@ -11,6 +11,8 @@ function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
             }
         }
     }
+
+    const phoneData = JSON.parse(sessionStorage.getItem('phoneData')) || null;
     
     function goToPrevious(event, prevInputId) {
         const currentInput = event.target;
@@ -33,6 +35,9 @@ function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
             }
         }
         console.log(otp);
+
+
+        if(phoneData === null){
         const prefixedNumber = sessionStorage.getItem('number');
         const data = {
             number: prefixedNumber,
@@ -72,7 +77,66 @@ function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
             toast.error("Il codice OTP inserito è errato.")
             console.error('Error submitting form:', error.response ? error.response.data : error.message);
           }
+        }
 
+        console.log(phoneData)
+        if (phoneData !== null && phoneData !== undefined) {
+            try {
+                const response = await axios.post("http://localhost:5000/users/updateAccount", phoneData, { withCredentials: true });
+        
+                // Corretto l'uso di = a === per la condizione
+                if (response.status === 200) {
+                    const data1 = {
+                        number: '+39' + phoneData.newPhoneNumber,
+                    };
+        
+                    try {
+                        const response2 = await axios.post('http://localhost:5000/users/verify', data1, { withCredentials: true });
+                        
+                        if (response2.status === 200) {
+                            try {
+                                const data2 = {
+                                    number: '+39' + phoneData.newPhoneNumber,
+                                    otp: otp // Assicurati che `otp` sia definito correttamente
+                                };
+                                
+                                const response3 = await axios.post('http://localhost:5000/users/authenticate', data2, { withCredentials: true });
+                                
+                                if (response3.status === 200) {
+                                    try {
+                                        sessionStorage.setItem('phoneData', null);
+                                        const responseLogout = await axios.get('http://localhost:5000/users/logout', { withCredentials: true });
+        
+                                        if (responseLogout.status === 200) {
+                                            console.log("logout effettuato correttamente");
+                                            sessionStorage.clear();
+                                            toast.success("Il numero di telefono è stato cambiato correttamente. Effettuare nuovamente l'accesso.");
+                                            navigate('/');
+                                        } else {
+                                            console.error('Errore durante il logout:', responseLogout.status, responseLogout.statusText);
+                                        }
+                                    } catch (error) {
+                                        toast.error("Si è verificato un errore durante il logout.");
+                                        console.error('Errore durante il logout:', error.response ? error.response.data : error.message);
+                                    }
+                                } else {
+                                    console.error('Errore durante l\'autenticazione:', response3.status, response3.statusText);
+                                }
+                            } catch (error) {
+                                toast.error("Il codice OTP inserito è errato.");
+                                console.error('Errore durante l\'autenticazione OTP:', error.response ? error.response.data : error.message);
+                            }
+                        }
+                    } catch (error) {
+                        toast.error("Errore durante la verifica del numero di telefono.");
+                        console.error('Errore durante la verifica del numero:', error.response ? error.response.data : error.message);
+                    }
+                }
+            } catch (error) {
+                toast.error("Errore durante l'aggiornamento del numero di telefono. Verifica di aver inserito correttamente il numero attuale");
+                console.error('Errore durante l\'aggiornamento del numero:', error.response ? error.response.data : error.message);
+            }
+        }
 
     }
 

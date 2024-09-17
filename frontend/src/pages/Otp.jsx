@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer.jsx";
 import HomepageContainer from "../components/HomepageContainer.jsx";
 
