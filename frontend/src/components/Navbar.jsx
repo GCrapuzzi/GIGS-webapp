@@ -57,6 +57,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
 
 
     const showProfile = async () => {
+      if(location.pathname !== '/myProfile'){
       try {
         const response = await axios.get('http://localhost:5000/users/trovaUser',{ withCredentials: true });
         const response2 = await axios.get('http://localhost:5000/annunci/listingAnnunciUtente',{ withCredentials: true })
@@ -68,11 +69,15 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
         console.log(data.utente, data.listaPropriAnnunci)
 
         if(response.status === 200 && response2.status === 200){
-          navigate('/myProfile', { state: { data } });
-        }
+          console.log(location.pathname)
+            navigate('/myProfile', { state: { data } });
+          }
       } catch (error) {
         notifyError("Per visualizzare il profilo devi prima pubblicare un annuncio!")
       }
+    }else{
+      return
+    }
     }
 
     return(

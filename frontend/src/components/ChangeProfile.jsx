@@ -119,7 +119,7 @@ function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, n
                     <form onSubmit={handleSubmitGeneralData}>
                         <div>
                             <h3>Aggiorna la tua foto profilo:</h3>
-                            <input type="file" id="fileInput" onChange={handleFileChange} />
+                            <input type="file" className="fileFormSpace" onChange={handleFileChange} />
                         </div>
                         <div>
                             <h3>Inserisci il nuovo nome:</h3>
@@ -145,6 +145,7 @@ function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, n
                             <h3>Inserisci la nuova biografia:</h3>
                             <textarea
                                 className="formSpace formDetails"
+                                id="biografy"
                                 name="biografia"
                                 value={userData.biografia}
                                 onChange={handleChange}

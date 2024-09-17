@@ -19,9 +19,7 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
       : listaAnnunci;
     setAnnunci(updatedAnnunci);
   }, [location.state?.annunci, listaAnnunci]); // 
-  
-  console.log(location.state.annunci)
-  console.log(listaAnnunci)
+  console.log(annunci)
   const navigate = useNavigate();
   const [buttonStatus, setButtonStatus] = useState(false);
   const [formData, setFormData] = useState({
@@ -61,11 +59,10 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
     }
   }
 
-  
-console.log(annunci)
+
   return (
     <>
-    {noFilter === true &&(
+    {noFilter === true &&  (
       <>
       <div className="cardContainer">
         {annunci.map((annuncio) => (
