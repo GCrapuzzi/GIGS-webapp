@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
     function goToNext(event, nextInputId) {
@@ -69,6 +69,7 @@ function OtpForm({buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
                 console.error('Errore durante la verifica:', response.status, response.statusText);
             }
           } catch (error) {
+            toast.error("Il codice OTP inserito è errato.")
             console.error('Error submitting form:', error.response ? error.response.data : error.message);
           }
 

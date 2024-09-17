@@ -52,10 +52,10 @@ async function updateAccount(req, res) {
         }
 
         // Aggiorna altri campi del profilo (nome, cognome, biografia, foto profilo)
-        if (nome !== "") user.nome = nome;
-        if (cognome !== "") user.cognome = cognome;
-        if (biografia !== "") user.biografia = biografia;
-        if (fotoProfilo !== "") user.profileImageUrl = fotoProfilo;
+        if (nome !== "" && nome !== undefined) user.nome = nome;
+        if (cognome !== "" && cognome !== undefined) user.cognome = cognome;
+        if (biografia !== "" && biografia !== undefined) user.biografia = biografia;
+        if (fotoProfilo !== "" && fotoProfilo!== undefined) user.profileImageUrl = fotoProfilo;
 
         // Salva le modifiche nel database
         const accountCompleto = await user.save();
