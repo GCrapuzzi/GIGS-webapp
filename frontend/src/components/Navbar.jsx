@@ -20,7 +20,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
     console.log(isAuthenticated)
 
     if(isAuthenticated === true){
-      sessionStorage.setItem('isAuthenticated2', isAuthenticated)
+      sessionStorage.setItem('isAuthenticated2', true)
     }
     console.log(sessionStorage.getItem('isAuthenticated2'))
     isAuthenticated = sessionStorage.getItem('isAuthenticated2') === 'true'

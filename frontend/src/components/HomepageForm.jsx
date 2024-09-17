@@ -15,10 +15,10 @@ const buttonGigStyle ={
     backgroundColor: 'rgba(251, 220, 192, 0.996)', 
 }
 
-function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, notifyError}){
+function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, notifyError,setIsAuthenticated}){
     
     const navigate = useNavigate();
-    const [isAuthenticated,setIsAuthenticated] = useState(false);
+    const [isAuthenticated,setIsAuthenticated2] = useState(false);
     const [isRegistered, setIsRegistered] = useState(false);
     const [formData, setFormData] = useState({
       fotoProfilo: '',
@@ -60,7 +60,7 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
         if(sessionStorage.getItem('isAuthenticated') === null){
             sessionStorage.setItem('isAuthenticated', false)
         }
-        setIsAuthenticated(sessionStorage.getItem('isAuthenticated') === 'true');
+        setIsAuthenticated2(sessionStorage.getItem('isAuthenticated') === 'true');
         if(sessionStorage.getItem('isRegistered') === null){
             sessionStorage.setItem('isRegistered', false)
         }
@@ -195,7 +195,7 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             )} 
 
             {formType === 'otp' && (
-                <OtpForm  buttonText={buttonText} handleAuthChange={handleAuthChange} buttonVisitorStyle={buttonVisitorStyle} navigate={navigate}/>
+                <OtpForm  buttonText={buttonText} setIsAuthenticated={setIsAuthenticated} handleAuthChange={handleAuthChange} buttonVisitorStyle={buttonVisitorStyle} navigate={navigate}/>
             )}     
         </div>
     )

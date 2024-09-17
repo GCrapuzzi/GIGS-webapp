@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, notifyError, showProfile }) {
+function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, notifyError, showProfile,setIsAuthenticated }) {
     const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null);
     const [userData, setUserData] = useState({
@@ -37,6 +37,10 @@ function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, n
     const handleDelete = async () => {
         try {
             await axios.post("http://localhost:5000/users/deleteUserData", {}, { withCredentials: true });
+            setIsAuthenticated(false)
+            sessionStorage.setItem("isRegistered", false)
+            sessionStorage.setItem("isAuthenticated", false)
+            sessionStorage.setItem("isAuthenticated2", false)
             navigate("/");
             notifySuccess("L'account è stato correttamente eliminato");
         } catch (error) {

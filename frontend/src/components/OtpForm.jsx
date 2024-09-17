@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
+function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, setIsAuthenticated}){
     function goToNext(event, nextInputId) {
         const currentInput = event.target;
         if (currentInput && currentInput.value.length === currentInput.maxLength) {
@@ -109,7 +109,10 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate}){
         
                                         if (responseLogout.status === 200) {
                                             console.log("logout effettuato correttamente");
-                                            sessionStorage.clear();
+                                            setIsAuthenticated(false)
+                                            sessionStorage.setItem("isRegistered", false)
+                                            sessionStorage.setItem("isAuthenticated", false)
+                                            sessionStorage.setItem("isAuthenticated2", false)
                                             toast.success("Il numero di telefono è stato cambiato correttamente. Effettuare nuovamente l'accesso.");
                                             navigate('/');
                                         } else {
