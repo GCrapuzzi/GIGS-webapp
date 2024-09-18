@@ -38,6 +38,7 @@ function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, n
         try {
             await axios.post("http://localhost:5000/users/deleteUserData", {}, { withCredentials: true });
             setIsAuthenticated(false)
+            sessionStorage.clear()
             sessionStorage.setItem("isRegistered", false)
             sessionStorage.setItem("isAuthenticated", false)
             sessionStorage.setItem("isAuthenticated2", false)

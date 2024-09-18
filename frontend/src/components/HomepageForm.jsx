@@ -117,6 +117,9 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
     
             if (response2.status === 201) {
                 notifySuccess("L'annuncio è stato correttamente pubblicato")
+                sessionStorage.setItem('città','')
+                sessionStorage.setItem('lavoro','')
+                setFormData({...formData, città: '', lavoro: '' });
                 console.log('Annuncio correttamente pubblicato');
             }
         } catch (error) {
@@ -167,6 +170,9 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             });
             if (response.status === 201) {
                 notifySuccess("L'annuncio è stato correttamente pubblicato")
+                sessionStorage.setItem('città','')
+                sessionStorage.setItem('lavoro','')
+                setFormData({...formData, città: '', lavoro: '' });
             }
         } catch (error) {
             notifyError("L'annuncio non è stato correttamente pubblicato. Controlla i dati inseriti.")
