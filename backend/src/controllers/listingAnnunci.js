@@ -4,6 +4,8 @@ async function listingAnnunci(req, res) {
     // Estrai i parametri direttamente dalla richiesta
     const { città, tipoLavoro} = req.query;
 
+
+
     // Verifica se i parametri sono presenti e validi
     if (!città || !tipoLavoro) {
         return res.status(400).json({ error: 'I parametri citta e tipoLavoro sono obbligatori' });

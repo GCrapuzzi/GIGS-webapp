@@ -4,7 +4,7 @@ import { FaPhoneAlt } from "react-icons/fa"
 import { GiGardeningShears } from "react-icons/gi"
 import SearchCityInput from "./SearchCityInput"
 
-function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChange, setCitta}){
+function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChange, setCitta, notifyError}){
     const [phoneNumber, setPhoneNumber] = useState('');
 
     const handleSubmit = async (event) => {
@@ -21,6 +21,19 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
             number: prefixedNumber
           };
       
+          const lavoriDisponibili = [
+            "Fotografo",
+            "Sguattera",
+            "Taglia erba",
+            "Baby-sitter",
+            "Pet-sitter"
+        ];
+
+        if(!lavoriDisponibili.includes(formData.lavoro)){
+            notifyError("Il lavoro inserito non è valido")
+            return
+        }
+
           try {
             const response = await axios.post('http://localhost:5000/users/verify', data, { withCredentials: true });
       
@@ -48,7 +61,7 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
                 </div>
 
                 <div>
-                    <SearchCityInput setCitta={setCitta} formData={formData}/>
+                    <SearchCityInput setCitta={setCitta}/>
                 </div>
                 <div>
                     <GiGardeningShears className="icon" />

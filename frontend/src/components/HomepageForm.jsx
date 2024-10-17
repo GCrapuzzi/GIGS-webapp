@@ -15,10 +15,10 @@ const buttonGigStyle ={
     backgroundColor: 'rgba(251, 220, 192, 0.996)', 
 }
 
-function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, notifyError}){
+function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, notifyError,setIsAuthenticated}){
     
     const navigate = useNavigate();
-    const [isAuthenticated,setIsAuthenticated] = useState(false);
+    const [isAuthenticated,setIsAuthenticated2] = useState(false);
     const [isRegistered, setIsRegistered] = useState(false);
     const [formData, setFormData] = useState({
       fotoProfilo: '',
@@ -60,7 +60,7 @@ function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, not
         if(sessionStorage.getItem('isAuthenticated') === null){
             sessionStorage.setItem('isAuthenticated', false)
         }
-        setIsAuthenticated(sessionStorage.getItem('isAuthenticated') === 'true');
+        setIsAuthenticated2(sessionStorage.getItem('isAuthenticated') === 'true');
         if(sessionStorage.getItem('isRegistered') === null){
             sessionStorage.setItem('isRegistered', false)
         }
@@ -92,6 +92,19 @@ function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, not
                 tariffa: formData.tariffa,
                 orario: formData.orario,
             };
+
+            const lavoriDisponibili = [
+                "Fotografo",
+                "Sguattera",
+                "Taglia erba",
+                "Baby-sitter",
+                "Pet-sitter"
+            ];
+    
+            if(!lavoriDisponibili.includes(formData.lavoro)){
+                notifyError("Il lavoro inserito non è valido")
+                return
+            }
     
             console.log("Dati annuncio inviati:", annuncioData); // Verifica cosa viene inviato
     
@@ -104,6 +117,9 @@ function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, not
     
             if (response2.status === 201) {
                 notifySuccess("L'annuncio è stato correttamente pubblicato")
+                sessionStorage.setItem('città','')
+                sessionStorage.setItem('lavoro','')
+                setFormData({...formData, città: '', lavoro: '' });
                 console.log('Annuncio correttamente pubblicato');
             }
         } catch (error) {
@@ -114,7 +130,7 @@ function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, not
                     notifyError("L'account non è stato correttamente aggiornato");  // Chiama notifica di errore per l'aggiornamento dell'account
                 } else if (error.response.config.url.includes('/annunci/createAnnuncio')) {
                     // Errore durante la creazione dell'annuncio
-                    notifyError("L'annuncio non è stato correttamente pubblicato");  // Chiama notifica di errore per l'annuncio
+                    notifyError("L'annuncio non è stato correttamente pubblicato. Controlla i dati inseriti.");  // Chiama notifica di errore per l'annuncio
                 }
                 console.error('Errore durante l\'invio del form:', error.response.status, error.response.data);
             }
@@ -132,6 +148,19 @@ function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, not
             orario: formData.orario,
         };
 
+        const lavoriDisponibili = [
+            "Fotografo",
+            "Sguattera",
+            "Taglia erba",
+            "Baby-sitter",
+            "Pet-sitter"
+        ];
+
+        if(!lavoriDisponibili.includes(formData.lavoro)){
+            notifyError("Il lavoro inserito non è valido")
+            return
+        }
+
         try {
             const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
                 headers: {
@@ -141,9 +170,12 @@ function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, not
             });
             if (response.status === 201) {
                 notifySuccess("L'annuncio è stato correttamente pubblicato")
+                sessionStorage.setItem('città','')
+                sessionStorage.setItem('lavoro','')
+                setFormData({...formData, città: '', lavoro: '' });
             }
         } catch (error) {
-            notifyError("L'annuncio non è stato correttamente pubblicato")
+            notifyError("L'annuncio non è stato correttamente pubblicato. Controlla i dati inseriti.")
         }        
     }
     
@@ -153,23 +185,23 @@ function HomepageForm({formType,buttonText, handleAuthChange, notifySuccess, not
     return(
         <div>
             {formType === 'offer'  && isAuthenticated===false && (
-                <SignupForm  setCitta={setCitta} navigate={navigate} handleChange={handleChange} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
+                <SignupForm  notifyError={notifyError} setCitta={setCitta} navigate={navigate} handleChange={handleChange} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
             )}
 
             {formType === 'offer' && isAuthenticated===true && isRegistered===true &&(
-                <CompleteProfileJobForm setCitta={setCitta} handleChange={handleChange} handleisRegisteredSubmit={handleisRegisteredSubmit} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
+                <CompleteProfileJobForm notifyError={notifyError} setCitta={setCitta} handleChange={handleChange} handleisRegisteredSubmit={handleisRegisteredSubmit} buttonText={buttonText} formData={formData} buttonGigStyle={buttonGigStyle}/>
             )}
 
             {formType === 'offer' && isAuthenticated===true && isRegistered===false &&(
-                <PartialProfileJobForm setCitta={setCitta} handleisNotRegisteredSubmit={handleisNotRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
+                <PartialProfileJobForm notifyError={notifyError} setFormData={setFormData} setCitta={setCitta} handleisNotRegisteredSubmit={handleisNotRegisteredSubmit} formData={formData} handleChange={handleChange} buttonGigStyle={buttonGigStyle} buttonText={buttonText}/>
             )}
 
             {formType === 'search' && (
-                <SearchForm  formData={formData} buttonText={buttonText} buttonVisitorStyle={buttonVisitorStyle}/>
+                <SearchForm  notifyError={notifyError} formData={formData} buttonText={buttonText} buttonVisitorStyle={buttonVisitorStyle}/>
             )} 
 
             {formType === 'otp' && (
-                <OtpForm buttonText={buttonText} handleAuthChange={handleAuthChange} buttonVisitorStyle={buttonVisitorStyle} navigate={navigate}/>
+                <OtpForm  buttonText={buttonText} setIsAuthenticated={setIsAuthenticated} handleAuthChange={handleAuthChange} buttonVisitorStyle={buttonVisitorStyle} navigate={navigate}/>
             )}     
         </div>
     )

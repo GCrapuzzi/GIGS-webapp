@@ -1,61 +1,70 @@
 const User = require("../models/userSchema");
 
 async function updateAccount(req, res) {
-    const {nome, cognome } = req.body;
-    const oldPhoneNumber = req.body.oldPhoneNumber;
-    const newPhoneNumber = req.body.newPhoneNumber;
-    const newPhoneNumberConferm = req.body.newPhoneNumberConferm;
-    const biografia = req.body.biografia || '';
+    const { nome, cognome, biografia = '' } = req.body;
+    let oldPhoneNumber = req.body.oldPhoneNumber;
+    let newPhoneNumber = req.body.newPhoneNumber;
+    let newPhoneNumberConferm = req.body.newPhoneNumberConferm;
     const userId = req.userId;
 
-
-    console.log("Request body:", req.body); 
     // Salva il percorso dell'immagine caricata
-    const fotoProfilo = req.file ? `/uploads/${req.file.filename}` : null;
-    
+    const fotoProfilo = req.file ? `/uploads/${req.file.filename}` : "";
+
+    if (newPhoneNumber!==undefined && !newPhoneNumber.startsWith('+39')) {
+        newPhoneNumber = `+39${newPhoneNumber}`;
+    }
+    if (oldPhoneNumber!==undefined && !oldPhoneNumber.startsWith('+39')) {
+        oldPhoneNumber = `+39${oldPhoneNumber}`;
+    }
+    if (newPhoneNumberConferm!==undefined && !newPhoneNumberConferm.startsWith('+39')) {
+        newPhoneNumberConferm = `+39${newPhoneNumberConferm}`;
+    }
 
     try {
         // Trova l'utente per ID
         const user = await User.findById(userId);
-        console.log(user)
-
         if (!user) {
             return res.status(404).json({ message: "Utente non trovato" });
         }
 
-        // Verifica se il numero di telefono attuale corrisponde e aggiorna il numero
-        if (oldPhoneNumber === "" && newPhoneNumber === "" && newPhoneNumberConferm === "") {
-            if (oldPhoneNumber !== "" || newPhoneNumber !== "" || !newPhoneNumberConferm !== "") {
-                return res.status(400).json({ message: "Tutti i campi del numero di telefono devono essere forniti" });
+        if (nome === "" && cognome === "" && biografia === "" && fotoProfilo==="") {
+            return res.status(400).json({ message: "Non c'è nulla da modificare" });
+        }
+
+        if(oldPhoneNumber!==undefined && newPhoneNumber!==undefined && newPhoneNumber!==undefined){
+            // Verifica che tutti i campi del numero di telefono siano forniti se uno è presente
+            if (oldPhoneNumber === "" || newPhoneNumber === "" || newPhoneNumberConferm === "") {
+                return res.status(400).json({ message: "Tutti i campi del numero di telefono devono essere forniti se uno è presente" });
             }
 
-            // Controllo se il vecchio numero di telefono corrisponde
+            // Verifica se il vecchio numero di telefono corrisponde
             if (user.number !== oldPhoneNumber) {
                 return res.status(400).json({ message: "Il numero di telefono attuale non corrisponde" });
             }
 
             // Verifica se il nuovo numero di telefono e la conferma coincidono
             if (newPhoneNumber !== newPhoneNumberConferm) {
-                return res.status(400).json({ message: "Il nuovo numero di telefono non corrisponde con la conferma" });
+                return res.status(400).json({ message: "Il nuovo numero di telefono non corrisponde alla conferma" });
             }
 
             // Aggiorna il numero di telefono
             user.number = newPhoneNumber;
         }
 
-        // Aggiungi i campi che devono essere aggiornati
-        if (nome) user.nome = nome;
-        if (cognome) user.cognome = cognome;
-        if (biografia) user.biografia = biografia;
-        if (fotoProfilo) user.profileImageUrl = fotoProfilo;
+        // Aggiorna altri campi del profilo (nome, cognome, biografia, foto profilo)
+        if (nome !== "" && nome !== undefined) user.nome = nome;
+        if (cognome !== "" && cognome !== undefined) user.cognome = cognome;
+        if (biografia !== "" && biografia !== undefined) user.biografia = biografia;
+        if (fotoProfilo !== "" && fotoProfilo!== undefined) user.profileImageUrl = fotoProfilo;
 
-        // Aggiorna l'utente nel database
+        // Salva le modifiche nel database
         const accountCompleto = await user.save();
 
-        // Restituisci il documento aggiornato come conferma
+        // Restituisci l'utente aggiornato come conferma
         res.status(200).json({ message: 'Account aggiornato con successo', account: accountCompleto });
 
     } catch (err) {
+        console.error("Errore nell'aggiornamento dell'account:", err);
         res.status(500).json({ message: 'Errore interno del server' });
     }
 }

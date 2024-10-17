@@ -4,7 +4,7 @@ import { GiGardeningShears} from "react-icons/gi"
 import { useNavigate } from "react-router-dom";
 import SearchCityInput from "./SearchCityInput";
 
-function SearchForm({buttonVisitorStyle, buttonText, formData}){
+function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
     const navigate = useNavigate();
     const [città, setCitta] = useState('');
     const [tipoLavoro, setTipoLavoro] = useState('');
@@ -17,16 +17,36 @@ function SearchForm({buttonVisitorStyle, buttonText, formData}){
             tipoLavoro: tipoLavoro
         };
 
+        const lavoriDisponibili = [
+            "Fotografo",
+            "Sguattera",
+            "Taglia erba",
+            "Baby-sitter",
+            "Pet-sitter"
+        ];
+
+        if(!lavoriDisponibili.includes(tipoLavoro)){
+            notifyError("Il lavoro inserito non è valido")
+            return
+        }
+
         try{
             const response = await axios.get('http://localhost:5000/annunci/listing', {
                 params: data
             });
+
+
             if(response.status === 200){
                 navigate('/cardPage', { state: { annunci: response.data } });
                 console.log(response.data)
             }
         }catch (error) {
-            console.error('Error submitting form:', error.response ? error.response.data : error.message);
+            if(error.status === 400){
+                notifyError("Il comune inserito o il lavoro selezionato non sono corretti")
+            }
+            if(error.status === 404){
+                notifyError("Nessun annuncio è stato trovato con queste caratteristiche")
+            }
         }
 
     }
@@ -37,7 +57,7 @@ function SearchForm({buttonVisitorStyle, buttonText, formData}){
             <div className="textContainer">
                 <div>
                     <div>
-                        <SearchCityInput setCitta={setCitta}/>
+                        <SearchCityInput value={true} notifyError={notifyError} setCitta={setCitta}/>
                     </div>
                 </div>
                 <div>

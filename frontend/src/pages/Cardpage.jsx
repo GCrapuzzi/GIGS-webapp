@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';  // Importa useLocation
 import Card from "../components/Card";
 import LoginPage from "../components/LoginPage";
@@ -10,16 +10,17 @@ import axios from 'axios';
 function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
   const location = useLocation();  // Usa useLocation per ottenere lo stato
 
-  if(sessionStorage.getItem('listaAnnunci') !== null){
-    listaAnnunci = JSON.parse(sessionStorage.getItem('listaAnnunci'))
-  }
+  const [annunci, setAnnunci] = useState([]);
 
-  if(listaAnnunci && sessionStorage.getItem('listaAnnunci') === null){
-    sessionStorage.setItem('listaAnnunci', JSON.stringify(listaAnnunci))
-  }
-  
+  // Sync `annunci` state with `listaAnnunci` prop or `location.state`
+  useEffect(() => {
+    const updatedAnnunci = location.state?.annunci
+      ? location.state.annunci
+      : listaAnnunci;
+    setAnnunci(updatedAnnunci);
+  }, [location.state?.annunci, listaAnnunci]); // 
+  console.log(annunci)
   const navigate = useNavigate();
-  const { annunci } = location.state?.annunci  ? { annunci: location.state.annunci } : listaAnnunci  ? { annunci: listaAnnunci}  : { annunci: [] };
   const [buttonStatus, setButtonStatus] = useState(false);
   const [formData, setFormData] = useState({
     città: '',
@@ -58,11 +59,10 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
     }
   }
 
-  
 
   return (
     <>
-    {noFilter === true &&(
+    {noFilter === true &&  (
       <>
       <div className="cardContainer">
         {annunci.map((annuncio) => (

@@ -20,7 +20,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
     console.log(isAuthenticated)
 
     if(isAuthenticated === true){
-      sessionStorage.setItem('isAuthenticated2', isAuthenticated)
+      sessionStorage.setItem('isAuthenticated2', true)
     }
     console.log(sessionStorage.getItem('isAuthenticated2'))
     isAuthenticated = sessionStorage.getItem('isAuthenticated2') === 'true'
@@ -57,9 +57,10 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
 
 
     const showProfile = async () => {
+      if(location.pathname !== '/myProfile'){
       try {
         const response = await axios.get('http://localhost:5000/users/trovaUser',{ withCredentials: true });
-        const response2 = await axios.post('http://localhost:5000/annunci/listingAnnunciUtente',{}, { withCredentials: true })
+        const response2 = await axios.get('http://localhost:5000/annunci/listingAnnunciUtente',{ withCredentials: true })
         const data = {
           utente: response.data,
           listaPropriAnnunci: response2.data
@@ -68,11 +69,15 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
         console.log(data.utente, data.listaPropriAnnunci)
 
         if(response.status === 200 && response2.status === 200){
-          navigate('/myProfile', { state: { data } });
-        }
+          console.log(location.pathname)
+            navigate('/myProfile', { state: { data } });
+          }
       } catch (error) {
         notifyError("Per visualizzare il profilo devi prima pubblicare un annuncio!")
       }
+    }else{
+      return
+    }
     }
 
     return(

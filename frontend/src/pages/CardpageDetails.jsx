@@ -17,24 +17,24 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
     });
 
 
-    const userId = annuncio.userId
+    const userId = annuncio.userId;
     const data = {
         userId: userId
-    }
-
-
-    const listAnnunci  = async () =>{
-        try {
-            const response = await axios.post('http://localhost:5000/annunci/listingAnnunciVisitatore', data);
-            if(response.status == 200){
-                setListAnnunci(response.data)
-            }
-
-        } catch (error) {
-            
-        }
-    }
+    };
     
+    const listAnnunci = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/annunci/listingAnnunciVisitatore', {
+                params: data
+            });
+            
+            if (response.status === 200) {
+                setListAnnunci(response.data);
+            }
+        } catch (error) {
+            console.error('Errore durante il caricamento degli annunci:', error);
+        }
+    };
     
 
     useEffect(() => {
@@ -44,20 +44,16 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
     useEffect(() => {
         const fetchAnnunci = async () => {
             if (location.pathname === '/profile') {
-                await listAnnunci();  // Attendi che la funzione asincrona finisca
+                await listAnnunci();
                 setHasClickedProfile(true);
-                console.log(listaAnnunci)
-                console.log('lo sto eseguendo')  // Aggiorna lo stato
             } else {
                 setHasClickedProfile(false);
-                console.log('ciao')
             }
         };
 
-        fetchAnnunci();  // Chiama la funzione asincrona
+        fetchAnnunci();
     }, [location]);
 
-      // If a user exists, navigate to the profile page immediately
 
     return(
         <>

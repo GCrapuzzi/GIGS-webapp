@@ -1,7 +1,7 @@
 import HomepageForm from "./HomepageForm"
 import HomepageText from "./HomepageText"
 
-function HomepageBox({backgroundImage, formType, buttonText, handleAuthChange,notifySuccess, notifyError}){
+function HomepageBox({oldPhoneNumber, setIsAuthenticated, newPhoneNumber, newPhoneNumberConferm, OtpChangeNumber, backgroundImage, formType, buttonText, handleAuthChange,notifySuccess, notifyError}){
 
     const styles = {
         backgroundImage: `url(${backgroundImage})`
@@ -14,7 +14,7 @@ function HomepageBox({backgroundImage, formType, buttonText, handleAuthChange,no
                 <div>
                     <div className="HomepageBoxOtp" style={styles}>
                         <HomepageText formType={formType} />
-                        <HomepageForm formType={formType} handleAuthChange={handleAuthChange} buttonText={buttonText} />
+                        <HomepageForm setIsAuthenticated={setIsAuthenticated} OtpChangeNumber={OtpChangeNumber} oldPhoneNumber={oldPhoneNumber} newPhoneNumber={newPhoneNumber} newPhoneNumberConferm={newPhoneNumberConferm} formType={formType} handleAuthChange={handleAuthChange} buttonText={buttonText} />
                     </div>
                 </div>
             )}
