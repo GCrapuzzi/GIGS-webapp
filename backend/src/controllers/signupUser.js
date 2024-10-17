@@ -6,45 +6,45 @@ const sendOTP = require("../utils/sendOTP");
 // Funzione che verifica se un utente è registrato e invia un OTP
 const signupUser = async (req, res, next) => {
 
-    // Verifica che il numero sia presente nella richiesta
+  // Verifica che il numero sia presente nella richiesta
+  try {
+    const number = req.body.number;
+    if (!number) {
+      return res.status(400).json({ message: "Il numero è obbligatorio" });
+    }
+ 
+    // Verifica se il numero è valido
+    if (!validateNumber(number)) {
+      return res.status(400).json({ message: "Numero non valido" });
+    }
+     
+    // Cerca l'utente nel database
+    let user;
     try {
-      const number = req.body.number;
-      if (!number) {
-        return res.status(400).json({ message: "Il numero è obbligatorio" });
-      }
+      user = await User.findOne({ number });
+    } catch (error) {
+      return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" });
+    }
   
-      // Verifica se il numero è valido
-      if (!validateNumber(number)) {
-        return res.status(400).json({ message: "Numero non valido" });
-      }
+    // Genera un OTP e la data di scadenza (da modificare)
+    const otp = "123456";
+    const otpExpiresAt = new Date(Date.now() + 600000); // 10 minuti
+  
+    if (user) {
+      // Se l'utente esiste, aggiorna il campo otp
+      user.otp = otp;
+      user.otpExpiresAt = otpExpiresAt;
+    } else {
+      // Se l'utente non esiste, crea un nuovo utente
+      user = new User({ number, otp, otpExpiresAt });
+    }
       
-      // Cerca l'utente nel database
-      let user;
-      try {
-        user = await User.findOne({ number });
-      } catch (error) {
-        return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" });
-      }
-  
-      // Genera un OTP e la data di scadenza (da modificare)
-      const otp = "123456";
-      const otpExpiresAt = new Date(Date.now() + 600000); // 10 minuti
-  
-      if (user) {
-        // Se l'utente esiste, aggiorna il campo otp
-        user.otp = otp;
-        user.otpExpiresAt = otpExpiresAt;
-      } else {
-        // Se l'utente non esiste, crea un nuovo utente
-        user = new User({ number, otp, otpExpiresAt });
-      }
-      
-      // Salva l'utente nel database
-      try {
-        await user.save();
-      } catch (error) {
-        return next({ statusCode: 500, message: "Errore durante il salvataggio dell'utente" });
-      }
+    // Salva l'utente nel database
+    try {
+      await user.save();
+    } catch (error) {
+      return next({ statusCode: 500, message: "Errore durante il salvataggio dell'utente" });
+    }
       
       // Invia l'OTP all'utente
       //try {
@@ -53,11 +53,11 @@ const signupUser = async (req, res, next) => {
         //return next({ statusCode: 500, message: "Errore durante l'invio dell'OTP" });
       //}
   
-      // Invia una risposta di successo
-      return res.status(200).json({ message: "OTP inviato con successo" });
-    } catch (error) {
-      return next(error);
-    }
-  };
+    // Invia una risposta di successo
+    return res.status(200).json({ message: "OTP inviato con successo" });
+  } catch (error) {
+    return next(error);
+  }
+};
   
 module.exports = signupUser;

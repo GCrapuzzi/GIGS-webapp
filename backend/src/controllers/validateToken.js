@@ -1,4 +1,4 @@
-// Funzione per verificare la validità del token JWT
+// Funzione per verificare la validità del token JWT (Approfondire)
 const verifyToken = async (req, res) => {
     try {
       return res.status(200).json({ message: "Token valido" });

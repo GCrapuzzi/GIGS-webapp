@@ -3,15 +3,15 @@ const generateToken = require("../utils/generateToken");
 const validateNumber = require("../validators/validateNumber");
 
 // Funzione per autenticare l'utente
-const authUser = async (req, res, next) => {
-  try {
+const authUser = async (req, res, next) => { // Approfondire next
+  try { // Approfondire try catch
 
     // Estrae l'OTP e il numero di telefono dalla richiesta
     const { otp, number } = req.body;
 
     // Verifica che l'OTP sia presente e di 6 cifre
     if (!otp || otp.length !== 6) {
-      return res.status(400).json({ message: "OTP non valido" });
+      return res.status(400).json({ message: "OTP non valido" }); // Verificare che 400 sia il codice di errore corretto
     }
 
     // Verifica che il numero di telefono sia valido
@@ -20,11 +20,11 @@ const authUser = async (req, res, next) => {
     }    
 
     // Cerca l'utente nel database
-    let user;
+    let user; // Approfondire let
     try {
-      user = await User.findOne({ number });
+      user = await User.findOne({ number }); // Approfondire await
     } catch (error) {
-      return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" });
+      return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" }); // Verificare che 500 sia il codice di errore corretto
     }
 
     // Verifica che l'utente esista
@@ -38,7 +38,7 @@ const authUser = async (req, res, next) => {
     }
 
     // Verifica se l'OTP è scaduto
-    const otpExpiresAt = new Date(user.otpExpiresAt);
+    const otpExpiresAt = new Date(user.otpExpiresAt); // Approfondire
     const currentTime = new Date();
 
     if (otpExpiresAt < currentTime) {
@@ -59,7 +59,7 @@ const authUser = async (req, res, next) => {
       res.cookie("token", token, {
         domain: 'localhost',
         expires: new Date(Date.now() + 86400000),
-        httpOnly: true,
+        httpOnly: true, // Approfondire
 
       });
 
