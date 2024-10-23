@@ -17,7 +17,7 @@ const deleteAnnuncio = async (req, res, next) => {
     // Elimina l'annuncio dal database
     try {
         await Annuncio.deleteOne({ _id: annuncioId });
-        res.json({ message: 'Annuncio eliminato con successo' });
+        return res.json({ message: 'Annuncio eliminato con successo' });
     }
     catch (error) {
         return next({ statusCode: 500, message: 'Errore durante l\'eliminazione dell\'annuncio' });

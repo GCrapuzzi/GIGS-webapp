@@ -34,7 +34,7 @@ const createAnnuncio = async (req, res, next) => {
         await newAnnuncio.save();
 
         // Invia la risposta al client
-        res.status(201).json({ message: 'Annuncio creato con successo', annuncio: newAnnuncio });
+        return res.status(201).json({ message: 'Annuncio creato con successo', annuncio: newAnnuncio });
     } catch (error) {
         return next({ statusCode: 500, message: 'Errore durante la creazione dell\'annuncio' });
     }

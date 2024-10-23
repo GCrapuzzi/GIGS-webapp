@@ -18,7 +18,7 @@ const deleteUserdata = async (req, res, next) => {
     try {
         await User.deleteOne({ _id: userId });
         res.clearCookie("token");
-        res.json({ message: 'Utente eliminato con successo' });
+        return res.json({ message: 'Utente eliminato con successo' });
     }
     catch (error) {
         return next({ statusCode: 500, message: 'Errore durante l\'eliminazione dell\'utente' });

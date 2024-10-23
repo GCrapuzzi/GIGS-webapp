@@ -22,11 +22,10 @@ const listingAnnunci = async (req, res) => {
         }
 
         // Restituisce la lista degli annunci come risposta HTTP
-        res.json(annunci);
+        return res.json(annunci);
     } catch (err) {
-        console.error('Errore durante il recupero degli annunci:', err);
         // Restituisce un errore HTTP 500 al client in caso di fallimento
-        res.status(500).json({message: 'Errore nel recupero degli annunci'});
+        return res.status(500).json({message: 'Errore nel recupero degli annunci'});
     }
 }
 

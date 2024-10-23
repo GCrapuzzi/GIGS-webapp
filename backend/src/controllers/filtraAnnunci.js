@@ -49,7 +49,7 @@ const filtraAnnunci = async (req, res) => {
   // Effettuiamo la query con il filtro dinamico costruito
   try {
     const annunci = await Annuncio.find(filtro).populate('userId', 'profileImageUrl nome cognome');
-    res.status(200).json({ message: 'Annunci filtrati', annunci });
+    return res.status(200).json({ message: 'Annunci filtrati', annunci });
   } catch (error) {
     return res.status(500).json({ message: "Errore durante il fltraggio degli annunci" });
   }
