@@ -51,8 +51,7 @@ const filtraAnnunci = async (req, res) => {
     const annunci = await Annuncio.find(filtro).populate('userId', 'profileImageUrl nome cognome');
     res.status(200).json({ message: 'Annunci filtrati', annunci });
   } catch (error) {
-    console.error('Errore durante la query:', error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: "Errore durante il fltraggio degli annunci" });
   }
 };
 

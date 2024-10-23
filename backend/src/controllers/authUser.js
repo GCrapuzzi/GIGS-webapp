@@ -64,7 +64,7 @@ const authUser = async (req, res, next) => { // Approfondire next
       });
 
       // Risposta con messaggio di autenticazione riuscita
-      return res.json(200).json({ message: 'Autenticazione riuscita', isRegistered });
+      return res.status(200).json({ message: 'Autenticazione riuscita', isRegistered });
     } catch (error) {
       return next({ statusCode: 500, message: "Errore durante la creazione del token o l'impostazione del cookie" });
     }
