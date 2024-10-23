@@ -3,7 +3,7 @@ const Annuncio = require('../models/annuncioSchema');
 const filtraAnnunci = async (req, res) => {
   const { prezzoMin, prezzoMax, lavoro, città } = req.query;
   console.log('Query ricevuta:', req.query); // Log dei parametri ricevuti
-  const filtro = {}; // Oggetto filtro che verrà popolato in base ai parametri ricevuti
+  const filtro = {}; // Oggetto filtro contenente le proprietà tariffa, lavoro e città che verrà popolato in base ai parametri ricevuti
 
   // Conversione dei parametri prezzo in numeri interi
   let prezzoMinNumero = prezzoMin ? parseInt(prezzoMin, 10) : null;
@@ -19,7 +19,7 @@ const filtraAnnunci = async (req, res) => {
   }
 
   // Assicurati che prezzoMin non sia maggiore di prezzoMax
-  if (prezzoMinNumero !== null && prezzoMaxNumero !== null && prezzoMinNumero > prezzoMaxNumero) {
+  if (prezzoMinNumero !== null && prezzoMaxNumero !== null && prezzoMinNumero > prezzoMaxNumero) {  // rivedere 
     return res.status(400).json({ message: 'prezzoMin non può essere maggiore di prezzoMax' });
   }
 
