@@ -70,13 +70,13 @@ function App(){
     <>
       <Navbar isAuthenticated={isAuthenticated} notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} toggleButtonState={toggleButtonState}/>
       <Routes>
-        <Route path="/otp" element={<Otp handleAuthChange={handleAuthChange} buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
+        <Route path="/otp" element={<Otp setIsAuthenticated={setIsAuthenticated} handleAuthChange={handleAuthChange} buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
         <Route path="/" element={<Homepage notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
         <Route path="/offeringGigs" element={<OfferingGigs notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/profile" element={<CardpageDetails  handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/cardPage" element={<Cardpage buttonState={buttonState} toggleButtonState={toggleButtonState}/>} />
         <Route path="/cardPageDetails" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
-        <Route path ="/myProfile" element={<Myprofile notifyError={notifyError} notifySuccess={notifySuccess} buttonState={buttonState} toggleButtonState={toggleButtonState}/>}/>
+        <Route path ="/myProfile" element={<Myprofile setIsAuthenticated={setIsAuthenticated} notifyError={notifyError} notifySuccess={notifySuccess} buttonState={buttonState} toggleButtonState={toggleButtonState}/>}/>
       </Routes>
       <ToastContainer
         position="bottom-center"

@@ -48,7 +48,7 @@ function PartialProfileJobForm({ notifyError, handleisNotRegisteredSubmit, formD
         <form className="HomepageForm" onSubmit={handleSubmit}>
             {step === 1 && (
                 <div className="textContainer">
-                    <input type="file" onChange={handleFileChange} className="fileFormSpace" required title="Aggiungi un'immagine di profilo." />
+                    <input type="file" onChange={handleFileChange} className="fileFormSpace" id="fileFormSpaceGigs" required title="Aggiungi un'immagine di profilo." />
                     <FaRegIdCard className="icon" />
                     <input type="text" placeholder="Nome" name="nome" value={formData.nome} onChange={handleChange} className="formSpace" required title="Aggiungi un nome." />
                     <FaRegIdCard className="icon" />

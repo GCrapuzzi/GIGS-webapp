@@ -12,10 +12,13 @@ const authMiddleware = (req, res, next) => {
     return res.status(401).send({ error: 'Accesso negato' });
   }
 
-  // Verifica il token
+  // Verifica il token (Verificare che venga controllata la scadenza del token) 
   try {
     const decoded = jwt.verify(token, config.jwtSecret);
     req.userId = decoded.id;
+    //if (decoded.expiresIn < Date.now()) {
+      //return res.status(401).send({ error: 'Token scaduto' });
+    //}
     next();
   } catch (err) {
     res.status(400).send({ error: 'Token non valido' });

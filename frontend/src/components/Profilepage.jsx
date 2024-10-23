@@ -4,7 +4,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import ChangeProfile from "./ChangeProfile";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess}){
+function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess, setIsAuthenticated}){
 
     const navigate = useNavigate()
     const [imageUrl, setImageUrl] = useState('')
@@ -85,7 +85,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
         <>
         <div className={`overlay2 ${buttonStatus ? 'active' : ''}`}></div>
         {buttonStatus === true && 
-            <ChangeProfile showProfile={showProfile} utente={utente} setButtonStatus={setButtonStatus} buttonStatus={buttonStatus} notifyError={notifyError} notifySuccess={notifySuccess} />
+            <ChangeProfile setIsAuthenticated={setIsAuthenticated} showProfile={showProfile} utente={utente} setButtonStatus={setButtonStatus} buttonStatus={buttonStatus} notifyError={notifyError} notifySuccess={notifySuccess} />
         }
         <div className='cardpageDetailsContainer'>
 

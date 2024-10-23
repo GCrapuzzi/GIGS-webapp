@@ -24,7 +24,7 @@ function CompleteProfileJobForm({formData, buttonGigStyle, buttonText, setCitta,
                     </div>
                     <div>
                         <GiGardeningShears className="icon" />
-                        <input type="text" placeholder="Inserisci Lavoretto da offrire:" name="lavoro" onChange={handleChange} value={formData.lavoro} list="jobs" className="formSpace"/>
+                        <input type="text" placeholder="Inserisci Lavoretto da offrire:"  name="lavoro" onChange={handleChange} value={formData.lavoro} list="jobs" className="formSpace"/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
                             <option value="Sguattera" />
@@ -40,7 +40,7 @@ function CompleteProfileJobForm({formData, buttonGigStyle, buttonText, setCitta,
                     <>
                         <input type="text" placeholder="Inserisci titolo dell'annuncio:" name="titolo" onChange={handleChange} value={formData.titolo} className="formSpace"/>
                         <textarea id="description" placeholder="Inserisci descrizione dell'annuncio:" name="descrizione" onChange={handleChange}  value={formData.descrizione} className="formSpace"/>
-                        <input type="number" placeholder="Inserisci tariffa oraria:" onChange={handleChange} name="tariffa" value={formData.tariffa} className="formSpace"/>
+                        <input type="number" placeholder="Inserisci tariffa oraria:" onChange={handleChange} name="tariffa"  value={formData.tariffa} className="formSpace"/>
                         <input type="text" placeholder="Inserisci orario di disponibilità:" onChange={handleChange} name="orario" value={formData.orario} className="formSpace"/>
                         <button type="button" onClick={prevStep} id="prevButton">&lt;Indietro</button>
                         <button type="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>

@@ -1,7 +1,7 @@
 import HomepageBox from "./HomepageBox"
 import LoginPage from "./LoginPage"
 
-function HomepageContainer({buttonState, oldPhoneNumber, newPhoneNumber, newPhoneNumberConferm, OtpChangeNumber,  toggleButtonState, backgroundImage, formType, buttonText, handleAuthChange, notifySuccess, notifyError}){
+function HomepageContainer({buttonState, setIsAuthenticated, oldPhoneNumber, newPhoneNumber, newPhoneNumberConferm, OtpChangeNumber,  toggleButtonState, backgroundImage, formType, buttonText, handleAuthChange, notifySuccess, notifyError}){
 
 
     return(
@@ -10,7 +10,7 @@ function HomepageContainer({buttonState, oldPhoneNumber, newPhoneNumber, newPhon
             </div>
 
             <div className="HomepageContainer">
-                <HomepageBox OtpChangeNumber={OtpChangeNumber} oldPhoneNumber={oldPhoneNumber} newPhoneNumber={newPhoneNumber} newPhoneNumberConferm={newPhoneNumberConferm} notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} formType={formType} backgroundImage ={backgroundImage} buttonState={buttonState} buttonText={buttonText}/>
+                <HomepageBox setIsAuthenticated={setIsAuthenticated} OtpChangeNumber={OtpChangeNumber} oldPhoneNumber={oldPhoneNumber} newPhoneNumber={newPhoneNumber} newPhoneNumberConferm={newPhoneNumberConferm} notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} formType={formType} backgroundImage ={backgroundImage} buttonState={buttonState} buttonText={buttonText}/>
                 <LoginPage toggleButtonState={toggleButtonState} buttonState={buttonState}/>
             </div>
         </>
