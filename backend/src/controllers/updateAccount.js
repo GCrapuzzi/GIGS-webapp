@@ -48,7 +48,7 @@ async function updateAccount(req, res) {
             }
 
             // Aggiorna il numero di telefono
-            user.number = newPhoneNumber;
+            user.number = newPhoneNumber; 
         }
 
         // Aggiorna altri campi del profilo (nome, cognome, biografia, foto profilo)

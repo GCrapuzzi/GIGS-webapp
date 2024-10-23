@@ -21,3 +21,5 @@ router.post("/updateAccount", auth, upload.single('fotoProfilo'), updateAccount)
 router.post("/deleteUserData", auth, deleteUserData )
 
 module.exports = router;
+
+

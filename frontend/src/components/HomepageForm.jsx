@@ -7,7 +7,7 @@ import PartialProfileJobForm from "./PartialProfileJobForm";
 import CompleteProfileJobForm from "./CompleteProfileJobForm";
 import SignupForm from "./SignupForm";
 
-const buttonVisitorStyle = {
+const buttonVisitorStyle = {    
     backgroundColor: 'rgb(221, 235, 237)',               
   };
 

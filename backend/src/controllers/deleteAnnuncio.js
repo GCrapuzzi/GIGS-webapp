@@ -1,7 +1,7 @@
 const Annuncio = require('../models/annuncioSchema');
 
 // Funzione per eliminare un annuncio
-const deleteAnnuncio = async (req, res) => {
+const deleteAnnuncio = async (req, res, next) => {
     
     // Estrae l'id dell'annuncio dall'oggetto req.params
     const annuncioId = req.params.id;
