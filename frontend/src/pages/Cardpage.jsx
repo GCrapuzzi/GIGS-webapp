@@ -14,11 +14,9 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
 
   // Sync `annunci` state with `listaAnnunci` prop or `location.state`
   useEffect(() => {
-    const updatedAnnunci = location.state?.annunci
-      ? location.state.annunci
-      : listaAnnunci;
+    const updatedAnnunci = location?.state?.annunci ?? listaAnnunci ?? [];
     setAnnunci(updatedAnnunci);
-  }, [location.state?.annunci, listaAnnunci]); // 
+  }, [location?.state?.annunci, listaAnnunci]);
   console.log(annunci)
   const navigate = useNavigate();
   const [buttonStatus, setButtonStatus] = useState(false);
@@ -52,7 +50,7 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
           params: formData
       });
       if(response.status === 200){
-          navigate('/cardPage', { state: { annunci: response.data } });
+          navigate('/cardPage', { state: { annunci: response.data.annunci } });
       }
     }catch (error) {
         console.error('Error submitting form:', error.response ? error.response.data : error.message);
