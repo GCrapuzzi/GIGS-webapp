@@ -1,7 +1,7 @@
 const Annuncio = require('../models/annuncioSchema');
 
 // Funzione per aggiornare un annuncio
-const updateAnnuncio = async (req, res, next) => {
+const updateAnnuncio = async (req, res) => {
     // Estrae i dati dall'oggetto req.body
     const { annuncioId, città, lavoro, titolo, descrizione, tariffa, orario } = req.body;
 
@@ -26,10 +26,10 @@ const updateAnnuncio = async (req, res, next) => {
         );
 
         // Restituisce il documento aggiornato come conferma
-        res.status(200).json({ message: 'Annuncio aggiornato con successo', annuncio: annuncio });
+        return res.status(201).json({ message: 'Annuncio aggiornato con successo', annuncio: annuncio });
     } catch (error) {
-        return next({ statusCode: 500, message: 'Errore durante l\'aggiornamento dell\'annuncio' });
+        return res.status(500).json({ message: 'Errore interno del server' });
     }
-}
+};
 
 module.exports = updateAnnuncio;

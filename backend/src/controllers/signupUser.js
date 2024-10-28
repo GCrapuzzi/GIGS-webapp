@@ -1,10 +1,10 @@
 const validateNumber = require("../validators/validateNumber");
-// const generateOTP = require("../utils/generateOTP");
+const generateOTP = require("../utils/generateOTP");
 const User = require("../models/userSchema");
 const sendOTP = require("../utils/sendOTP");
 
 // Funzione che verifica se un utente è registrato e invia un OTP
-const signupUser = async (req, res, next) => {
+const signupUser = async (req, res) => {
 
   // Verifica che il numero sia presente nella richiesta
   try {
@@ -23,11 +23,11 @@ const signupUser = async (req, res, next) => {
     try {
       user = await User.findOne({ number });
     } catch (error) {
-      return next({ statusCode: 500, message: "Errore durante la ricerca dell'utente" });
+      return res.status(500).json({ message: "Errore interno del server" });
     }
   
     // Genera un OTP e la data di scadenza (da modificare)
-    const otp = "123456";
+    const otp = generateOTP();
     const otpExpiresAt = new Date(Date.now() + 600000); // 10 minuti
   
     if (user) {
@@ -46,17 +46,17 @@ const signupUser = async (req, res, next) => {
       return next({ statusCode: 500, message: "Errore durante il salvataggio dell'utente" });
     }
       
-      // Invia l'OTP all'utente
-      //try {
-        //await sendOTP(number, otp);
-      //} catch (error) {
-        //return next({ statusCode: 500, message: "Errore durante l'invio dell'OTP" });
-      //}
+    // Invia l'OTP all'utente
+    try {
+      await sendOTP(number, otp);
+    } catch (error) {
+      return next({ statusCode: 500, message: "Errore durante l'invio dell'OTP" });
+    }
   
     // Invia una risposta di successo
     return res.status(200).json({ message: "OTP inviato con successo" });
   } catch (error) {
-    return next(error);
+    return res.status(500).json({ message: "Errore interno del server" });
   }
 };
   

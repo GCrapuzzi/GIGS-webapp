@@ -1,7 +1,10 @@
 const User = require("../models/userSchema");
 
-async function updateAccount(req, res) {
-    const { nome, cognome, biografia = '' } = req.body;
+
+// VEDERE CON CRISTIAN
+const updateAccount = async (req, res) => {
+    const { nome, cognome} = req.body;
+    const biografia = ''; // VEDERE CON CRISTIAN
     let oldPhoneNumber = req.body.oldPhoneNumber;
     let newPhoneNumber = req.body.newPhoneNumber;
     let newPhoneNumberConferm = req.body.newPhoneNumberConferm;

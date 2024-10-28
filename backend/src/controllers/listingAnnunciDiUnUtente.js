@@ -1,7 +1,7 @@
 const Annuncio = require('../models/annuncioSchema');
 
 const listingAnnunciDiUnUtente = async (req, res) => {
-    const userId = req.userId || req.query.userId; 
+    const userId = req.userId || req.query.userId; // funzione usata sio per un utente loggato che per uno non loggato
 
     try{
         const annunci = await Annuncio.find({userId: userId}).populate('userId', 'profileImageUrl nome cognome biografia');
@@ -13,7 +13,7 @@ const listingAnnunciDiUnUtente = async (req, res) => {
 
         // Restituisce la lista degli annunci come risposta HTTP
         res.json(annunci);
-    } catch (err) {
+    } catch (error) {
         // Restituisce un errore HTTP 500 al client in caso di fallimento
         return res.status(500).json({message: 'Errore nel recupero degli annunci'});
     }
