@@ -112,7 +112,6 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
                                             setIsAuthenticated(false)
                                             sessionStorage.setItem("isRegistered", false)
                                             sessionStorage.setItem("isAuthenticated", false)
-                                            sessionStorage.setItem("isAuthenticated2", false)
                                             toast.success("Il numero di telefono è stato cambiato correttamente. Effettuare nuovamente l'accesso.");
                                             navigate('/');
                                         } else {
