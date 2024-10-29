@@ -1,10 +1,7 @@
 const User = require("../models/userSchema");
 
-
-// VEDERE CON CRISTIAN
 const updateAccount = async (req, res) => {
-    const { nome, cognome} = req.body;
-    const biografia = ''; // VEDERE CON CRISTIAN
+    const { nome, cognome, biografia} = req.body;
     let oldPhoneNumber = req.body.oldPhoneNumber;
     let newPhoneNumber = req.body.newPhoneNumber;
     let newPhoneNumberConferm = req.body.newPhoneNumberConferm;
@@ -67,7 +64,6 @@ const updateAccount = async (req, res) => {
         res.status(200).json({ message: 'Account aggiornato con successo', account: accountCompleto });
 
     } catch (err) {
-        console.error("Errore nell'aggiornamento dell'account:", err);
         res.status(500).json({ message: 'Errore interno del server' });
     }
 }

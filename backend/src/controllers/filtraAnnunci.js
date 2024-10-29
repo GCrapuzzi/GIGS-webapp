@@ -2,7 +2,7 @@ const Annuncio = require('../models/annuncioSchema');
 
 const filtraAnnunci = async (req, res) => {
   try{ 
-    const { prezzoMin, prezzoMax, lavoro, città } = req.query; // VEDERE CON CRISTIAN, li passa nell'url?
+    const { prezzoMin, prezzoMax, lavoro, città } = req.query;
     const filtro = {}; // Oggetto filtro contenente le proprietà tariffa, lavoro e città che verrà popolato in base ai parametri ricevuti
 
     // Conversione dei parametri prezzo in numeri interi
@@ -58,7 +58,7 @@ const filtraAnnunci = async (req, res) => {
     // Effettuiamo la query con il filtro dinamico costruito
     try {
       const annunci = await Annuncio.find(filtro).populate('userId', 'profileImageUrl nome cognome');
-      return res.status(200).json({ message: 'Annunci filtrati', annunci }); // VEDERE CON CRISTIAN, annunci nello status
+      return res.status(200).json({ message: 'Annunci filtrati', annunci });
     } catch (error) {
       return res.status(500).json({ message: "Errore durante il fltraggio degli annunci" });
     }
