@@ -9,16 +9,16 @@ const authMiddleware = (req, res) => {
 
   // Verifica se il token è presente
   if (!token) {
-    return res.status(401).send({ error: 'Accesso negato' });
+    return res.status(401)
   }
 
   // Verifica il token
   try {
     const decoded = jwt.verify(token, config.jwtSecret);
     req.userId = decoded.id;
-    return res.status(200).send({ message: "Accesso consentito"})
+    return res.status(200)
   } catch (error) {
-    return res.status(401).send({ error: 'Token non valido' });
+    return res.status(401)
   }
 };
 
