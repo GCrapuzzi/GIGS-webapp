@@ -47,11 +47,11 @@ const signupUser = async (req, res) => {
     }
       
     // Invia l'OTP all'utente
-    try {
+    /*try {
       await sendOTP(number, otp);
     } catch (error) {
       return next({ statusCode: 500, message: "Errore durante l'invio dell'OTP" });
-    }
+    }*/
   
     // Invia una risposta di successo
     return res.status(200).json({ message: "OTP inviato con successo" });
