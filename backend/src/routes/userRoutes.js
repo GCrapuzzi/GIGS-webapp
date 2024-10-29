@@ -6,7 +6,6 @@ const upload = require("../middleware/fotoMiddleware");
 // Importa i controller
 const verifyUser = require("../controllers/signupUser");
 const authenticate = require("../controllers/authUser");
-//const verifyToken = require("../controllers/validateToken");
 const logout = require("../controllers/logoutUser");
 const updateAccount = require("../controllers/updateAccount");
 const trovaUser = require("../controllers/trovaUser");
