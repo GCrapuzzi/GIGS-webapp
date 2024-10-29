@@ -63,7 +63,7 @@ const authUser = async (req, res) => {
       });
 
       // Risposta con messaggio di autenticazione riuscita
-      return res.status(200).json({ message: 'Autenticazione riuscita', isRegistered }); // VEDERE CON CRISTIAN, isRegistered non dovrebbe stare nello status
+      return res.status(200).json({ message: 'Autenticazione riuscita', isRegistered }); 
     } catch (error) {
       return res.status(500).json({ message: "Errore durante la creazione del token" });
     }

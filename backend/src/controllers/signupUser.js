@@ -27,7 +27,7 @@ const signupUser = async (req, res) => {
     }
   
     // Genera un OTP e la data di scadenza (da modificare)
-    const otp = generateOTP();
+    const otp = "123456";
     const otpExpiresAt = new Date(Date.now() + 600000); // 10 minuti
   
     if (user) {

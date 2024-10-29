@@ -34,7 +34,7 @@ const createAnnuncio = async (req, res) => {
             await newAnnuncio.save();
 
             // Invia la risposta al client
-            return res.status(201).json({ message: 'Annuncio creato con successo', annuncio: newAnnuncio }); // VEDERE CON CRISTIAN, annuncio nello status
+            return res.status(201).json({ message: 'Annuncio creato con successo', annuncio: newAnnuncio });
         } catch (error) {
             return next({ statusCode: 500, message: 'Errore durante il salvataggio dell\'annuncio' });
         }
