@@ -41,7 +41,6 @@ function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, n
             sessionStorage.clear()
             sessionStorage.setItem("isRegistered", false)
             sessionStorage.setItem("isAuthenticated", false)
-            sessionStorage.setItem("isAuthenticated2", false)
             navigate("/");
             notifySuccess("L'account è stato correttamente eliminato");
         } catch (error) {

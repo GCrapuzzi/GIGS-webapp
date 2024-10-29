@@ -25,7 +25,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
           const response = await axios.get('http://localhost:5000/users/trovaUser',{ withCredentials: true });
           const response2 = await axios.get('http://localhost:5000/annunci/listingAnnunciUtente',{ withCredentials: true })
           const data = {
-            utente: response.data,
+            utente: response.data.user,
             listaPropriAnnunci: response2.data
           };
   
