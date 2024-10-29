@@ -16,8 +16,9 @@ const authMiddleware = (req, res) => {
   try {
     const decoded = jwt.verify(token, config.jwtSecret);
     req.userId = decoded.id;
+    return res.status(200).send({ message: "Accesso consentito"})
   } catch (error) {
-    res.status(401).send({ error: 'Token non valido' });
+    return res.status(401).send({ error: 'Token non valido' });
   }
 };
 

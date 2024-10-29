@@ -1,7 +1,7 @@
 const validateNumber = require("../validators/validateNumber");
-const generateOTP = require("../utils/generateOTP");
+//const generateOTP = require("../utils/generateOTP");
 const User = require("../models/userSchema");
-const sendOTP = require("../utils/sendOTP");
+//const sendOTP = require("../utils/sendOTP");
 
 // Funzione che verifica se un utente è registrato e invia un OTP
 const signupUser = async (req, res) => {
@@ -60,4 +60,4 @@ const signupUser = async (req, res) => {
   }
 };
   
-  module.exports = signupUser;
+module.exports = signupUser;
