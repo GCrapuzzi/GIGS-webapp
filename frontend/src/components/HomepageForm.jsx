@@ -150,7 +150,6 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
 
         const lavoriDisponibili = [
             "Fotografo",
-            "Sguattera",
             "Taglia erba",
             "Baby-sitter",
             "Pet-sitter"

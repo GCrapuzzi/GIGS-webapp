@@ -3,8 +3,7 @@ const User = require("../models/userSchema");
 
 // VEDERE CON CRISTIAN
 const updateAccount = async (req, res) => {
-    const { nome, cognome} = req.body;
-    const biografia = ''; // VEDERE CON CRISTIAN
+    const { nome, cognome, biografia} = req.body;
     let oldPhoneNumber = req.body.oldPhoneNumber;
     let newPhoneNumber = req.body.newPhoneNumber;
     let newPhoneNumberConferm = req.body.newPhoneNumberConferm;
@@ -13,13 +12,13 @@ const updateAccount = async (req, res) => {
     // Salva il percorso dell'immagine caricata
     const fotoProfilo = req.file ? `/uploads/${req.file.filename}` : "";
 
-    if (newPhoneNumber!==undefined && !newPhoneNumber.startsWith('+39')) {
+    if (newPhoneNumber && !newPhoneNumber.startsWith('+39')) {
         newPhoneNumber = `+39${newPhoneNumber}`;
     }
-    if (oldPhoneNumber!==undefined && !oldPhoneNumber.startsWith('+39')) {
+    if (oldPhoneNumber && !oldPhoneNumber.startsWith('+39')) {
         oldPhoneNumber = `+39${oldPhoneNumber}`;
     }
-    if (newPhoneNumberConferm!==undefined && !newPhoneNumberConferm.startsWith('+39')) {
+    if (newPhoneNumberConferm && !newPhoneNumberConferm.startsWith('+39')) {
         newPhoneNumberConferm = `+39${newPhoneNumberConferm}`;
     }
 
@@ -30,13 +29,13 @@ const updateAccount = async (req, res) => {
             return res.status(404).json({ message: "Utente non trovato" });
         }
 
-        if (nome === "" && cognome === "" && biografia === "" && fotoProfilo==="") {
+        if (!nome && !cognome && !biografia && !fotoProfilo) {
             return res.status(400).json({ message: "Non c'è nulla da modificare" });
         }
 
-        if(oldPhoneNumber!==undefined && newPhoneNumber!==undefined && newPhoneNumber!==undefined){
+        if(oldPhoneNumber && newPhoneNumber && newPhoneNumber){
             // Verifica che tutti i campi del numero di telefono siano forniti se uno è presente
-            if (oldPhoneNumber === "" || newPhoneNumber === "" || newPhoneNumberConferm === "") {
+            if (!oldPhoneNumber || !newPhoneNumber || !newPhoneNumberConferm) {
                 return res.status(400).json({ message: "Tutti i campi del numero di telefono devono essere forniti se uno è presente" });
             }
 
@@ -55,10 +54,10 @@ const updateAccount = async (req, res) => {
         }
 
         // Aggiorna altri campi del profilo (nome, cognome, biografia, foto profilo)
-        if (nome !== "" && nome !== undefined) user.nome = nome;
-        if (cognome !== "" && cognome !== undefined) user.cognome = cognome;
-        if (biografia !== "" && biografia !== undefined) user.biografia = biografia;
-        if (fotoProfilo !== "" && fotoProfilo!== undefined) user.profileImageUrl = fotoProfilo;
+        if (nome) user.nome = nome;
+        if (cognome) user.cognome = cognome;
+        if (biografia) user.biografia = biografia;
+        if (fotoProfilo) user.profileImageUrl = fotoProfilo;
 
         // Salva le modifiche nel database
         const accountCompleto = await user.save();
