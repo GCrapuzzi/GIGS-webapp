@@ -8,7 +8,7 @@ const createAnnuncio = async (req, res) => {
         const userId = req.userId; 
 
         // Verifica che tutti i campi siano presenti
-        if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario || città==="null") { // VEDERE CON CRISTIAN, città==="null"
+        if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario) { // VEDERE CON CRISTIAN, città==="null"
             return res.status(400).json({ message: 'Tutti i campi sono obbligatori' });
         }
 
@@ -36,7 +36,7 @@ const createAnnuncio = async (req, res) => {
             // Invia la risposta al client
             return res.status(201).json({ message: 'Annuncio creato con successo', annuncio: newAnnuncio });
         } catch (error) {
-            return next({ statusCode: 500, message: 'Errore durante il salvataggio dell\'annuncio' });
+            return res.status(500).json({message: 'Errore durante il salvataggio dell\'annuncio' });
         }
     } catch (error) {
     return res.status(500).json({ message: 'Errore interno del server' });
