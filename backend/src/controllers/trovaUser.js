@@ -16,7 +16,7 @@ const trovaUser = async (req, res) => {
         // Invia le informazioni sull'utente
         return res.status(200).json({ message: 'Utente trovato', user });        
     } catch (error) {
-        return next({ statusCode: 500, message: "Errore durante l'invio dell'user" });
+        return res.status(500).json({message: "Errore interno al server"});
     };
 }
 
