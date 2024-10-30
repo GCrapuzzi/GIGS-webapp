@@ -7,7 +7,7 @@ const SearchCityInput = ({ setCitta, value}) => {
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState('');
 
-  // Recupera il valore salvato in sessionStorage (se presente)
+  // Recupera il valore salvato in sessionStorage
   useEffect(() => {
     if(value === ''){
       const città = sessionStorage.getItem('città');
@@ -17,7 +17,7 @@ const SearchCityInput = ({ setCitta, value}) => {
     }
   }, []);
 
-  // Carica i comuni dal file JSON al montaggio del componente
+  // Carica i comuni dal file JSON al montaggio della componente
   useEffect(() => {
     fetch('/comuni_italiani.json')
       .then((response) => {

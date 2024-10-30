@@ -8,7 +8,7 @@ import axios from 'axios'
 function CardpageDetails({handleClick, toggleButtonState, buttonState}){
 
     const location = useLocation();
-    const {annuncio= {}}= location.state || {}
+    const annuncio = location.state?.annuncio || {};
     const [listaAnnunci, setListAnnunci] = useState({});
 
 
@@ -50,7 +50,6 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
                 setHasClickedProfile(false);
             }
         };
-
         fetchAnnunci();
     }, [location]);
 

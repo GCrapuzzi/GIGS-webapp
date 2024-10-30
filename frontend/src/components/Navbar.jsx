@@ -16,20 +16,14 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
         setCurrentPath(location.pathname);
     }, [location.pathname]);
 
-    console.log(currentPath)
-    console.log(isAuthenticated)
-
     isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true'
 
-    console.log(isAuthenticated)
-  
-
+    //gestisce lo scorrimento del menù a tendina laterale quando si preme il tasto "Accedi"
     const handleClick = (event) => {
       event.preventDefault();
       toggleButtonState();
     }
-
-
+    //permette di effettuare il logout quando si preme su "Logout"
     const handleLogout = async (event) => {
       event.preventDefault();
       try {
@@ -40,7 +34,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
         sessionStorage.clear();
         handleAuthChange(false);
         notifySuccess("Il logout è stato effettuato correttamente");
-        navigate('/');
+        navigate('/'); //si torna alla pagina "Cerca un Lavoretto"
         } else {  
           console.error('Errore durante la verifica:', response.status, response.statusText);
         }
@@ -51,7 +45,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
     }
   
 
-
+    //permette la visualizzazione del proprio profilo (accessibile solo se è stato pubblicato almeno un annuncio)
     const showProfile = async () => {
       if(location.pathname !== '/myProfile'){
       try {
@@ -61,12 +55,10 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
           utente: response.data.user,
           listaPropriAnnunci: response2.data
         };
-        console.log(data.utente)
-
-        console.log(data.utente, data.listaPropriAnnunci)
+        console.log(data)
 
         if(response.status === 200 && response2.status === 200){
-          console.log(location.pathname)
+          console.log("navigo")
             navigate('/myProfile', { state: { data } });
           }
       } catch (error) {

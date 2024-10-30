@@ -9,14 +9,14 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
     const [città, setCitta] = useState('');
     const [tipoLavoro, setTipoLavoro] = useState('');
 
-    
+    //gestisce la ricerca degli annunci
     const handleSearch = async (event) => {
         event.preventDefault();
         const data = {
             città: città,
             tipoLavoro: tipoLavoro
         };
-
+        //verifica la validità del lavoro inserito
         const lavoriDisponibili = [
             "Fotografo",
             "Sguattera",
@@ -29,7 +29,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
             notifyError("Il lavoro inserito non è valido")
             return
         }
-
+        //richiesta di listing degli annunci in base a città e lavoro
         try{
             const response = await axios.get('http://localhost:5000/annunci/listing', {
                 params: data
@@ -38,7 +38,6 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
 
             if(response.status === 200){
                 navigate('/cardPage', { state: { annunci: response.data } });
-                console.log(response.data)
             }
         }catch (error) {
             if(error.status === 400){
@@ -57,7 +56,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
             <div className="textContainer">
                 <div>
                     <div>
-                        <SearchCityInput value={true} notifyError={notifyError} setCitta={setCitta}/>
+                        <SearchCityInput notifyError={notifyError} setCitta={setCitta}/>
                     </div>
                 </div>
                 <div>

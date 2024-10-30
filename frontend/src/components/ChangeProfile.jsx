@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, notifyError, showProfile,setIsAuthenticated }) {
+function ChangeProfile({setButtonStatus, buttonStatus, notifySuccess, notifyError,setIsAuthenticated }) {
     const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null);
     const [userData, setUserData] = useState({
@@ -106,6 +106,25 @@ function ChangeProfile({ utente, setButtonStatus, buttonStatus, notifySuccess, n
         // Invia il form con le generalità
         onChangeGeneralData(formDataToSend);
     };
+
+    // viene definita questa funzione per permettere l'aggiornamento dei contenuti visualizzati sul profilo a seguito di un aggiornamento
+    const showProfile = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/users/trovaUser',{ withCredentials: true });
+          const response2 = await axios.get('http://localhost:5000/annunci/listingAnnunciUtente',{ withCredentials: true })
+          const data = {
+            utente: response.data.user,
+            listaPropriAnnunci: response2.data
+          };
+  
+          if(response.status === 200 && response2.status === 200){
+            navigate('/myProfile', { state: { data }});
+          }
+        } catch (error) {
+          notifyError("Per visualizzare il profilo devi prima pubblicare un annuncio!")
+          console.error('Errore durante il recupero del profilo:', error);
+        }
+    }
 
     return (
         <div className="containerPage">
