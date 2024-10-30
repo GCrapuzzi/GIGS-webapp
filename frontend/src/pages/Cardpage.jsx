@@ -78,8 +78,8 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
       <div className={`filterContainer ${buttonStatus ? 'active' : ''}`}>
         <form className='filterSubContainer' onSubmit={handleFilterForm}>
           <h1>Inserisci i parametri per il filtraggio</h1>
-          <input type="number" name="prezzoMin" value={formData.prezzoMin} placeholder='prezzo Min' className='formSpace' onChange={handleChange}/>
-          <input type="number" name="prezzoMax" value={formData.prezzoMax} placeholder='prezzo Max' className='formSpace' onChange={handleChange}/>
+          <input type="number" name="prezzoMin" value={formData.prezzoMin} placeholder='Inserisci il prezzo minimo:' className='formSpace' onChange={handleChange}/>
+          <input type="number" name="prezzoMax" value={formData.prezzoMax} placeholder='Inserisci il prezzo massimo:' className='formSpace' onChange={handleChange}/>
           <GiGardeningShears className="icon" />
           <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" value={formData.lavoro} className="formSpace" name="lavoro" onChange={handleChange} />
             <datalist id="jobs">

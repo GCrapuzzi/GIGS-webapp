@@ -16,6 +16,10 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
             città: città,
             tipoLavoro: tipoLavoro
         };
+
+        sessionStorage.removeItem('città')
+        sessionStorage.removeItem('lavoro')
+
         //verifica la validità del lavoro inserito
         const lavoriDisponibili = [
             "Fotografo",
@@ -37,7 +41,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
 
 
             if(response.status === 200){
-                navigate('/cardPage', { state: { annunci: response.data } });
+                navigate('/cardPage', { state: { annunci: response.data.annunci } });
             }
         }catch (error) {
             if(error.status === 400){

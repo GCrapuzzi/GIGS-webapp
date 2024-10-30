@@ -210,6 +210,11 @@ a:hover{
   resize:none;
 }
 
+textarea,
+input[type=text] {
+    font-family:Arial;
+}
+
 #formSpaceLogin{
   width: 360px;
 }
@@ -392,6 +397,15 @@ footer{
   margin-bottom: 0;
 }
 
+.cardAuthor b, .adUser b{
+  display:inline-block;
+  vertical-align: top;
+  max-width: 200px;
+  overflow:hidden;
+  white-space: nowrap;
+  height: max-content;
+}
+
 .cardpageDetailsContainer{
   display: flex;
   margin-left: 20px;
@@ -399,7 +413,8 @@ footer{
 }
 
 .cardpageDetailsText{
-  word-wrap: break-word;
+  width: 100%;
+  word-wrap:break-word;
 }
 
 .asideBox{
@@ -667,8 +682,7 @@ footer{
 
 .containerTitleProfile{
   display: flex;
-  gap: 20px;
-  align-items: center;
+  flex-direction: column;
 }
 
 .containerTitleProfile button{
@@ -678,6 +692,7 @@ footer{
   border-style: solid;
   border-color: rgb(220, 216, 216);
   background-color: white;
+  margin-bottom: 20px;
 }
 
 .error-message{

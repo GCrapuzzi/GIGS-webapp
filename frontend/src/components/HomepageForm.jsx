@@ -174,8 +174,8 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             });
             if (response.status === 201) {
                 notifySuccess("L'annuncio è stato correttamente pubblicato")
-                sessionStorage.setItem('città','')
-                sessionStorage.setItem('lavoro','')
+                sessionStorage.removeItem('città')
+                sessionStorage.removeItem('lavoro')
                 setFormData({...formData, città: '', lavoro: '' });
             }
         } catch (error) {

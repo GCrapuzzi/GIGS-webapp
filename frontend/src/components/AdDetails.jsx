@@ -15,7 +15,7 @@ function AdDetails({handleClick, annuncio}){
         <div className='cardpageDetailsContainer'>
         <div className='firstColumn'>
             <h1 className='cardpageDetailsText'>{annuncio.titolo}</h1>
-            <p>Annuncio di <a path="" onClick={viewProfile}><b>{user.nome ? `${user.nome} ${user.cognome}` : "Utente"}</b></a></p>
+            <p className="adUser">Annuncio di <a path="" onClick={viewProfile}><b>{user.nome ? `${user.nome} ${user.cognome}` : "Utente"}</b></a></p>
             <div className="imageContainer">
             <img src={`http://localhost:5000${user.profileImageUrl || '/path/to/default-image.jpg'}`} alt="Foto Profilo" />
             </div>
