@@ -6,43 +6,34 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
 
     const [imageUrl, setImageUrl] = useState('')
     const[buttonStatus, setButtonStatus] = useState(false)
-    const [currentAnnuncio, setCurrentAnnuncio] = useState(annuncio);
-    const [currentUser, setCurrentUser] = useState(utente);
-
-    useEffect(() => {
-        setCurrentAnnuncio(annuncio);
-        setCurrentUser(utente);
-        console.log(annuncio)
-        console.log(utente)
-    }, [annuncio, utente]);
     
     useEffect(() => {
         if (!utente) {// se si accede al profilo di un'altra persona
-            setImageUrl(`http://localhost:5000${annuncio.userId.profileImageUrl}`);
+            setImageUrl(`http://localhost:5000${annuncio?.userId?.profileImageUrl || ""}`);
         } else { // se si accede al proprio profilo
-            setImageUrl(`http://localhost:5000${utente.profileImageUrl}`);
+            setImageUrl(`http://localhost:5000${utente?.profileImageUrl || ""}`);
         }
-    }, [currentUser, currentAnnuncio]);
+    }, [utente, annuncio]);
     
 
     return(
     <>
-        {!currentUser && ( // se currentUser non è presente si sta visualizzando il profilo di un'altra persona
+        {!utente && ( // se utente non è presente si sta visualizzando il profilo di un'altra persona
         <>
         <div className='cardpageDetailsContainer'>
             <div className='firstColumn'>
-                <h1 className='cardpageDetailsText'>{currentAnnuncio.userId.nome} {currentAnnuncio.userId.cognome}</h1>
+                <h1 className='cardpageDetailsText'>{annuncio?.userId?.nome || "Nome non disponibile"} {annuncio?.userId?.cognome || ""}</h1>
                 <div className="imageContainer">
                     <img src={imageUrl} alt=""/>
                 </div>
                 <h2>Biografia</h2>
-                <p>{currentAnnuncio.userId.biografia}</p>
+                <p>{annuncio?.userId?.biografia || "Biografia non disponibile"}</p>
             </div>
             <div className='secondColumn'>
                 <div className='asideBox' id='asideBoxProfile'>
                     <div>
                         <h3>Informazioni aggiuntive:</h3>
-                        <p>Fascia oraria di disponibilità: {currentAnnuncio.orario}</p>
+                        <p>Fascia oraria di disponibilità: {annuncio?.orario || "Non disponibile"}</p>
                     </div>
                     <div>
                         <FaPaperPlane className="iconButton" />
@@ -65,7 +56,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
     </>
         )}
 
-        {currentUser && ( //se utente è presente si sta visualizzando il proprio profilo
+        {utente && ( //se utente è presente si sta visualizzando il proprio profilo
         <>
         <div className={`overlay2 ${buttonStatus ? 'active' : ''}`}></div>
         {buttonStatus === true && 
@@ -75,14 +66,14 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
 
             <div className='firstColumn'>
                 <div className="containerTitleProfile">     
-                    <h1 className='cardpageDetailsText'>{currentUser.nome} {currentUser.cognome}</h1>
+                    <h1 className='cardpageDetailsText'>{utente?.nome || "Nome non disponibile"} {utente?.cognome || ""}</h1>
                     <button onClick={() => setButtonStatus(!buttonStatus)}>Modifica il profilo</button>
                 </div>
                 <div className="imageContainer">
                     <img src={imageUrl} alt=""/>
                 </div>
                 <h2>Biografia</h2>
-                <p>{currentUser.biografia}</p>
+                <p>{utente?.biografia || "Biografia non disponibile"}</p>
             </div>
             <div className='secondColumn'>
                 
@@ -90,7 +81,6 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
                     
                     <div>
                         <h3>Informazioni aggiuntive:</h3>
-                        <p>Fascia oraria di disponibilità: </p>
                     </div>
                     <div>
                         <FaPaperPlane className="iconButton" />

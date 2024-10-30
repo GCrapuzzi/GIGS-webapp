@@ -2,7 +2,7 @@ import {useNavigate } from "react-router-dom"
 import { FaPaperPlane } from "react-icons/fa";
 
 function AdDetails({handleClick, annuncio}){
-    const user = annuncio.userId
+    const user = annuncio.userId || {}
 
     const navigate = useNavigate();
 
@@ -15,9 +15,9 @@ function AdDetails({handleClick, annuncio}){
         <div className='cardpageDetailsContainer'>
         <div className='firstColumn'>
             <h1 className='cardpageDetailsText'>{annuncio.titolo}</h1>
-            <p>Annuncio di <a path="" onClick={viewProfile}><b>{user.nome} {user.cognome}</b></a></p>
+            <p>Annuncio di <a path="" onClick={viewProfile}><b>{user.nome ? `${user.nome} ${user.cognome}` : "Utente"}</b></a></p>
             <div className="imageContainer">
-                <img src={`http://localhost:5000${user.profileImageUrl}`} alt="Foto Profilo" />
+            <img src={`http://localhost:5000${user.profileImageUrl || '/path/to/default-image.jpg'}`} alt="Foto Profilo" />
             </div>
             <h2>Descrizione dell'annuncio</h2>
             <p>{annuncio.descrizione}</p>

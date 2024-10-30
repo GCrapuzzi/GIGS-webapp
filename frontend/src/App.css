@@ -653,6 +653,7 @@ footer{
 
 #deleteButton{
   background-color: rgb(200, 12, 5);
+  color: white;
   font-weight: bold;
 }
 

@@ -51,7 +51,7 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
             }
         };
         fetchAnnunci();
-    }, [location]);
+    }, [location.pathname, location.state]);
 
 
     return(
