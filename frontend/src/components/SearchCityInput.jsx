@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { FaLocationDot } from "react-icons/fa6";
+import { toast } from 'react-toastify';
 
-const SearchCityInput = ({ setCitta, value}) => {
+const SearchCityInput = ({ setCitta}) => {
   const [comuni, setComuni] = useState([]);
-  const [query, setQuery] = useState(''); // Inizializza query con il valore di `value`
+  const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [error, setError] = useState('');
 
   // Recupera il valore salvato in sessionStorage
   useEffect(() => {
-    if(value === ''){
-      const città = sessionStorage.getItem('città');
-      if (città) {
-        setQuery(città); // Imposta la query con il valore di sessionStorage
-      }
+    const città = sessionStorage.getItem('città');
+    if (città) {
+      setQuery(città); // Imposta la query con il valore di sessionStorage
     }
   }, []);
 
@@ -36,7 +34,6 @@ const SearchCityInput = ({ setCitta, value}) => {
   const handleChange = (e) => {
     const userInput = e.target.value;
     setQuery(userInput);
-    setError('');
     
 
     if (userInput.length > 0) {
@@ -45,14 +42,6 @@ const SearchCityInput = ({ setCitta, value}) => {
       );
       setSuggestions(filteredSuggestions);
 
-      // Verifica se l'input è valido
-      const isValid = comuni.some((comune) =>
-        comune.comune.toLowerCase() === userInput.toLowerCase()
-      );
-
-      if (!isValid) {
-        setError('Il comune inserito non è valido.');
-      }
     } else {
       setSuggestions([]);
     }
@@ -64,7 +53,6 @@ const SearchCityInput = ({ setCitta, value}) => {
     setQuery(selectedComune);
     setSuggestions([]);
     setCitta(selectedComune); // Passa il comune selezionato al genitore
-    setError('');
     sessionStorage.setItem('città', selectedComune )
   };
 
@@ -96,10 +84,5 @@ const SearchCityInput = ({ setCitta, value}) => {
     </div>
   );
 };
-
-SearchCityInput.defaultProps = {
-  value: '',
-};
-
 
 export default SearchCityInput;

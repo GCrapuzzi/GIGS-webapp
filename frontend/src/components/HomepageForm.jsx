@@ -111,8 +111,6 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
                 return
             }
     
-            console.log("Dati annuncio inviati:", annuncioData); // Verifica cosa viene inviato
-    
             const response2 = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -122,10 +120,9 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
     
             if (response2.status === 201) {
                 notifySuccess("L'annuncio è stato correttamente pubblicato")
-                sessionStorage.setItem('città','')
-                sessionStorage.setItem('lavoro','')
+                sessionStorage.removeItem('città')
+                sessionStorage.removeItem('lavoro')
                 setFormData({...formData, città: '', lavoro: '' });
-                console.log('Annuncio correttamente pubblicato');
             }
         } catch (error) {
             // Log più dettagliato dell'errore

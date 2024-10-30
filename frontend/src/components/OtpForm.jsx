@@ -2,6 +2,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}){
+
+    //permette di scorrere lungo gli input ogni volta che viene inserita una nuova cifra
     function goToNext(event, nextInputId) {
         const currentInput = event.target;
         if (currentInput && currentInput.value.length === currentInput.maxLength) {
@@ -14,6 +16,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
 
     const phoneData = JSON.parse(sessionStorage.getItem('phoneData')) || null;
     
+    //permette di tornare all'input precedente quando si preme backspace
     function goToPrevious(event, prevInputId) {
         const currentInput = event.target;
         
@@ -31,13 +34,12 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
         for (let i = 1; i <= 6; i++) {
             const input = document.getElementById(`input${i}`);
             if (input) {
-                otp += input.value;
+                otp += input.value; //permette la costruzione della stringa otp finale.
             }
         }
-        console.log(otp);
 
 
-        if(phoneData === null){
+        if(!phoneData){
         const prefixedNumber = sessionStorage.getItem('number');
         const data = {
             number: prefixedNumber,
@@ -78,12 +80,10 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
           }
         }
 
-        console.log(phoneData)
-        if (phoneData !== null && phoneData !== undefined) {
+        if (phoneData) {
             try {
                 const response = await axios.post("http://localhost:5000/users/updateAccount", phoneData, { withCredentials: true });
         
-                // Corretto l'uso di = a === per la condizione
                 if (response.status === 200) {
                     const data1 = {
                         number: '+39' + phoneData.newPhoneNumber,
@@ -96,7 +96,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
                             try {
                                 const data2 = {
                                     number: '+39' + phoneData.newPhoneNumber,
-                                    otp: otp // Assicurati che `otp` sia definito correttamente
+                                    otp: otp
                                 };
                                 
                                 const response3 = await axios.post('http://localhost:5000/users/authenticate', data2, { withCredentials: true });
