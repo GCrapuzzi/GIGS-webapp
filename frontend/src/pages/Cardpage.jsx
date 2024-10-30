@@ -8,7 +8,7 @@ import { VscSettings } from "react-icons/vsc";
 import axios from 'axios';
 
 function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
-  const location = useLocation();  // Usa useLocation per ottenere lo stato
+  const location = useLocation();  // useLocation per ottenere lo stato
 
   const [annunci, setAnnunci] = useState([]);
 
@@ -17,7 +17,7 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
     const updatedAnnunci = location?.state?.annunci ?? listaAnnunci ?? [];
     setAnnunci(updatedAnnunci);
   }, [location?.state?.annunci, listaAnnunci]);
-  console.log(annunci)
+
   const navigate = useNavigate();
   const [buttonStatus, setButtonStatus] = useState(false);
   const [formData, setFormData] = useState({

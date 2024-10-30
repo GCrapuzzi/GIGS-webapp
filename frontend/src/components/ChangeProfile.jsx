@@ -83,12 +83,12 @@ function ChangeProfile({setButtonStatus, buttonStatus, notifySuccess, notifyErro
         e.preventDefault();
         const formDataToSend = new FormData();
 
-        // Aggiungi il file solo se è stato selezionato
+        // Aggiunge il file solo se è stato selezionato
         if (selectedFile) {
             formDataToSend.append("fotoProfilo", selectedFile);
         }
 
-        // Aggiungi solo le generalità
+        // Aggiunge le generalità
         formDataToSend.append("nome", userData.nome);
         formDataToSend.append("cognome", userData.cognome);
         formDataToSend.append("biografia", userData.biografia);
