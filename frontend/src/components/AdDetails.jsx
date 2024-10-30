@@ -1,8 +1,10 @@
 import {useNavigate } from "react-router-dom"
 import { FaPaperPlane } from "react-icons/fa";
+import { useState } from "react";
 
 function AdDetails({handleClick, annuncio}){
     const user = annuncio.userId || {}
+    const [contactButtonStatus, setContactButtonStatus] = useState(false)
 
     const navigate = useNavigate();
 
@@ -31,7 +33,13 @@ function AdDetails({handleClick, annuncio}){
                 </div>
                 <div>
                     <FaPaperPlane className="iconButton"/>
-                    <button className='buttonInfoCard'>Contatta</button>
+                    {contactButtonStatus === false && (
+                        <button className='buttonInfoCard' onClick={() => setContactButtonStatus(true)}>Contatta</button>
+                    )}
+                        
+                    {contactButtonStatus === true && (
+                        <button className='buttonInfoCard' onClick={() => setContactButtonStatus(false)}>{user.number}</button>
+                    )}
                 </div>
             </div>
         </div>

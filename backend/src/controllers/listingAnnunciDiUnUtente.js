@@ -4,7 +4,7 @@ const listingAnnunciDiUnUtente = async (req, res) => {
     const userId = req.userId || req.query.userId; // funzione usata sio per un utente loggato che per uno non loggato
 
     try{
-        const annunci = await Annuncio.find({userId: userId}).populate('userId', 'profileImageUrl nome cognome biografia');
+        const annunci = await Annuncio.find({userId: userId}).populate('userId', 'profileImageUrl nome cognome biografia number');
 
         // Se non ci sono annunci per un determinato utente
         if (annunci.length === 0) {

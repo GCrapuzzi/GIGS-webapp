@@ -6,6 +6,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
 
     const [imageUrl, setImageUrl] = useState('')
     const[buttonStatus, setButtonStatus] = useState(false)
+    const [contactButtonStatus, setContactButtonStatus] = useState(false)
     
     useEffect(() => {
         if (!utente) {// se si accede al profilo di un'altra persona
@@ -16,6 +17,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
     }, [utente, annuncio]);
     
 
+    
     return(
     <>
         {!utente && ( // se utente non è presente si sta visualizzando il profilo di un'altra persona
@@ -84,7 +86,13 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
                     </div>
                     <div>
                         <FaPaperPlane className="iconButton" />
-                        <button className='buttonInfoCard'>Contatta</button>
+                        {contactButtonStatus === false && (
+                            <button className='buttonInfoCard' onClick={() => setContactButtonStatus(true)}>Contatta</button>
+                        )}
+                        
+                        {contactButtonStatus === true && (
+                            <button className='buttonInfoCard' onClick={() => setContactButtonStatus(false)}>{utente.number}</button>
+                        )}
                     </div>
                 </div>
             </div>
