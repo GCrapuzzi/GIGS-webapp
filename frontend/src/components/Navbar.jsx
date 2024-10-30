@@ -2,21 +2,19 @@ import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
-import {useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
-function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySuccess,notifyError}) {
+function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
 
-
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const [currentPath, setCurrentPath] = useState(location.pathname);
 
     useEffect(() => {
-        setCurrentPath(location.pathname);
-    }, [location.pathname]);
-
-    isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true'
+      const authStatus = sessionStorage.getItem('isAuthenticated') === 'true';
+      setIsAuthenticated(authStatus);
+    }, [sessionStorage.getItem('isAuthenticated')]);
 
     //gestisce lo scorrimento del menù a tendina laterale quando si preme il tasto "Accedi"
     const handleClick = (event) => {
@@ -30,9 +28,7 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
         const response = await axios.get('http://localhost:5000/users/logout',{ withCredentials: true });
         
         if (response.status === 200) {
-        console.log("logout effettuato correttamente");
-        sessionStorage.clear();
-        handleAuthChange(false);
+        sessionStorage.clear()
         notifySuccess("Il logout è stato effettuato correttamente");
         navigate('/'); //si torna alla pagina "Cerca un Lavoretto"
         } else {  

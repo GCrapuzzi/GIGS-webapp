@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, setIsAuthenticated}){
+function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}){
     function goToNext(event, nextInputId) {
         const currentInput = event.target;
         if (currentInput && currentInput.value.length === currentInput.maxLength) {
@@ -64,7 +64,6 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
                 
                 if (isLoggedResponse.status === 200) {
                     sessionStorage.setItem('isAuthenticated', 'true')
-                    handleAuthChange(true)
                     navigate('../OfferingGigs')
                 } 
                 else {

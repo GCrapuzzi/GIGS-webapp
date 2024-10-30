@@ -15,7 +15,7 @@ const buttonGigStyle ={
     backgroundColor: 'rgba(251, 220, 192, 0.996)', 
 }
 
-function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, notifyError,setIsAuthenticated}){
+function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAuthenticated}){
     
     const navigate = useNavigate();
     const [isAuthenticated,setIsAuthenticated2] = useState(false);
@@ -210,7 +210,7 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             )} 
 
             {formType === 'otp' && (
-                <OtpForm  buttonText={buttonText} setIsAuthenticated={setIsAuthenticated} handleAuthChange={handleAuthChange} buttonVisitorStyle={buttonVisitorStyle} navigate={navigate}/>
+                <OtpForm  buttonText={buttonText} setIsAuthenticated={setIsAuthenticated} buttonVisitorStyle={buttonVisitorStyle} navigate={navigate}/>
             )}     
         </div>
     )

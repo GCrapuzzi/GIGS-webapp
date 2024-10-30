@@ -16,7 +16,6 @@ function App(){
 
   const [buttonState, setButtonState] = useState(false);
   const [hasClickedProfile, sethasClickedProfile] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   const toggleButtonState = () => {
     setButtonState(!buttonState);
@@ -25,9 +24,6 @@ function App(){
   const offeringGig = require("./assets/homepage.png")
   const otpGig = require("./assets/otp.png")
 
-  const handleAuthChange = (newAuthState) => {
-    setIsAuthenticated(newAuthState);
-  };
 
   const handleClick = () => {
     sethasClickedProfile(true);
@@ -68,15 +64,15 @@ function App(){
 
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} toggleButtonState={toggleButtonState}/>
+      <Navbar notifySuccess={notifySuccess} notifyError={notifyError} toggleButtonState={toggleButtonState}/>
       <Routes>
-        <Route path="/otp" element={<Otp setIsAuthenticated={setIsAuthenticated} handleAuthChange={handleAuthChange} buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
-        <Route path="/" element={<Homepage notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
-        <Route path="/offeringGigs" element={<OfferingGigs notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
+        <Route path="/otp" element={<Otp buttonText={'Invia'} backgroundImage={otpGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />}/>
+        <Route path="/" element={<Homepage notifySuccess={notifySuccess} notifyError={notifyError} buttonText={'Cerca'} backgroundImage={visitingGig} toggleButtonState={toggleButtonState} buttonState={buttonState} />} />
+        <Route path="/offeringGigs" element={<OfferingGigs notifySuccess={notifySuccess} notifyError={notifyError} buttonText={'Offri'} backgroundImage={offeringGig} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/profile" element={<CardpageDetails  handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
         <Route path="/cardPage" element={<Cardpage buttonState={buttonState} toggleButtonState={toggleButtonState}/>} />
         <Route path="/cardPageDetails" element={<CardpageDetails hasClickedProfile ={hasClickedProfile} handleClick={handleClick} toggleButtonState={toggleButtonState} buttonState={buttonState}/>} />
-        <Route path ="/myProfile" element={<Myprofile setIsAuthenticated={setIsAuthenticated} notifyError={notifyError} notifySuccess={notifySuccess} buttonState={buttonState} toggleButtonState={toggleButtonState}/>}/>
+        <Route path ="/myProfile" element={<Myprofile notifyError={notifyError} notifySuccess={notifySuccess} buttonState={buttonState} toggleButtonState={toggleButtonState}/>}/>
       </Routes>
       <ToastContainer
         position="bottom-center"
