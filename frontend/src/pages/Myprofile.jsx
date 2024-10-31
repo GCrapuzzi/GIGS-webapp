@@ -9,7 +9,6 @@ function Myprofile({buttonState, toggleButtonState, notifyError, notifySuccess})
     const [utente, setUtente] = useState(location.state?.data?.utente || {});
     const [listaPropriAnnunci, setListaPropriAnnunci] = useState(location.state?.data?.listaPropriAnnunci || []);
 
-   console.log("sono in myprofile")
     useEffect(() => {
         // Aggiorna i dati se sono presenti nello stato
         if (location.state && location.state.data) {

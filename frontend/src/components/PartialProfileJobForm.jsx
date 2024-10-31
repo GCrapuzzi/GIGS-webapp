@@ -20,7 +20,6 @@ function PartialProfileJobForm({ notifyError, handleisNotRegisteredSubmit, formD
     const handleFileChange = (e) => {
         setSelectedFile(e.target.files[0]);
     };
-    console.log(selectedFile)
 
 
     const handleSubmit = (e) => {

@@ -51,10 +51,8 @@ function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
           utente: response.data.user,
           listaPropriAnnunci: response2.data
         };
-        console.log(data)
 
         if(response.status === 200 && response2.status === 200){
-          console.log("navigo")
             navigate('/myProfile', { state: { data } });
           }
       } catch (error) {

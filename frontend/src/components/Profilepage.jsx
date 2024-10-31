@@ -39,7 +39,13 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
                     </div>
                     <div>
                         <FaPaperPlane className="iconButton" />
-                        <button className='buttonInfoCard'>Contatta</button>
+                        {contactButtonStatus === false && (
+                            <button className='buttonInfoCard' onClick={() => setContactButtonStatus(true)}>Contatta</button>
+                        )}
+                        
+                        {contactButtonStatus === true && (
+                            <button className='buttonInfoCard' onClick={() => setContactButtonStatus(false)}>{annuncio?.userId?.number}</button>
+                        )}
                     </div>
                 </div>
             </div>

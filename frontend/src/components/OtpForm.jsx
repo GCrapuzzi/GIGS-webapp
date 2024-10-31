@@ -51,7 +51,6 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
             if (response.status === 200) {
 
                 const responseData = response.data;
-                console.log(responseData.isRegistered)
                 if(responseData.isRegistered === true){
                     sessionStorage.setItem('isRegistered', 'true')
                     
@@ -61,7 +60,6 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
                     sessionStorage.setItem('isRegistered', 'false')
                 }
 
-                console.log('Otp validato correttamente');
                 const isLoggedResponse = await axios.get('http://localhost:5000/users/loggedin', { withCredentials: true });
                 
                 if (isLoggedResponse.status === 200) {
@@ -107,7 +105,6 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
                                         const responseLogout = await axios.get('http://localhost:5000/users/logout', { withCredentials: true });
         
                                         if (responseLogout.status === 200) {
-                                            console.log("logout effettuato correttamente");
                                             setIsAuthenticated(false)
                                             sessionStorage.setItem("isRegistered", false)
                                             sessionStorage.setItem("isAuthenticated", false)

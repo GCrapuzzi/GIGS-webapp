@@ -10,7 +10,6 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
     const handleSubmit = async (event) => {
         event.preventDefault();
         const prefixedNumber = addPrefix(phoneNumber);
-        console.log(prefixedNumber);
         
         sessionStorage.setItem('città', formData.città);
         sessionStorage.setItem('lavoro', formData.lavoro);
