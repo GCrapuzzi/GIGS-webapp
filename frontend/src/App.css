@@ -439,7 +439,6 @@ footer{
 
 .firstColumn{
   width: 60%;
-  max-height: 80vh;
 }
 
 .secondColumn{
@@ -735,4 +734,11 @@ input[type=file]::file-selector-button:hover {
   height: 50px;
   resize: none;
   padding-left: 0;
+}
+
+.biografiaProfilo{
+  width: 100%;
+  word-wrap:break-word;
+  max-height: 100px;
+  overflow: hidden;
 }

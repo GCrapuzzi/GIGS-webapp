@@ -29,7 +29,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
                     <img src={imageUrl} alt=""/>
                 </div>
                 <h2>Biografia</h2>
-                <p>{annuncio?.userId?.biografia || "Biografia non disponibile"}</p>
+                <p className="biografiaProfilo">{annuncio?.userId?.biografia || "Biografia non disponibile"}</p>
             </div>
             <div className='secondColumn'>
                 <div className='asideBox' id='asideBoxProfile'>
@@ -81,7 +81,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
                     <img src={imageUrl} alt=""/>
                 </div>
                 <h2>Biografia</h2>
-                <p>{utente?.biografia || "Biografia non disponibile"}</p>
+                <p className="biografiaProfilo">{utente?.biografia || "Biografia non disponibile"}</p>
             </div>
             <div className='secondColumn'>
                 
