@@ -23,8 +23,8 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
         //verifica la validità del lavoro inserito
         const lavoriDisponibili = [
             "Fotografo",
-            "Sguattera",
-            "Taglia erba",
+            "Tutor per ripetizioni",
+            "Giardiniere",
             "Baby-sitter",
             "Pet-sitter"
         ];
@@ -68,8 +68,8 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
                     <input type="text" placeholder="Inserisci Lavoretto da cercare:" list="jobs" className="formSpace" value={tipoLavoro} onChange={(e) => setTipoLavoro(e.target.value)}/>
                     <datalist id="jobs">
                         <option value="Fotografo" />
-                        <option value="Sguattera" />
-                        <option value="Taglia erba" />
+                        <option value="Tutor per ripetizioni" />
+                        <option value="Giardiniere" />
                         <option value="Baby-sitter" />
                         <option value="Pet-sitter" />
                     </datalist>

@@ -100,8 +100,8 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
             //viene effettuato un controllo sulla validità del lavoro
             const lavoriDisponibili = [
                 "Fotografo",
-                "Sguattera",
-                "Taglia erba",
+                "Tutor per ripetizioni",
+                "Giardiniere",
                 "Baby-sitter",
                 "Pet-sitter"
             ];
@@ -152,7 +152,8 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
 
         const lavoriDisponibili = [
             "Fotografo",
-            "Taglia erba",
+            "Tutor per ripetizioni",
+            "Giardiniere",
             "Baby-sitter",
             "Pet-sitter"
         ];

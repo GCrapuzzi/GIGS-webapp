@@ -84,8 +84,8 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
           <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" value={formData.lavoro} className="formSpace" name="lavoro" onChange={handleChange} />
             <datalist id="jobs">
               <option value="Fotografo" />
-              <option value="Sguattera" />
-              <option value="Taglia erba" />
+              <option value="Tutor per ripetizioni" />
+              <option value="Giardiniere" />
               <option value="Baby-sitter" />
               <option value="Pet-sitter" />
             </datalist>

@@ -28,6 +28,7 @@ function AdDetails({handleClick, annuncio}){
             <div className='asideBox'>
                 <div>
                     <h3>Informazioni aggiuntive:</h3>
+                    <p>Città: {annuncio.città}</p>
                     <p>Fascia oraria di disponibilità:{annuncio.orario}</p>
                     <p>Tariffa oraria: &euro;{annuncio.tariffa}</p>
                 </div>

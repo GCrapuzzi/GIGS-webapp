@@ -22,8 +22,8 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
       
           const lavoriDisponibili = [
             "Fotografo",
-            "Sguattera",
-            "Taglia erba",
+            "Tutor per ripetizioni",
+            "Giardiniere",
             "Baby-sitter",
             "Pet-sitter"
         ];
@@ -67,8 +67,8 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
                     <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} onChange={handleChange} required/>
                     <datalist id="jobs">
                         <option value="Fotografo" />
-                        <option value="Sguattera" />
-                        <option value="Taglia erba" />
+                        <option value="Tutor per ripetizioni" />
+                        <option value="Giardiniere" />
                         <option value="Baby-sitter" />
                         <option value="Pet-sitter" />
                     </datalist>

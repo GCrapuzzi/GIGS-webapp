@@ -35,7 +35,6 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
                 <div className='asideBox' id='asideBoxProfile'>
                     <div>
                         <h3>Informazioni aggiuntive:</h3>
-                        <p>Fascia oraria di disponibilità: {annuncio?.orario || "Non disponibile"}</p>
                     </div>
                     <div>
                         <FaPaperPlane className="iconButton" />
