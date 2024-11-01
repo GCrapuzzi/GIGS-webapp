@@ -14,7 +14,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'https://gigs-frontend.rshare.io',
+  origin: 'https://gigs-webapp-frontend.vercel.app',
   credentials: true
 }));
 app.use(cookieParser());

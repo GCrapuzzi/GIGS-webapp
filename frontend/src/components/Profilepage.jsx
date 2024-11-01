@@ -10,9 +10,9 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
     
     useEffect(() => {
         if (!utente) {// se si accede al profilo di un'altra persona
-            setImageUrl(`https://gigs-backend.rshare.io${annuncio?.userId?.profileImageUrl || ""}`);
+            setImageUrl(`https://gigs-webapp.vercel.app${annuncio?.userId?.profileImageUrl || ""}`);
         } else { // se si accede al proprio profilo
-            setImageUrl(`https://gigs-backend.rshare.io${utente?.profileImageUrl || ""}`);
+            setImageUrl(`https://gigs-webapp.vercel.app${utente?.profileImageUrl || ""}`);
         }
     }, [utente, annuncio]);
     

@@ -19,7 +19,7 @@ function AdDetails({handleClick, annuncio}){
             <h1 className='cardpageDetailsText'>{annuncio.titolo}</h1>
             <p className="adUser">Annuncio di <a path="" onClick={viewProfile}><b>{user.nome ? `${user.nome} ${user.cognome}` : "Utente"}</b></a></p>
             <div className="imageContainer">
-            <img src={`https://gigs-backend.rshare.io${user.profileImageUrl || '/path/to/default-image.jpg'}`} alt="Foto Profilo" />
+            <img src={`https://gigs-webapp.vercel.app${user.profileImageUrl || '/path/to/default-image.jpg'}`} alt="Foto Profilo" />
             </div>
             <h2>Descrizione dell'annuncio</h2>
             <p>{annuncio.descrizione}</p>

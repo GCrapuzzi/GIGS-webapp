@@ -25,7 +25,7 @@ function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
     const handleLogout = async (event) => {
       event.preventDefault();
       try {
-        const response = await axios.get('https://gigs-backend.rshare.io/users/logout',{ withCredentials: true });
+        const response = await axios.get('https://gigs-webapp.vercel.app/users/logout',{ withCredentials: true });
         
         if (response.status === 200) {
         sessionStorage.clear()
@@ -45,8 +45,8 @@ function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
     const showProfile = async () => {
       if(location.pathname !== '/myProfile'){
       try {
-        const response = await axios.get('https://gigs-backend.rshare.io/users/trovaUser',{ withCredentials: true });
-        const response2 = await axios.get('https://gigs-backend.rshare.io/annunci/listingAnnunciUtente',{ withCredentials: true })
+        const response = await axios.get('https://gigs-webapp.vercel.app/users/trovaUser',{ withCredentials: true });
+        const response2 = await axios.get('https://gigs-webapp.vercel.app/annunci/listingAnnunciUtente',{ withCredentials: true })
         const data = {
           utente: response.data.user,
           listaPropriAnnunci: response2.data

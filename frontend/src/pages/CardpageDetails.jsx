@@ -24,7 +24,7 @@ function CardpageDetails({handleClick, toggleButtonState, buttonState}){
     
     const listAnnunci = async () => {
         try {
-            const response = await axios.get('https://gigs-backend.rshare.io/annunci/listingAnnunciVisitatore', {
+            const response = await axios.get('https://gigs-webapp.vercel.app/annunci/listingAnnunciVisitatore', {
                 params: data
             });
             

@@ -56,7 +56,7 @@ const authUser = async (req, res) => {
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
-        domain: 'gigs-frontend.rshare.io',
+        domain: 'gigs-webapp-frontend.vercel.app',
         expires: new Date(Date.now() + 86400000),
         httpOnly: true, // Il cookie non è accessibile da JavaScript
         secure: true // assicura che il cookie venga inviato solo tramite HTTPS
