@@ -6,7 +6,7 @@ import SearchCityInput from "./SearchCityInput";
 
 function PartialProfileJobForm({ notifyError, handleisNotRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText, setCitta, setFormData }) {
     const [step, setStep] = useState(1);
-    const [selectedFile, setSelectedFile] = useState(null); // Stato per gestire il file immagine
+    const [selectedFile, setSelectedFile] = useState({});
 
     const nextStep = () => {
         setStep(step + 1);
@@ -16,15 +16,15 @@ function PartialProfileJobForm({ notifyError, handleisNotRegisteredSubmit, formD
         setStep(step - 1);
     };
 
-    // Gestire il cambiamento del file selezionato
+
     const handleFileChange = (e) => {
         setSelectedFile(e.target.files[0]);
     };
 
-    // Al submit, passiamo il file immagine al parent (HomepageForm)
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formDataToSend = new FormData(); // Usa FormData per inviare l'immagine e i dati
+        const formDataToSend = new FormData();
         formDataToSend.append('fotoProfilo', selectedFile);
         for (let key in formData) {
             formDataToSend.append(key, formData[key]);
@@ -37,10 +37,9 @@ function PartialProfileJobForm({ notifyError, handleisNotRegisteredSubmit, formD
             lavoro: '',
             titolo: '',
             descrizione: '',
-            tariffa: null,
+            tariffa: '',
             orario: '',
         })
-        // Inviamo il form al parent che gestisce le due richieste
         handleisNotRegisteredSubmit(formDataToSend);
     };
 
@@ -62,8 +61,8 @@ function PartialProfileJobForm({ notifyError, handleisNotRegisteredSubmit, formD
                     <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" className="formSpace" name="lavoro" value={formData.lavoro} onChange={handleChange} required title="Inserisci la tipologia di lavoro." />
                     <datalist id="jobs">
                         <option value="Fotografo" />
-                        <option value="Sguattera" />
-                        <option value="Taglia erba" />
+                        <option value="Tutor per ripetizioni" />
+                        <option value="Giardiniere" />
                         <option value="Baby-sitter" />
                         <option value="Pet-sitter" />
                     </datalist>

@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, setIsAuthenticated}){
+function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}){
+
+    //permette di scorrere lungo gli input ogni volta che viene inserita una nuova cifra
     function goToNext(event, nextInputId) {
         const currentInput = event.target;
         if (currentInput && currentInput.value.length === currentInput.maxLength) {
@@ -14,6 +16,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
 
     const phoneData = JSON.parse(sessionStorage.getItem('phoneData')) || null;
     
+    //permette di tornare all'input precedente quando si preme backspace
     function goToPrevious(event, prevInputId) {
         const currentInput = event.target;
         
@@ -31,13 +34,12 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
         for (let i = 1; i <= 6; i++) {
             const input = document.getElementById(`input${i}`);
             if (input) {
-                otp += input.value;
+                otp += input.value; //permette la costruzione della stringa otp finale.
             }
         }
-        console.log(otp);
 
 
-        if(phoneData === null){
+        if(!phoneData){
         const prefixedNumber = sessionStorage.getItem('number');
         const data = {
             number: prefixedNumber,
@@ -49,7 +51,6 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
             if (response.status === 200) {
 
                 const responseData = response.data;
-                console.log(responseData.isRegistered)
                 if(responseData.isRegistered === true){
                     sessionStorage.setItem('isRegistered', 'true')
                     
@@ -59,12 +60,10 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
                     sessionStorage.setItem('isRegistered', 'false')
                 }
 
-                console.log('Otp validato correttamente');
                 const isLoggedResponse = await axios.get('http://localhost:5000/users/loggedin', { withCredentials: true });
                 
                 if (isLoggedResponse.status === 200) {
                     sessionStorage.setItem('isAuthenticated', 'true')
-                    handleAuthChange(true)
                     navigate('../OfferingGigs')
                 } 
                 else {
@@ -79,12 +78,10 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
           }
         }
 
-        console.log(phoneData)
-        if (phoneData !== null && phoneData !== undefined) {
+        if (phoneData) {
             try {
                 const response = await axios.post("http://localhost:5000/users/updateAccount", phoneData, { withCredentials: true });
         
-                // Corretto l'uso di = a === per la condizione
                 if (response.status === 200) {
                     const data1 = {
                         number: '+39' + phoneData.newPhoneNumber,
@@ -97,7 +94,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
                             try {
                                 const data2 = {
                                     number: '+39' + phoneData.newPhoneNumber,
-                                    otp: otp // Assicurati che `otp` sia definito correttamente
+                                    otp: otp
                                 };
                                 
                                 const response3 = await axios.post('http://localhost:5000/users/authenticate', data2, { withCredentials: true });
@@ -108,11 +105,9 @@ function OtpForm({ buttonVisitorStyle, buttonText, handleAuthChange, navigate, s
                                         const responseLogout = await axios.get('http://localhost:5000/users/logout', { withCredentials: true });
         
                                         if (responseLogout.status === 200) {
-                                            console.log("logout effettuato correttamente");
                                             setIsAuthenticated(false)
                                             sessionStorage.setItem("isRegistered", false)
                                             sessionStorage.setItem("isAuthenticated", false)
-                                            sessionStorage.setItem("isAuthenticated2", false)
                                             toast.success("Il numero di telefono è stato cambiato correttamente. Effettuare nuovamente l'accesso.");
                                             navigate('/');
                                         } else {

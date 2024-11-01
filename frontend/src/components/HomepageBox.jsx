@@ -1,7 +1,7 @@
 import HomepageForm from "./HomepageForm"
 import HomepageText from "./HomepageText"
 
-function HomepageBox({oldPhoneNumber, setIsAuthenticated, newPhoneNumber, newPhoneNumberConferm, OtpChangeNumber, backgroundImage, formType, buttonText, handleAuthChange,notifySuccess, notifyError}){
+function HomepageBox({oldPhoneNumber, newPhoneNumber, newPhoneNumberConferm, OtpChangeNumber, backgroundImage, formType, buttonText,notifySuccess, notifyError}){
 
     const styles = {
         backgroundImage: `url(${backgroundImage})`
@@ -14,7 +14,7 @@ function HomepageBox({oldPhoneNumber, setIsAuthenticated, newPhoneNumber, newPho
                 <div>
                     <div className="HomepageBoxOtp" style={styles}>
                         <HomepageText formType={formType} />
-                        <HomepageForm setIsAuthenticated={setIsAuthenticated} OtpChangeNumber={OtpChangeNumber} oldPhoneNumber={oldPhoneNumber} newPhoneNumber={newPhoneNumber} newPhoneNumberConferm={newPhoneNumberConferm} formType={formType} handleAuthChange={handleAuthChange} buttonText={buttonText} />
+                        <HomepageForm OtpChangeNumber={OtpChangeNumber} oldPhoneNumber={oldPhoneNumber} newPhoneNumber={newPhoneNumber} newPhoneNumberConferm={newPhoneNumberConferm} formType={formType} buttonText={buttonText} />
                     </div>
                 </div>
             )}
@@ -23,7 +23,7 @@ function HomepageBox({oldPhoneNumber, setIsAuthenticated, newPhoneNumber, newPho
                 <div>
                     <div className="HomepageBox" style={styles}>
                         <HomepageText formType={formType} />
-                        <HomepageForm notifySuccess={notifySuccess} notifyError={notifyError} handleAuthChange={handleAuthChange} formType={formType} buttonText={buttonText} />
+                        <HomepageForm notifySuccess={notifySuccess} notifyError={notifyError} formType={formType} buttonText={buttonText} />
                     </div>
                 </div>
             )}

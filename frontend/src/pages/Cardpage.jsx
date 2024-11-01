@@ -8,7 +8,7 @@ import { VscSettings } from "react-icons/vsc";
 import axios from 'axios';
 
 function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
-  const location = useLocation();  // Usa useLocation per ottenere lo stato
+  const location = useLocation();  // useLocation per ottenere lo stato
 
   const [annunci, setAnnunci] = useState([]);
 
@@ -17,7 +17,7 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
     const updatedAnnunci = location?.state?.annunci ?? listaAnnunci ?? [];
     setAnnunci(updatedAnnunci);
   }, [location?.state?.annunci, listaAnnunci]);
-  console.log(annunci)
+
   const navigate = useNavigate();
   const [buttonStatus, setButtonStatus] = useState(false);
   const [formData, setFormData] = useState({
@@ -78,14 +78,14 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
       <div className={`filterContainer ${buttonStatus ? 'active' : ''}`}>
         <form className='filterSubContainer' onSubmit={handleFilterForm}>
           <h1>Inserisci i parametri per il filtraggio</h1>
-          <input type="number" name="prezzoMin" value={formData.prezzoMin} placeholder='prezzo Min' className='formSpace' onChange={handleChange}/>
-          <input type="number" name="prezzoMax" value={formData.prezzoMax} placeholder='prezzo Max' className='formSpace' onChange={handleChange}/>
+          <input type="number" name="prezzoMin" value={formData.prezzoMin} placeholder='Inserisci il prezzo minimo:' className='formSpace' onChange={handleChange}/>
+          <input type="number" name="prezzoMax" value={formData.prezzoMax} placeholder='Inserisci il prezzo massimo:' className='formSpace' onChange={handleChange}/>
           <GiGardeningShears className="icon" />
           <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" value={formData.lavoro} className="formSpace" name="lavoro" onChange={handleChange} />
             <datalist id="jobs">
               <option value="Fotografo" />
-              <option value="Sguattera" />
-              <option value="Taglia erba" />
+              <option value="Tutor per ripetizioni" />
+              <option value="Giardiniere" />
               <option value="Baby-sitter" />
               <option value="Pet-sitter" />
             </datalist>

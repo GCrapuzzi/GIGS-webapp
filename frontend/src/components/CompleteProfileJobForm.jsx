@@ -27,8 +27,8 @@ function CompleteProfileJobForm({formData, buttonGigStyle, buttonText, setCitta,
                         <input type="text" placeholder="Inserisci Lavoretto da offrire:"  name="lavoro" onChange={handleChange} value={formData.lavoro} list="jobs" className="formSpace"/>
                         <datalist id="jobs">
                             <option value="Fotografo" />
-                            <option value="Sguattera" />
-                            <option value="Taglia erba" />
+                            <option value="Tutor per ripetizioni" />
+                            <option value="Giardiniere" />
                             <option value="Baby-sitter" />
                             <option value="Pet-sitter" />
                         </datalist>

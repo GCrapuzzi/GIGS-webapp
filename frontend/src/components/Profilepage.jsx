@@ -2,67 +2,49 @@ import { useEffect, useState } from "react";
 import Cardpage from "../pages/Cardpage"
 import { FaPaperPlane } from "react-icons/fa";
 import ChangeProfile from "./ChangeProfile";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess, setIsAuthenticated}){
+function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess}){
 
-    const navigate = useNavigate()
     const [imageUrl, setImageUrl] = useState('')
     const[buttonStatus, setButtonStatus] = useState(false)
+    const [contactButtonStatus, setContactButtonStatus] = useState(false)
     
     useEffect(() => {
-        if (!utente) {
-            setImageUrl(`http://localhost:5000${annuncio.userId.profileImageUrl}`);
-        } else {
-       
-            setImageUrl(`http://localhost:5000${utente.profileImageUrl}`);
+        if (!utente) {// se si accede al profilo di un'altra persona
+            setImageUrl(`http://localhost:5000${annuncio?.userId?.profileImageUrl || ""}`);
+        } else { // se si accede al proprio profilo
+            setImageUrl(`http://localhost:5000${utente?.profileImageUrl || ""}`);
         }
     }, [utente, annuncio]);
     
 
-    const showProfile = async () => {
-        try {
-          const response = await axios.get('http://localhost:5000/users/trovaUser',{ withCredentials: true });
-          const response2 = await axios.get('http://localhost:5000/annunci/listingAnnunciUtente',{ withCredentials: true })
-          const data = {
-            utente: response.data,
-            listaPropriAnnunci: response2.data
-          };
-  
-          console.log(data.utente, data.listaPropriAnnunci)
-  
-          if(response.status === 200 && response2.status === 200){
-            navigate('/myProfile', { state: { data }});
-          }
-        } catch (error) {
-          notifyError("Per visualizzare il profilo devi prima pubblicare un annuncio!")
-          console.error('Errore durante il recupero del profilo:', error);
-        }
-      }
-
-
+    
     return(
     <>
-        {!utente && (
+        {!utente && ( // se utente non è presente si sta visualizzando il profilo di un'altra persona
         <>
         <div className='cardpageDetailsContainer'>
             <div className='firstColumn'>
-                <h1 className='cardpageDetailsText'>{annuncio.userId.nome} {annuncio.userId.cognome}</h1>
+                <h1 className='cardpageDetailsText'>{annuncio?.userId?.nome || "Nome non disponibile"} {annuncio?.userId?.cognome || ""}</h1>
                 <div className="imageContainer">
                     <img src={imageUrl} alt=""/>
                 </div>
                 <h2>Biografia</h2>
-                <p>{annuncio.userId.biografia}</p>
+                <p className="biografiaProfilo">{annuncio?.userId?.biografia || "Biografia non disponibile"}</p>
             </div>
             <div className='secondColumn'>
                 <div className='asideBox' id='asideBoxProfile'>
                     <div>
                         <h3>Informazioni aggiuntive:</h3>
-                        <p>Fascia oraria di disponibilità: {annuncio.orario}</p>
                     </div>
                     <div>
                         <FaPaperPlane className="iconButton" />
-                        <button className='buttonInfoCard'>Contatta</button>
+                        {contactButtonStatus === false && (
+                            <button className='buttonInfoCard' onClick={() => setContactButtonStatus(true)}>Contatta</button>
+                        )}
+                        
+                        {contactButtonStatus === true && (
+                            <button className='buttonInfoCard' onClick={() => setContactButtonStatus(false)}>{annuncio?.userId?.number}</button>
+                        )}
                     </div>
                 </div>
             </div>
@@ -75,30 +57,30 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
 
 
             <div className="cardProfilePage">
-                <Cardpage listaAnnunci={listaAnnunci} noFilter={true} />
+                <Cardpage listaAnnunci={listaAnnunci} noFilter={true} /> 
             </div>
         </div>
     </>
         )}
 
-        {utente && (
+        {utente && ( //se utente è presente si sta visualizzando il proprio profilo
         <>
         <div className={`overlay2 ${buttonStatus ? 'active' : ''}`}></div>
         {buttonStatus === true && 
-            <ChangeProfile setIsAuthenticated={setIsAuthenticated} showProfile={showProfile} utente={utente} setButtonStatus={setButtonStatus} buttonStatus={buttonStatus} notifyError={notifyError} notifySuccess={notifySuccess} />
+            <ChangeProfile setButtonStatus={setButtonStatus} buttonStatus={buttonStatus} notifyError={notifyError} notifySuccess={notifySuccess} />
         }
         <div className='cardpageDetailsContainer'>
 
             <div className='firstColumn'>
                 <div className="containerTitleProfile">     
-                    <h1 className='cardpageDetailsText'>{utente.nome} {utente.cognome}</h1>
+                    <h1 className='cardpageDetailsText'>{utente?.nome || "Nome non disponibile"} {utente?.cognome || ""}</h1>
                     <button onClick={() => setButtonStatus(!buttonStatus)}>Modifica il profilo</button>
                 </div>
                 <div className="imageContainer">
                     <img src={imageUrl} alt=""/>
                 </div>
                 <h2>Biografia</h2>
-                <p>{utente.biografia}</p>
+                <p className="biografiaProfilo">{utente?.biografia || "Biografia non disponibile"}</p>
             </div>
             <div className='secondColumn'>
                 
@@ -106,11 +88,16 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
                     
                     <div>
                         <h3>Informazioni aggiuntive:</h3>
-                        <p>Fascia oraria di disponibilità: </p>
                     </div>
                     <div>
                         <FaPaperPlane className="iconButton" />
-                        <button className='buttonInfoCard'>Contatta</button>
+                        {contactButtonStatus === false && (
+                            <button className='buttonInfoCard' onClick={() => setContactButtonStatus(true)}>Contatta</button>
+                        )}
+                        
+                        {contactButtonStatus === true && (
+                            <button className='buttonInfoCard' onClick={() => setContactButtonStatus(false)}>{utente.number}</button>
+                        )}
                     </div>
                 </div>
             </div>

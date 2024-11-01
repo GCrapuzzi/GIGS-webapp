@@ -210,6 +210,11 @@ a:hover{
   resize:none;
 }
 
+textarea,
+input[type=text] {
+    font-family:Arial;
+}
+
 #formSpaceLogin{
   width: 360px;
 }
@@ -392,6 +397,15 @@ footer{
   margin-bottom: 0;
 }
 
+.cardAuthor b, .adUser b{
+  display:inline-block;
+  vertical-align: top;
+  max-width: 200px;
+  overflow:hidden;
+  white-space: nowrap;
+  height: max-content;
+}
+
 .cardpageDetailsContainer{
   display: flex;
   margin-left: 20px;
@@ -399,7 +413,8 @@ footer{
 }
 
 .cardpageDetailsText{
-  word-wrap: break-word;
+  width: 100%;
+  word-wrap:break-word;
 }
 
 .asideBox{
@@ -424,7 +439,6 @@ footer{
 
 .firstColumn{
   width: 60%;
-  max-height: 80vh;
 }
 
 .secondColumn{
@@ -473,7 +487,7 @@ footer{
 
 .imageContainer{
   width: 600px;
-  max-height: 500px;
+  max-height: 350px;
   overflow: hidden;
 }
 
@@ -653,6 +667,7 @@ footer{
 
 #deleteButton{
   background-color: rgb(200, 12, 5);
+  color: white;
   font-weight: bold;
 }
 
@@ -666,8 +681,7 @@ footer{
 
 .containerTitleProfile{
   display: flex;
-  gap: 20px;
-  align-items: center;
+  flex-direction: column;
 }
 
 .containerTitleProfile button{
@@ -677,6 +691,7 @@ footer{
   border-style: solid;
   border-color: rgb(220, 216, 216);
   background-color: white;
+  margin-bottom: 20px;
 }
 
 .error-message{
@@ -719,4 +734,11 @@ input[type=file]::file-selector-button:hover {
   height: 50px;
   resize: none;
   padding-left: 0;
+}
+
+.biografiaProfilo{
+  width: 100%;
+  word-wrap:break-word;
+  max-height: 100px;
+  overflow: hidden;
 }

@@ -2,51 +2,35 @@ import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
-import {useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
-function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySuccess,notifyError}) {
+function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
 
-
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const [currentPath, setCurrentPath] = useState(location.pathname);
 
     useEffect(() => {
-        setCurrentPath(location.pathname);
-    }, [location.pathname]);
+      const authStatus = sessionStorage.getItem('isAuthenticated') === 'true';
+      setIsAuthenticated(authStatus);
+    }, [sessionStorage.getItem('isAuthenticated')]);
 
-    console.log(currentPath)
-    console.log(isAuthenticated)
-
-    /*
-    if(isAuthenticated === true){
-      sessionStorage.setItem('isAuthenticated2', true)
-    }
-    console.log(sessionStorage.getItem('isAuthenticated2'))
-    */
-    isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true'
-
-    console.log(isAuthenticated)
-  
-
+    //gestisce lo scorrimento del menù a tendina laterale quando si preme il tasto "Accedi"
     const handleClick = (event) => {
       event.preventDefault();
       toggleButtonState();
     }
-
-
+    //permette di effettuare il logout quando si preme su "Logout"
     const handleLogout = async (event) => {
       event.preventDefault();
       try {
         const response = await axios.get('http://localhost:5000/users/logout',{ withCredentials: true });
         
         if (response.status === 200) {
-        console.log("logout effettuato correttamente");
-        sessionStorage.clear();
-        handleAuthChange(false);
+        sessionStorage.clear()
         notifySuccess("Il logout è stato effettuato correttamente");
-        navigate('/');
+        navigate('/'); //si torna alla pagina "Cerca un Lavoretto"
         } else {  
           console.error('Errore durante la verifica:', response.status, response.statusText);
         }
@@ -57,21 +41,18 @@ function Navbar({ toggleButtonState ,isAuthenticated, handleAuthChange, notifySu
     }
   
 
-
+    //permette la visualizzazione del proprio profilo (accessibile solo se è stato pubblicato almeno un annuncio)
     const showProfile = async () => {
       if(location.pathname !== '/myProfile'){
       try {
         const response = await axios.get('http://localhost:5000/users/trovaUser',{ withCredentials: true });
         const response2 = await axios.get('http://localhost:5000/annunci/listingAnnunciUtente',{ withCredentials: true })
         const data = {
-          utente: response.data,
+          utente: response.data.user,
           listaPropriAnnunci: response2.data
         };
 
-        console.log(data.utente, data.listaPropriAnnunci)
-
         if(response.status === 200 && response2.status === 200){
-          console.log(location.pathname)
             navigate('/myProfile', { state: { data } });
           }
       } catch (error) {

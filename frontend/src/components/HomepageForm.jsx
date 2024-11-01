@@ -15,7 +15,7 @@ const buttonGigStyle ={
     backgroundColor: 'rgba(251, 220, 192, 0.996)', 
 }
 
-function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, notifyError,setIsAuthenticated}){
+function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAuthenticated}){
     
     const navigate = useNavigate();
     const [isAuthenticated,setIsAuthenticated2] = useState(false);
@@ -28,11 +28,11 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
       lavoro: '',
       titolo: '',
       descrizione: '',
-      tariffa: 0,
+      tariffa: '',
       orario: '',
     });
 
-    // Handle input change
+    // gestisce cambiamenti degli input: associa a un campo del formData, con un dato name, il value inserito dall'utente.
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -41,7 +41,7 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
         });
     };
 
-
+    //gestisce la modifica della città nel SearchCityInput
     const setCitta = (e) => {
         setFormData({
             ...formData,
@@ -49,7 +49,7 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             
         });
     }
-  
+    //se l'utente ha compilato il form preliminare, il formData viene compilato con i dati precedentemente salvati nel sessionStorage
     useEffect(() => {
         setFormData({
             ...formData,
@@ -57,16 +57,21 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             lavoro: sessionStorage.getItem('lavoro')
         });
 
-        if(sessionStorage.getItem('isAuthenticated') === null){
+        //vengono definiti nel sessionStorage isAuthenticated e isRegistered per il rendering condizionale dei form, che deve persistere anche a seguito di aggiornamenti della pagina
+        //isAuthenticated === true indica che l'utente ha correttamente effettuato l'accesso con le proprie credenziali
+        //isRegistered === true indica che l'utente ha completato il proprio profilo
+        if(!sessionStorage.getItem('isAuthenticated')){
             sessionStorage.setItem('isAuthenticated', false)
         }
         setIsAuthenticated2(sessionStorage.getItem('isAuthenticated') === 'true');
-        if(sessionStorage.getItem('isRegistered') === null){
+        if(!sessionStorage.getItem('isRegistered')){
             sessionStorage.setItem('isRegistered', false)
         }
         setIsRegistered(sessionStorage.getItem('isRegistered') === 'true');
     }, [isRegistered]);
     
+    //gestione dell'invio del form per un utente che non ha ancora completato il proprio profilo
+    //due step: aggiornamento del profilo e pubblicazione dell'annuncio
     const handleisNotRegisteredSubmit = async (formDataToSend) => {
         try {
             // Invia il form per aggiornare il profilo
@@ -83,7 +88,7 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
                 notifySuccess("L'account è stato correttamente aggiornato");
             }
     
-            // Invia il form per creare l'annuncio (come JSON)
+            // Invia il form per creare l'annuncio
             const annuncioData = {
                 città: formData.città,
                 lavoro: formData.lavoro,
@@ -92,11 +97,11 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
                 tariffa: formData.tariffa,
                 orario: formData.orario,
             };
-
+            //viene effettuato un controllo sulla validità del lavoro
             const lavoriDisponibili = [
                 "Fotografo",
-                "Sguattera",
-                "Taglia erba",
+                "Tutor per ripetizioni",
+                "Giardiniere",
                 "Baby-sitter",
                 "Pet-sitter"
             ];
@@ -105,8 +110,6 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
                 notifyError("Il lavoro inserito non è valido")
                 return
             }
-    
-            console.log("Dati annuncio inviati:", annuncioData); // Verifica cosa viene inviato
     
             const response2 = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
                 headers: {
@@ -117,10 +120,9 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
     
             if (response2.status === 201) {
                 notifySuccess("L'annuncio è stato correttamente pubblicato")
-                sessionStorage.setItem('città','')
-                sessionStorage.setItem('lavoro','')
+                sessionStorage.removeItem('città')
+                sessionStorage.removeItem('lavoro')
                 setFormData({...formData, città: '', lavoro: '' });
-                console.log('Annuncio correttamente pubblicato');
             }
         } catch (error) {
             // Log più dettagliato dell'errore
@@ -136,7 +138,7 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             }
         }
     };
-
+    //gestione dell'invio del form per un utente che ha completato il proprio profilo
     const handleisRegisteredSubmit = async (event) =>{
         event.preventDefault()
         const annuncioData = {
@@ -150,7 +152,8 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
 
         const lavoriDisponibili = [
             "Fotografo",
-            "Taglia erba",
+            "Tutor per ripetizioni",
+            "Giardiniere",
             "Baby-sitter",
             "Pet-sitter"
         ];
@@ -169,8 +172,8 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             });
             if (response.status === 201) {
                 notifySuccess("L'annuncio è stato correttamente pubblicato")
-                sessionStorage.setItem('città','')
-                sessionStorage.setItem('lavoro','')
+                sessionStorage.removeItem('città')
+                sessionStorage.removeItem('lavoro')
                 setFormData({...formData, città: '', lavoro: '' });
             }
         } catch (error) {
@@ -180,7 +183,12 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
     
     
     
-    
+    //rendering del form da compilare sulla base delle variabili precedentemente definite
+    //SignupForm è il form iniziale della pagina "Offri un lavoretto", che viene compilato quando l'utente non ha ancora effettuato l'accesso
+    //CompleteProfileJobForm è il form che viene visualizzato nel caso in cui l'utente sia autentificato e abbia completato il profilo
+    //PartialProfileJobForm è il form che viene visualizzato nel caso in cui l'utente sia autentificato e non abbia completato il profilo
+    //SearchForm è il form per la ricerca dei lavoretti nella pagina "Cerca un lavoretto"
+    //OtpForm è il form per l'inserimento del codice OTP.
     return(
         <div>
             {formType === 'offer'  && isAuthenticated===false && (
@@ -200,7 +208,7 @@ function HomepageForm({ formType,buttonText, handleAuthChange, notifySuccess, no
             )} 
 
             {formType === 'otp' && (
-                <OtpForm  buttonText={buttonText} setIsAuthenticated={setIsAuthenticated} handleAuthChange={handleAuthChange} buttonVisitorStyle={buttonVisitorStyle} navigate={navigate}/>
+                <OtpForm  buttonText={buttonText} setIsAuthenticated={setIsAuthenticated} buttonVisitorStyle={buttonVisitorStyle} navigate={navigate}/>
             )}     
         </div>
     )

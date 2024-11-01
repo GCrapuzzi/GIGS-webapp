@@ -9,7 +9,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
     const [città, setCitta] = useState('');
     const [tipoLavoro, setTipoLavoro] = useState('');
 
-    
+    //gestisce la ricerca degli annunci
     const handleSearch = async (event) => {
         event.preventDefault();
         const data = {
@@ -17,10 +17,14 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
             tipoLavoro: tipoLavoro
         };
 
+        sessionStorage.removeItem('città')
+        sessionStorage.removeItem('lavoro')
+
+        //verifica la validità del lavoro inserito
         const lavoriDisponibili = [
             "Fotografo",
-            "Sguattera",
-            "Taglia erba",
+            "Tutor per ripetizioni",
+            "Giardiniere",
             "Baby-sitter",
             "Pet-sitter"
         ];
@@ -29,7 +33,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
             notifyError("Il lavoro inserito non è valido")
             return
         }
-
+        //richiesta di listing degli annunci in base a città e lavoro
         try{
             const response = await axios.get('http://localhost:5000/annunci/listing', {
                 params: data
@@ -37,8 +41,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
 
 
             if(response.status === 200){
-                navigate('/cardPage', { state: { annunci: response.data } });
-                console.log(response.data)
+                navigate('/cardPage', { state: { annunci: response.data.annunci } });
             }
         }catch (error) {
             if(error.status === 400){
@@ -57,7 +60,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
             <div className="textContainer">
                 <div>
                     <div>
-                        <SearchCityInput value={true} notifyError={notifyError} setCitta={setCitta}/>
+                        <SearchCityInput notifyError={notifyError} setCitta={setCitta}/>
                     </div>
                 </div>
                 <div>
@@ -65,8 +68,8 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
                     <input type="text" placeholder="Inserisci Lavoretto da cercare:" list="jobs" className="formSpace" value={tipoLavoro} onChange={(e) => setTipoLavoro(e.target.value)}/>
                     <datalist id="jobs">
                         <option value="Fotografo" />
-                        <option value="Sguattera" />
-                        <option value="Taglia erba" />
+                        <option value="Tutor per ripetizioni" />
+                        <option value="Giardiniere" />
                         <option value="Baby-sitter" />
                         <option value="Pet-sitter" />
                     </datalist>

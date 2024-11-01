@@ -20,7 +20,6 @@ function LoginPage({toggleButtonState, buttonState}){
   const handleSubmit = async (event) => {
     event.preventDefault();
     const prefixedNumber = addPrefix(phoneNumber);
-    console.log(prefixedNumber);
     sessionStorage.setItem('number', prefixedNumber);
     const data = {
         number: prefixedNumber
