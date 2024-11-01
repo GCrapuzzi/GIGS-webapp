@@ -26,7 +26,7 @@ function LoginPage({toggleButtonState, buttonState}){
       };
   
       try {
-        const response = await axios.post('http://localhost:5000/users/verify', data, { withCredentials: true });
+        const response = await axios.post('https://gigs-backend.rshare.io/users/verify', data, { withCredentials: true });
   
         if (response.status === 200) {
           toggleButtonState();

@@ -10,9 +10,9 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
     
     useEffect(() => {
         if (!utente) {// se si accede al profilo di un'altra persona
-            setImageUrl(`http://localhost:5000${annuncio?.userId?.profileImageUrl || ""}`);
+            setImageUrl(`https://gigs-backend.rshare.io${annuncio?.userId?.profileImageUrl || ""}`);
         } else { // se si accede al proprio profilo
-            setImageUrl(`http://localhost:5000${utente?.profileImageUrl || ""}`);
+            setImageUrl(`https://gigs-backend.rshare.io${utente?.profileImageUrl || ""}`);
         }
     }, [utente, annuncio]);
     
