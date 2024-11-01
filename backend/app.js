@@ -1,25 +1,39 @@
-// app.js
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const connectToDatabase = require('./src/config/database');
+const path = require('path');
 
+// Importo le route
+const userRoutes = require('./src/routes/userRoutes');
+const annunciRoutes = require('./src/routes/annunciRoutes');
+
+// Inizializzo l'applicazione
 const app = express();
 
-// Middleware (questa andrebbe in middleware, fallo quando vuoi paul)
-app.use(express.json()); // Per il parsing del corpo delle richieste in formato JSON
-app.use(cors()); // Per consentire le richieste da qualsiasi origine
+// Middleware
+app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
+app.use(cookieParser());
 
-// Connessione al database (questa andrebbe spostata in controller, fallo quando vuoi paul)
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log('MongoDB connection error:', err));
+// Servi la cartella "uploads" come file statici
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-// Routes (questa potrebbe andare in routes ma essendo la route principale la lascerei qua, a te la scelta)
+// Connessione al database
+connectToDatabase();
+
+// Route principale
 app.get('/', (req, res) => {
-  res.send('Paul is running...');
+  res.send('API in funzione...');
 });
+
+// Route per gli utenti
+app.use('/users', userRoutes);
+
+// Route per gli annunci
+app.use('/annunci', annunciRoutes);
 
 module.exports = app;
