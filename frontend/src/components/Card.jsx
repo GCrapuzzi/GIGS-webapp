@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 function Card({ annuncio }) {
   const user = annuncio.userId;
-  const imageUrl = `http://localhost:5000${user.profileImageUrl}`;
+  const imageUrl = `https://gigs-webapp.vercel.app${user.profileImageUrl}`;
 
   return (
     

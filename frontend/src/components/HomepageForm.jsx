@@ -75,7 +75,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
     const handleisNotRegisteredSubmit = async (formDataToSend) => {
         try {
             // Invia il form per aggiornare il profilo
-            const response1 = await axios.post('http://localhost:5000/users/updateAccount', formDataToSend, {
+            const response1 = await axios.post('https://gigs-webapp.vercel.app/users/updateAccount', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -111,7 +111,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
                 return
             }
     
-            const response2 = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
+            const response2 = await axios.post('https://gigs-webapp.vercel.app/annunci/createAnnuncio', annuncioData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -164,7 +164,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/annunci/createAnnuncio', annuncioData, {
+            const response = await axios.post('https://gigs-webapp.vercel.app/annunci/createAnnuncio', annuncioData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
