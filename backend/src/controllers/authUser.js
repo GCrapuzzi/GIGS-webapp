@@ -59,7 +59,6 @@ const authUser = async (req, res) => {
         domain: 'gigs-frontend.rshare.io',
         expires: new Date(Date.now() + 86400000),
         httpOnly: true, // Il cookie non è accessibile da JavaScript
-        secure: true // assicura che il cookie venga inviato solo tramite HTTPS
       });
 
       // Risposta con messaggio di autenticazione riuscita
