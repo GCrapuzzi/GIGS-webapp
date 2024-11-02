@@ -56,9 +56,10 @@ const authUser = async (req, res) => {
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
-        domain: 'gigs-frontend.rshare.io',
+        domain: '.rshare.io',
         expires: new Date(Date.now() + 86400000),
         httpOnly: true, // Il cookie non è accessibile da JavaScript
+        secure: true // Il cookie è inviato solo su HTTPS
       });
 
       // Risposta con messaggio di autenticazione riuscita
