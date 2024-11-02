@@ -46,7 +46,7 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
   const handleFilterForm = async (event) =>{
     event.preventDefault();
     try{
-      const response = await axios.get('https://gigs-webapp.vercel.app/annunci/filtra', {
+      const response = await axios.get('https://gigs-backend.rshare.io/annunci/filtra', {
           params: formData
       });
       if(response.status === 200){

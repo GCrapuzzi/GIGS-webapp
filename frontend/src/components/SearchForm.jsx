@@ -35,7 +35,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
         }
         //richiesta di listing degli annunci in base a città e lavoro
         try{
-            const response = await axios.get('https://gigs-webapp.vercel.app/annunci/listing', {
+            const response = await axios.get('https://gigs-backend.rshare.io/annunci/listing', {
                 params: data
             });
 
