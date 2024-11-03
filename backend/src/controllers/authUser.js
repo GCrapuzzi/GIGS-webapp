@@ -56,6 +56,7 @@ const authUser = async (req, res) => {
 
       // Imposta il cookie con il token
       res.cookie("token", token, {
+        sameSite: 'Strict',
         domain: '.rshare.io',
         expires: new Date(Date.now() + 86400000),
         httpOnly: true, // Il cookie non è accessibile da JavaScript
