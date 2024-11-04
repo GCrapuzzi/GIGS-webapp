@@ -5,7 +5,7 @@ async function sendOTP(number, otp) {
     try {
       await vonage.sms.send({
         to: number,
-        from: 'Gigs Web App',
+        from: 'Gigs WebApp',
         text: `Il tuo codice di verifica è: ${otp}.`
       });
     } catch (error) {

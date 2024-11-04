@@ -81,7 +81,7 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
           <input type="number" name="prezzoMin" value={formData.prezzoMin} placeholder='Inserisci il prezzo minimo:' className='formSpace' onChange={handleChange}/>
           <input type="number" name="prezzoMax" value={formData.prezzoMax} placeholder='Inserisci il prezzo massimo:' className='formSpace' onChange={handleChange}/>
           <GiGardeningShears className="icon" />
-          <input type="text" placeholder="Inserisci Lavoretto da offrire:" list="jobs" value={formData.lavoro} className="formSpace" name="lavoro" onChange={handleChange} />
+          <input type="text" placeholder="Inserisci Lavoretto da cercare:" list="jobs" value={formData.lavoro} className="formSpace" name="lavoro" onChange={handleChange} />
             <datalist id="jobs">
               <option value="Fotografo" />
               <option value="Tutor per ripetizioni" />
