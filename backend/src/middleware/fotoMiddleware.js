@@ -1,7 +1,6 @@
 const path = require("path");
 const multer = require('multer');
 
-// Da rivedere di brutto
 // Configurazione Multer per salvare le immagini in assets
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
