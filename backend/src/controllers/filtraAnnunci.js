@@ -30,7 +30,7 @@ const filtraAnnunci = async (req, res) => {
     }
 
     // Assicurati che prezzoMin non sia maggiore di prezzoMax
-    if (prezzoMinNumero > prezzoMaxNumero) {  // rivedere 
+    if (prezzoMinNumero > prezzoMaxNumero) { 
       return res.status(400).json({ message: 'prezzoMin non può essere maggiore di prezzoMax' });
     }
 

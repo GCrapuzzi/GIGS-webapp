@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('./config');
 
-// Connessione al database MongoDB
+// Connessione al database MongoDB come da documentazione ufficiale
 async function connectToDatabase() {
     try {
         await mongoose.connect(config.mongoURI);

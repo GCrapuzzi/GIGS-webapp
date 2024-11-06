@@ -6,7 +6,7 @@ const validateNumber = require("../validators/validateNumber");
 const authUser = async (req, res) => {
   try {
 
-    // Estrae l'OTP e il numero di telefono dalla richiesta
+    // Estrae l'OTP e il numero di telefono dal body della richiesta
     const { otp, number } = req.body;
 
     // Verifica che l'OTP sia presente e di 6 cifre
