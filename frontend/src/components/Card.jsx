@@ -16,7 +16,7 @@ function Card({ annuncio }) {
 
       {/* Autore dell'annuncio */}
       <div className="cardAuthor">
-        <p>Annuncio di <Link to="" ><b>{annuncio.userId.nome} {annuncio.userId.cognome}</b></Link></p>
+        <p>Annuncio di<b>{annuncio.userId.nome} {annuncio.userId.cognome}</b></p>
       </div>
 
       {/* Titolo dell'annuncio */}
