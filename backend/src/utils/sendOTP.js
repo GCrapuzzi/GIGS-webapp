@@ -1,6 +1,8 @@
+/**
+ * Sends the generated OTP to the user's phone number via Vonage.
+ */
 const vonage = require('../config/vonage')
 
-// Funzione per inviare un messaggio di testo con il codice OTP
 async function sendOTP(number, otp) {
     try {
       await vonage.sms.send({

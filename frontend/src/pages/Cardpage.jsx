@@ -1,5 +1,8 @@
+/**
+ * Page that renders filtered gig listings and exposes an advanced search panel.
+ */
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';  // Importa useLocation
+import { useLocation, useNavigate } from 'react-router-dom';
 import Card from "../components/Card";
 import LoginPage from "../components/LoginPage";
 import { GiGardeningShears } from 'react-icons/gi';
@@ -8,11 +11,11 @@ import { VscSettings } from "react-icons/vsc";
 import axios from 'axios';
 
 function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
-  const location = useLocation();  // useLocation per ottenere lo stato
+  const location = useLocation();
 
   const [annunci, setAnnunci] = useState([]);
 
-  // Sync `annunci` state with `listaAnnunci` prop or `location.state`
+  // Sync `annunci` state with `listaAnnunci` prop or `location.state`.
   useEffect(() => {
     const updatedAnnunci = location?.state?.annunci ?? listaAnnunci ?? [];
     setAnnunci(updatedAnnunci);
@@ -43,6 +46,7 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
     });
   }
 
+  // Submit the filter form and navigate with the server response.
   const handleFilterForm = async (event) =>{
     event.preventDefault();
     try{

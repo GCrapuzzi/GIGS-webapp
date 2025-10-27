@@ -1,30 +1,32 @@
-
+/**
+ * Compact card summarizing a gig listing.
+ */
 import { Link } from "react-router-dom";
 function Card({ annuncio }) {
   const user = annuncio.userId;
   const imageUrl = `https://gigs-webapp.vercel.app${user.profileImageUrl}`;
 
   return (
-    
+
     <div className="cardSlot">
-      {/* Immagine dell'annuncio */}
+      {/* Listing thumbnail */}
       <div className="cardImageSlot">
         <Link to="/cardpageDetails" state={{ annuncio }}>
           <img src={imageUrl} className="cardImage" alt={annuncio.userId.profileImageUrl} />
         </Link>
       </div>
 
-      {/* Autore dell'annuncio */}
+      {/* Listing owner */}
       <div className="cardAuthor">
         <p>Annuncio di <Link to="" ><b>{annuncio.userId.nome} {annuncio.userId.cognome}</b></Link></p>
       </div>
 
-      {/* Titolo dell'annuncio */}
+      {/* Listing title */}
       <div className="cardTitle">
         <Link to="/cardpageDetails" state={{ annuncio }}><h3>{annuncio.titolo}</h3></Link>
       </div>
 
-      {/* Tariffa dell'annuncio */}
+      {/* Listing price */}
       <div className="cardPrice">
         <p>A partire da &euro;{annuncio.tariffa}</p>
       </div>

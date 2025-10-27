@@ -1,14 +1,24 @@
+/**
+ * Landing page presented to visitors searching for gigs.
+ */
 import HomepageContainer from "../components/HomepageContainer.jsx";
 import Footer from "../components/Footer.jsx";
 
-function Homepage({buttonText, backgroundImage, toggleButtonState, buttonState, notifyError}){
-  return(
+function Homepage({ buttonText, backgroundImage, toggleButtonState, buttonState, notifyError }) {
+  return (
     <>
-      <HomepageContainer buttonText={buttonText} backgroundImage ={backgroundImage} formType="search" toggleButtonState={toggleButtonState} buttonState={buttonState} notifyError={notifyError}/>
+      <HomepageContainer
+        buttonText={buttonText}
+        backgroundImage={backgroundImage}
+        formType="search"
+        toggleButtonState={toggleButtonState}
+        buttonState={buttonState}
+        notifyError={notifyError}
+      />
 
-      <Footer></Footer>
+      <Footer />
     </>
-  )
+  );
 }
 
-export default Homepage
+export default Homepage;

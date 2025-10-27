@@ -1,3 +1,6 @@
+/**
+ * Modal that lets providers update their profile details, photo, and phone number.
+ */
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -83,28 +86,28 @@ function ChangeProfile({setButtonStatus, buttonStatus, notifySuccess, notifyErro
         e.preventDefault();
         const formDataToSend = new FormData();
 
-        // Aggiunge il file solo se è stato selezionato
+        // Attach the new profile picture when provided.
         if (selectedFile) {
             formDataToSend.append("fotoProfilo", selectedFile);
         }
 
-        // Aggiunge le generalità
+        // Append textual profile information.
         formDataToSend.append("nome", userData.nome);
         formDataToSend.append("cognome", userData.cognome);
         formDataToSend.append("biografia", userData.biografia);
 
-        // Resetta i campi delle generalità
+        // Reset the form fields so the user sees the updated state.
         setUserData({
             nome: "",
             cognome: "",
             biografia: "",
         });
 
-        // Invia il form con le generalità
+        // Submit the profile update payload.
         onChangeGeneralData(formDataToSend);
     };
 
-    // viene definita questa funzione per permettere l'aggiornamento dei contenuti visualizzati sul profilo a seguito di un aggiornamento
+    // Refresh the profile view after successful updates so the UI stays in sync.
     const showProfile = async () => {
         try {
           const response = await axios.get('https://gigs-webapp.vercel.app/users/trovaUser',{ withCredentials: true });
