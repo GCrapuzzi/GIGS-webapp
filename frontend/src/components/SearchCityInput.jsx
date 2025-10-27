@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
+/**
+ * Autocomplete input that helps users pick an Italian city and province.
+ */
+import { useEffect, useState } from 'react';
 import { FaLocationDot } from "react-icons/fa6";
-import { toast } from 'react-toastify';
 
 const SearchCityInput = ({ setCitta}) => {
   const [comuni, setComuni] = useState([]);
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
-  // Recupera il valore salvato in sessionStorage
+  // Restore the previously selected city from sessionStorage.
   useEffect(() => {
     const città = sessionStorage.getItem('città');
     if (città) {
-      setQuery(città); // Imposta la query con il valore di sessionStorage
+      setQuery(città);
     }
   }, []);
 
-  // Carica i comuni dal file JSON al montaggio della componente
+  // Load the full list of cities on mount.
   useEffect(() => {
     fetch('/comuni_italiani.json')
       .then((response) => {
@@ -30,11 +32,11 @@ const SearchCityInput = ({ setCitta}) => {
       .catch((error) => console.error('Errore nel caricamento dei dati:', error));
   }, []);
 
-  // Gestisce il cambiamento dell'input
+  // Update suggestions as the user types.
   const handleChange = (e) => {
     const userInput = e.target.value;
     setQuery(userInput);
-    
+
 
     if (userInput.length > 0) {
       const filteredSuggestions = comuni.filter((comune) =>
@@ -47,22 +49,22 @@ const SearchCityInput = ({ setCitta}) => {
     }
   };
 
-  // Gestisce il clic su un suggerimento
+  // Apply the selected suggestion and persist it.
   const handleSuggestionClick = (comune) => {
     const selectedComune = `${comune.comune} (${comune.provincia})`;
     setQuery(selectedComune);
     setSuggestions([]);
-    setCitta(selectedComune); // Passa il comune selezionato al genitore
-    sessionStorage.setItem('città', selectedComune )
+    setCitta(selectedComune);
+    sessionStorage.setItem('città', selectedComune );
   };
 
   return (
     <div>
       <FaLocationDot className='icon'/>
-      
+
       <input
         type="text"
-        value={query} // Usa query come valore dell'input
+        value={query}
         onChange={handleChange}
         placeholder="Inserisci il nome di un comune"
         className='formSpace'

@@ -1,20 +1,22 @@
+/**
+ * Deletes the authenticated user's account and clears their session cookie.
+ */
 const User = require('../models/userSchema');
 
-// Funzione per elimiare i dati dell'utente
 const deleteUserdata = async (req, res) => {
     try {
-        // Estrae l'id dell'utente dall'oggetto req.userId
+        // Retrieve the authenticated user id from the JWT middleware.
         const userId = req.userId;
 
-        // Cerca l'utente nel database
-        const user = await User.findOne ({_id: userId}); // Restituisce null se non trova l'utente
+        // Load the user document to ensure it exists before deleting.
+        const user = await User.findOne ({_id: userId});
 
-        // Verifica se l'utente è presente
+        // Return a 404 if the account does not exist anymore.
         if (!user) {
             return res.status(404).json({ message: 'Utente non trovato' });
         }
-        
-        // Elimina l'utente dal database
+
+        // Delete the user and remove the authentication cookie on success.
         try {
             await User.deleteOne({ _id: userId });
             res.clearCookie("token");

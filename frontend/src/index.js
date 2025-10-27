@@ -1,3 +1,6 @@
+/**
+ * React entry point responsible for bootstrapping the SPA with routing support.
+ */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';

@@ -1,8 +1,12 @@
 import { useState } from "react";
+/**
+ * Multi-step form used to finalize a provider profile and publish their first gig.
+ */
 import { GiGardeningShears } from "react-icons/gi";
 import { FaRegIdCard } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import SearchCityInput from "./SearchCityInput";
+import { useState } from "react";
 
 function PartialProfileJobForm({ notifyError, handleisNotRegisteredSubmit, formData, handleChange, buttonGigStyle, buttonText, setCitta, setFormData }) {
     const [step, setStep] = useState(1);

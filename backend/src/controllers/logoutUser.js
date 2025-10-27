@@ -1,4 +1,6 @@
-// Funzione che permette di effettuare il logout dell'utente
+/**
+ * Clears the authentication cookie, effectively logging out the user.
+ */
 const logoutUser = async (req, res) => {
     try {
         res.clearCookie("token");

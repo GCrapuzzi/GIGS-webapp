@@ -1,34 +1,36 @@
+/**
+ * Lists gigs that match the requested city and job type.
+ */
 const Annuncio = require('../models/annuncioSchema');
 
 const listingAnnunci = async (req, res) => {
     try {
-        // Estrai i parametri direttamente dalla richiesta
+        // Extract filters from the query string.
         const { città, tipoLavoro} = req.query;
 
-
-        // Verifica se i parametri sono presenti e validi
+        // Both filters are mandatory for this listing view.
         if (!città || !tipoLavoro) {
             return res.status(400).json({ error: 'I parametri citta e tipoLavoro sono obbligatori' });
         }
 
         try {
-            // Trova gli annunci che corrispondono ai parametri città e tipo di lavoro
+            // Fetch the matching gigs including essential profile information.
             const annunci = await Annuncio.find({ città: città, lavoro: tipoLavoro })
                 .populate('userId', 'profileImageUrl nome cognome biografia number');
 
-            // Se non ci sono annunci, restituisci un messaggio informativo
+            // Provide a user-friendly message when the query returns no matches.
             if (annunci.length === 0) {
                 return res.status(404).json({ message: 'Nessun annuncio trovato per i parametri specificati' });
             }
 
-            // Restituisce la lista degli annunci come risposta HTTP
+            // Respond with the list of gigs otherwise.
             return res.status(200).json({message: 'Annunci trovati', annunci});
         } catch (err) {
-            // Restituisce un errore HTTP 500 al client in caso di fallimento
+            // Handle database failures gracefully.
             return res.status(500).json({message: 'Errore nel recupero degli annunci'});
         }
     } catch (err) {
-        // Restituisce un errore HTTP 500 al client in caso di fallimento
+        // Bubble up unexpected exceptions.
         return res.status(500).json({message: 'Errore interno del server'});
     }
 };

@@ -1,3 +1,6 @@
+/**
+ * Frontend configuration helpers for Auth0 and external APIs.
+ */
 import configJson from "./auth_config.json";
 
 const config = {

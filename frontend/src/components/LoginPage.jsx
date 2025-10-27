@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
-import { FaPhoneAlt } from "react-icons/fa"
+/**
+ * Slide-in login drawer that triggers OTP delivery for returning users.
+ */
+import { useState } from 'react';
+import { FaPhoneAlt } from "react-icons/fa";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,10 +27,10 @@ function LoginPage({toggleButtonState, buttonState}){
     const data = {
         number: prefixedNumber
       };
-  
+
       try {
         const response = await axios.post('https://gigs-webapp.vercel.app/users/verify', data, { withCredentials: true });
-  
+
         if (response.status === 200) {
           toggleButtonState();
           navigate('/otp');
@@ -37,12 +40,12 @@ function LoginPage({toggleButtonState, buttonState}){
       } catch (error) {
         console.error('Error submitting form:', error.response ? error.response.data : error.message);
       }
-}
+};
 
   const buttonLoginStyle = {
-    backgroundColor: 'rgba(60, 94, 104, 0.996)',               
+    backgroundColor: 'rgba(60, 94, 104, 0.996)',
   };
-  
+
     return (
         <div>
           <aside className={`loginPage ${buttonState ? 'open' : ''}`}>
@@ -61,8 +64,7 @@ function LoginPage({toggleButtonState, buttonState}){
           </aside>
         </div>
       );
-    
+
 }
 
-export default LoginPage
-
+export default LoginPage;

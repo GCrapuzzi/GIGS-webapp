@@ -1,6 +1,8 @@
+/**
+ * Mongoose model describing the fields stored for each user.
+ */
 const mongoose=require("mongoose");
 
-// Schema per l'utente
 const userSchema=mongoose.Schema({
       nome:String,
       cognome:String,
@@ -11,7 +13,7 @@ const userSchema=mongoose.Schema({
       otpExpiresAt: Date
 })
 
-// Modello per l'utente
+// Export the compiled model so controllers can query/update users.
 const user=mongoose.model("user", userSchema);
 
 module.exports = user;

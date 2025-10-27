@@ -1,4 +1,6 @@
-// Funzione per verificare la validità del token JWT
+/**
+ * Dummy handler used after the auth middleware validates the JWT cookie.
+ */
 const verifyToken = (req, res) => {
   try {
     return res.status(200).json({ message: "Token valido" });

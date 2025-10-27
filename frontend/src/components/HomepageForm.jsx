@@ -1,3 +1,6 @@
+/**
+ * Central form hub that decides which flow (search, OTP, signup, publish gig) to render.
+ */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +35,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
       orario: '',
     });
 
-    // gestisce cambiamenti degli input: associa a un campo del formData, con un dato name, il value inserito dall'utente.
+    // Handle input changes and keep form state in sync with controlled fields.
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -41,7 +44,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
         });
     };
 
-    //gestisce la modifica della città nel SearchCityInput
+    // Capture the city selection emitted by the SearchCityInput component.
     const setCitta = (e) => {
         setFormData({
             ...formData,
@@ -49,7 +52,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
             
         });
     }
-    //se l'utente ha compilato il form preliminare, il formData viene compilato con i dati precedentemente salvati nel sessionStorage
+    // When the preliminary form is completed, hydrate state from sessionStorage so the values persist across reloads.
     useEffect(() => {
         setFormData({
             ...formData,
@@ -57,9 +60,9 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
             lavoro: sessionStorage.getItem('lavoro')
         });
 
-        //vengono definiti nel sessionStorage isAuthenticated e isRegistered per il rendering condizionale dei form, che deve persistere anche a seguito di aggiornamenti della pagina
-        //isAuthenticated === true indica che l'utente ha correttamente effettuato l'accesso con le proprie credenziali
-        //isRegistered === true indica che l'utente ha completato il proprio profilo
+        // Persist authentication and registration flags so conditional rendering survives reloads.
+        // `isAuthenticated === true` indicates the user successfully logged in with an OTP.
+        // `isRegistered === true` indicates the profile has been completed.
         if(!sessionStorage.getItem('isAuthenticated')){
             sessionStorage.setItem('isAuthenticated', false)
         }
@@ -70,11 +73,11 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
         setIsRegistered(sessionStorage.getItem('isRegistered') === 'true');
     }, [isRegistered]);
     
-    //gestione dell'invio del form per un utente che non ha ancora completato il proprio profilo
-    //due step: aggiornamento del profilo e pubblicazione dell'annuncio
+    // Handles the submission flow for users who still need to complete their profile.
+    // Two-step process: update profile data first, then publish the gig.
     const handleisNotRegisteredSubmit = async (formDataToSend) => {
         try {
-            // Invia il form per aggiornare il profilo
+            // Submit the profile update request.
             const response1 = await axios.post('https://gigs-webapp.vercel.app/users/updateAccount', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -88,7 +91,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
                 notifySuccess("L'account è stato correttamente aggiornato");
             }
     
-            // Invia il form per creare l'annuncio
+            // Submit the gig creation request.
             const annuncioData = {
                 città: formData.città,
                 lavoro: formData.lavoro,
@@ -97,7 +100,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
                 tariffa: formData.tariffa,
                 orario: formData.orario,
             };
-            //viene effettuato un controllo sulla validità del lavoro
+            // Validate the selected job against the supported categories.
             const lavoriDisponibili = [
                 "Fotografo",
                 "Tutor per ripetizioni",
@@ -125,20 +128,20 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
                 setFormData({...formData, città: '', lavoro: '' });
             }
         } catch (error) {
-            // Log più dettagliato dell'errore
+            // Provide detailed error logging to ease troubleshooting.
             if (error.response) {
                 if (error.response.config.url.includes('/users/updateAccount')) {
-                    // Errore durante l'aggiornamento dell'account
-                    notifyError("L'account non è stato correttamente aggiornato");  // Chiama notifica di errore per l'aggiornamento dell'account
+                    // Error while saving profile updates.
+                    notifyError("L'account non è stato correttamente aggiornato");
                 } else if (error.response.config.url.includes('/annunci/createAnnuncio')) {
-                    // Errore durante la creazione dell'annuncio
-                    notifyError("L'annuncio non è stato correttamente pubblicato. Controlla i dati inseriti.");  // Chiama notifica di errore per l'annuncio
+                    // Error while creating the gig listing.
+                    notifyError("L'annuncio non è stato correttamente pubblicato. Controlla i dati inseriti.");
                 }
                 console.error('Errore durante l\'invio del form:', error.response.status, error.response.data);
             }
         }
     };
-    //gestione dell'invio del form per un utente che ha completato il proprio profilo
+    // Handles the submission flow for users who already completed their profile.
     const handleisRegisteredSubmit = async (event) =>{
         event.preventDefault()
         const annuncioData = {
@@ -183,12 +186,12 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
     
     
     
-    //rendering del form da compilare sulla base delle variabili precedentemente definite
-    //SignupForm è il form iniziale della pagina "Offri un lavoretto", che viene compilato quando l'utente non ha ancora effettuato l'accesso
-    //CompleteProfileJobForm è il form che viene visualizzato nel caso in cui l'utente sia autentificato e abbia completato il profilo
-    //PartialProfileJobForm è il form che viene visualizzato nel caso in cui l'utente sia autentificato e non abbia completato il profilo
-    //SearchForm è il form per la ricerca dei lavoretti nella pagina "Cerca un lavoretto"
-    //OtpForm è il form per l'inserimento del codice OTP.
+    // Render the appropriate form based on the derived state:
+    // - SignupForm: first step for unauthenticated providers.
+    // - CompleteProfileJobForm: authenticated providers with a completed profile.
+    // - PartialProfileJobForm: authenticated providers who still need to finish their profile.
+    // - SearchForm: customer search form.
+    // - OtpForm: OTP verification form.
     return(
         <div>
             {formType === 'offer'  && isAuthenticated===false && (

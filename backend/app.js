@@ -1,17 +1,22 @@
+/**
+ * Express application bootstrapper.
+ * Wires together security middleware, static assets, database connectivity,
+ * and the REST routes exposed by the backend.
+ */
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectToDatabase = require('./src/config/database');
 const path = require('path');
 
-// Importo le route
+// Register feature-specific routers.
 const userRoutes = require('./src/routes/userRoutes');
 const annunciRoutes = require('./src/routes/annunciRoutes');
 
-// Inizializzo l'applicazione
+// Initialize the Express instance once and share it with the HTTP server.
 const app = express();
 
-// Middleware
+// Core middleware stack for JSON parsing, CORS, and cookie parsing.
 app.use(express.json());
 app.use(cors({
   origin: 'https://gigs-webapp-frontend.vercel.app',
@@ -21,21 +26,21 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
-// Servi la cartella "uploads" come file statici
+// Expose uploaded profile pictures as static assets.
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-// Connessione al database
+// Connect to MongoDB before handling any requests.
 connectToDatabase();
 
-// Route principale
+// Basic health-check endpoint for uptime probes.
 app.get('/', (req, res) => {
   res.send('API in funzione...');
 });
 
-// Route per gli utenti
+// Mount user-related endpoints.
 app.use('/users', userRoutes);
 
-// Route per gli annunci
+// Mount gig listing endpoints.
 app.use('/annunci', annunciRoutes);
 
 module.exports = app;

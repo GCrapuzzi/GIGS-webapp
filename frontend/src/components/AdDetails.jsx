@@ -1,16 +1,19 @@
-import {useNavigate } from "react-router-dom"
+/**
+ * Detailed view of a gig listing with contact reveal and profile deep-link.
+ */
+import {useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { useState } from "react";
 
 function AdDetails({handleClick, annuncio}){
-    const user = annuncio.userId || {}
-    const [contactButtonStatus, setContactButtonStatus] = useState(false)
+    const user = annuncio.userId || {};
+    const [contactButtonStatus, setContactButtonStatus] = useState(false);
 
     const navigate = useNavigate();
 
     const viewProfile = () =>{
-        handleClick()
-        navigate('/profile', { state: { annuncio: annuncio } })
+        handleClick();
+        navigate('/profile', { state: { annuncio: annuncio } });
     }
 
     return(
@@ -37,7 +40,7 @@ function AdDetails({handleClick, annuncio}){
                     {contactButtonStatus === false && (
                         <button className='buttonInfoCard' onClick={() => setContactButtonStatus(true)}>Contatta</button>
                     )}
-                        
+
                     {contactButtonStatus === true && (
                         <button className='buttonInfoCard' onClick={() => setContactButtonStatus(false)}>{user.number}</button>
                     )}
@@ -45,6 +48,6 @@ function AdDetails({handleClick, annuncio}){
             </div>
         </div>
     </div>
-    )
+    );
 }
-export default AdDetails
+export default AdDetails;

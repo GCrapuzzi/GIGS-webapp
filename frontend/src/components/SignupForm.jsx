@@ -1,8 +1,11 @@
-import axios from "axios"
-import { useState } from "react"
-import { FaPhoneAlt } from "react-icons/fa"
-import { GiGardeningShears } from "react-icons/gi"
-import SearchCityInput from "./SearchCityInput"
+/**
+ * Initial form shown to providers to capture phone number, city, and job type.
+ */
+import axios from "axios";
+import { useState } from "react";
+import { FaPhoneAlt } from "react-icons/fa";
+import { GiGardeningShears } from "react-icons/gi";
+import SearchCityInput from "./SearchCityInput";
 
 function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChange, setCitta, notifyError}){
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -10,16 +13,16 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
     const handleSubmit = async (event) => {
         event.preventDefault();
         const prefixedNumber = addPrefix(phoneNumber);
-        
+
         sessionStorage.setItem('città', formData.città);
         sessionStorage.setItem('lavoro', formData.lavoro);
         sessionStorage.setItem('number', prefixedNumber);
-    
-    
+
+
         const data = {
             number: prefixedNumber
           };
-      
+
           const lavoriDisponibili = [
             "Fotografo",
             "Tutor per ripetizioni",
@@ -35,7 +38,7 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
 
           try {
             const response = await axios.post('https://gigs-webapp.vercel.app/users/verify', data, { withCredentials: true });
-      
+
             if (response.status === 200) {
               navigate('/otp');
             } else {
@@ -45,7 +48,7 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
             console.error('Error submitting form:', error.response ? error.response.data : error.message);
           }
     }
-    
+
     function addPrefix(phoneNumber) {
         const prefix = '+39';
         return `${prefix}${phoneNumber}`;
@@ -75,10 +78,10 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
                 </div>
             </div>
 
-            
+
 
             <button action="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>
         </form>
-    )
+    );
 }
-export default SignupForm
+export default SignupForm;

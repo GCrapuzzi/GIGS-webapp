@@ -1,9 +1,12 @@
+/**
+ * OTP input grid that handles both login and phone number change scenarios.
+ */
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}){
 
-    //permette di scorrere lungo gli input ogni volta che viene inserita una nuova cifra
+    // Automatically focus the next input when a digit is entered.
     function goToNext(event, nextInputId) {
         const currentInput = event.target;
         if (currentInput && currentInput.value.length === currentInput.maxLength) {
@@ -15,11 +18,11 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
     }
 
     const phoneData = JSON.parse(sessionStorage.getItem('phoneData')) || null;
-    
-    //permette di tornare all'input precedente quando si preme backspace
+
+    // Move focus to the previous input when backspace is pressed.
     function goToPrevious(event, prevInputId) {
         const currentInput = event.target;
-        
+
         if (currentInput && currentInput.value.length === 0 && event.key === 'Backspace') {
             const prevInput = document.getElementById(prevInputId);
             if (prevInput) {
@@ -34,7 +37,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
         for (let i = 1; i <= 6; i++) {
             const input = document.getElementById(`input${i}`);
             if (input) {
-                otp += input.value; //permette la costruzione della stringa otp finale.
+                otp += input.value;
             }
         }
 

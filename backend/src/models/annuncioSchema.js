@@ -1,7 +1,9 @@
+/**
+ * Mongoose model representing a gig listing posted by a user.
+ */
 const mongoose=require("mongoose");
 const User = require('./userSchema');
 
-// Schema per gli annunci
 const annuncioSchema=mongoose.Schema({
       titolo: String,
       città: String,
@@ -12,7 +14,7 @@ const annuncioSchema=mongoose.Schema({
       userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
 })
 
-// Modello per gli annunci
+// Export the compiled model that points to the "Annunci" collection.
 const annuncio=mongoose.model("annuncio", annuncioSchema, "Annunci");
 
 module.exports = annuncio;
