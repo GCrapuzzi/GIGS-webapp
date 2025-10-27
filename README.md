@@ -1,6 +1,6 @@
 # GIGS Webapp
 
-GIGS is a full-stack platform that connects professionals with customers for on-demand gigs. The project started as a university assignment but ships with a modern architecture, passwordless authentication, and a user experience worth showcasing on a résumé.
+GIGS is a full-stack platform that connects professionals and clients for on-demand jobs. The project started as a university web app but features a modern architecture, a passwordless authentication flow, and a user experience designed and optimized for the widest possible audience.
 
 ## Overview
 - **Frontend**: Single Page Application built with React and React Router, local state management, and contextual notifications via React Toastify.
