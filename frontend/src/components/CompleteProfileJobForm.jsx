@@ -1,5 +1,8 @@
-import { GiGardeningShears } from "react-icons/gi"
-import SearchCityInput from "./SearchCityInput"
+/**
+ * Wizard shown to registered providers to publish a new gig.
+ */
+import { GiGardeningShears } from "react-icons/gi";
+import SearchCityInput from "./SearchCityInput";
 import { useState } from "react";
 
 function CompleteProfileJobForm({formData, buttonGigStyle, buttonText, setCitta, handleisRegisteredSubmit, handleChange}){
@@ -14,7 +17,7 @@ function CompleteProfileJobForm({formData, buttonGigStyle, buttonText, setCitta,
         setStep(step - 1);
     };
 
-    return(               
+    return(
         <form className="HomepageForm" onSubmit={handleisRegisteredSubmit}>
             <div className="textContainer">
                 {step === 1 && (
@@ -45,9 +48,9 @@ function CompleteProfileJobForm({formData, buttonGigStyle, buttonText, setCitta,
                         <button type="button" onClick={prevStep} id="prevButton">&lt;Indietro</button>
                         <button type="submit" className="submitButton" style={buttonGigStyle}>{buttonText}</button>
                     </>
-                )}                                    
+                )}
             </div>
         </form>
-    )
+    );
 }
-export default CompleteProfileJobForm
+export default CompleteProfileJobForm;

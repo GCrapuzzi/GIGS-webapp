@@ -1,20 +1,23 @@
+/**
+ * Retrieves all gigs created by a specific user.
+ */
 const Annuncio = require('../models/annuncioSchema');
 
 const listingAnnunciDiUnUtente = async (req, res) => {
-    const userId = req.userId || req.query.userId; // funzione usata sio per un utente loggato che per uno non loggato
+    const userId = req.userId || req.query.userId; // Works for authenticated users and public profile requests.
 
     try{
         const annunci = await Annuncio.find({userId: userId}).populate('userId', 'profileImageUrl nome cognome biografia number');
 
-        // Se non ci sono annunci per un determinato utente
+        // Guard against empty portfolios.
         if (annunci.length === 0) {
             return res.status(404).json({ message: 'Nessun annuncio trovato per l\' utente' });
         }
 
-        // Restituisce la lista degli annunci come risposta HTTP
+        // Return the full list when available.
         res.json(annunci);
     } catch (error) {
-        // Restituisce un errore HTTP 500 al client in caso di fallimento
+        // Signal a server-side failure.
         return res.status(500).json({message: 'Errore nel recupero degli annunci'});
     }
 }

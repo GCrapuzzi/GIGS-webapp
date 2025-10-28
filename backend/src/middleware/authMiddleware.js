@@ -1,22 +1,24 @@
+/**
+ * Validates JWT cookies and injects the user id into the request object.
+ */
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-// Middleware per verificare il token
 const authMiddleware = (req, res, next) => {
-  
-  // Estrae il token dalla richiesta
+
+  // Read the token from the signed cookie.
   const token = req.cookies.token;
 
-  // Verifica se il token è presente
+  // Reject unauthenticated requests.
   if (!token) {
     return res.status(401).json({ error: 'Token mancante, accesso non autorizzato' });
   }
 
-  // Verifica il token
+  // Validate the JWT and forward the request when successful.
   try {
     const decoded = jwt.verify(token, config.jwtSecret);
     req.userId = decoded.id;
-    next(); // Passa alla prossima funzione middleware o alla route handler
+    next();
   } catch (error) {
     return res.status(401).json({ error: 'Token non valido, accesso non autorizzato' });
   }

@@ -1,9 +1,11 @@
+/**
+ * Routes responsible for user authentication, session management, and profile updates.
+ */
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/authMiddleware");
 const upload = require("../middleware/fotoMiddleware");
 
-// Importa i controller
 const verifyUser = require("../controllers/signupUser");
 const authenticate = require("../controllers/authUser");
 const logout = require("../controllers/logoutUser");

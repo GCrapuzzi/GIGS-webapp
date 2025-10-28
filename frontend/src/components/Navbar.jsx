@@ -1,95 +1,95 @@
-import {Link, useLocation} from 'react-router-dom';
+/**
+ * Application header that manages authentication actions and navigation links.
+ */
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from 'react';
 
-
 function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
+  useEffect(() => {
+    const authStatus = sessionStorage.getItem('isAuthenticated') === 'true';
+    setIsAuthenticated(authStatus);
+  }, [sessionStorage.getItem('isAuthenticated')]);
 
-    useEffect(() => {
-      const authStatus = sessionStorage.getItem('isAuthenticated') === 'true';
-      setIsAuthenticated(authStatus);
-    }, [sessionStorage.getItem('isAuthenticated')]);
+  // Slides in the login drawer when the CTA is clicked.
+  const handleClick = (event) => {
+    event.preventDefault();
+    toggleButtonState();
+  };
 
-    //gestisce lo scorrimento del menù a tendina laterale quando si preme il tasto "Accedi"
-    const handleClick = (event) => {
-      event.preventDefault();
-      toggleButtonState();
-    }
-    //permette di effettuare il logout quando si preme su "Logout"
-    const handleLogout = async (event) => {
-      event.preventDefault();
-      try {
-        const response = await axios.get('https://gigs-webapp.vercel.app/users/logout',{ withCredentials: true });
-        
-        if (response.status === 200) {
-        sessionStorage.clear()
+  // Performs a backend logout and clears cached session state.
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get('https://gigs-webapp.vercel.app/users/logout',{ withCredentials: true });
+
+      if (response.status === 200) {
+        sessionStorage.clear();
         notifySuccess("Il logout è stato effettuato correttamente");
-        navigate('/'); //si torna alla pagina "Cerca un Lavoretto"
-        } else {  
-          console.error('Errore durante la verifica:', response.status, response.statusText);
-        }
-        }catch (error) {
-          notifyError("Si è verificato un errore");
-          console.error('Error submitting form:', error.response ? error.response.data : error.message);
-        }
+        navigate('/');
+      } else {
+        console.error('Errore durante la verifica:', response.status, response.statusText);
+      }
+    } catch (error) {
+      notifyError("Si è verificato un errore");
+      console.error('Error submitting form:', error.response ? error.response.data : error.message);
     }
-  
+  };
 
-    //permette la visualizzazione del proprio profilo (accessibile solo se è stato pubblicato almeno un annuncio)
-    const showProfile = async () => {
-      if(location.pathname !== '/myProfile'){
+  // Fetches the authenticated user's profile if at least one gig has been published.
+  const showProfile = async () => {
+    if(location.pathname !== '/myProfile'){
       try {
         const response = await axios.get('https://gigs-webapp.vercel.app/users/trovaUser',{ withCredentials: true });
-        const response2 = await axios.get('https://gigs-webapp.vercel.app/annunci/listingAnnunciUtente',{ withCredentials: true })
+        const response2 = await axios.get('https://gigs-webapp.vercel.app/annunci/listingAnnunciUtente',{ withCredentials: true});
         const data = {
           utente: response.data.user,
           listaPropriAnnunci: response2.data
         };
 
         if(response.status === 200 && response2.status === 200){
-            navigate('/myProfile', { state: { data } });
-          }
+          navigate('/myProfile', { state: { data } });
+        }
       } catch (error) {
-        notifyError("Per visualizzare il profilo devi prima pubblicare un annuncio!")
+        notifyError("Per visualizzare il profilo devi prima pubblicare un annuncio!");
       }
-    }else{
-      return
+    } else {
+      return;
     }
-    }
+  };
 
-    return(
-      <nav className="container">
-        <ul className="navbar">
-          <li id="logo"><Link to="/">GIGS</Link></li>
+  return(
+    <nav className="container">
+      <ul className="navbar">
+        <li id="logo"><Link to="/">GIGS</Link></li>
 
-          <li className = "centralContainer">
-            <Link to="/" className='navbarLink'>Cerca un lavoretto</Link>
-            <Link to="/offeringGigs" className='navbarLink'>Offri un lavoretto</Link>
-          </li>
+        <li className = "centralContainer">
+          <Link to="/" className='navbarLink'>Cerca un lavoretto</Link>
+          <Link to="/offeringGigs" className='navbarLink'>Offri un lavoretto</Link>
+        </li>
 
 
-          {isAuthenticated === false && (
-          <Link to="#" id="login" onClick={handleClick}>Accedi</Link>
-          )}
-              
-          {isAuthenticated === true && (
-            <div class="dropdown">
-              <button id="loginbtn"><CgProfile color='forestgreen'/></button>
-              <div class="dropdown-content">
-                <Link to="#" onClick={showProfile} >Profilo</Link>
-                <Link to="#" onClick={handleLogout}>Logout</Link>
-              </div>
+        {isAuthenticated === false && (
+        <Link to="#" id="login" onClick={handleClick}>Accedi</Link>
+        )}
+
+        {isAuthenticated === true && (
+          <div className="dropdown">
+            <button id="loginbtn"><CgProfile color='forestgreen'/></button>
+            <div className="dropdown-content">
+              <Link to="#" onClick={showProfile} >Profilo</Link>
+              <Link to="#" onClick={handleLogout}>Logout</Link>
             </div>
-          )}
-        </ul>
-      </nav>
-    )
+          </div>
+        )}
+      </ul>
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;

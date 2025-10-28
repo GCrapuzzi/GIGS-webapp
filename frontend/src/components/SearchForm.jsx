@@ -1,6 +1,9 @@
-import axios from "axios"
+/**
+ * Customer-facing form that fetches gig listings based on city and job type.
+ */
+import axios from "axios";
 import { useState } from "react";
-import { GiGardeningShears} from "react-icons/gi"
+import { GiGardeningShears} from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import SearchCityInput from "./SearchCityInput";
 
@@ -9,7 +12,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
     const [città, setCitta] = useState('');
     const [tipoLavoro, setTipoLavoro] = useState('');
 
-    //gestisce la ricerca degli annunci
+    // Trigger the search request and navigate to the listing page with the results.
     const handleSearch = async (event) => {
         event.preventDefault();
         const data = {
@@ -20,7 +23,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
         sessionStorage.removeItem('città')
         sessionStorage.removeItem('lavoro')
 
-        //verifica la validità del lavoro inserito
+        // Ensure the selected job type is supported by the backend filters.
         const lavoriDisponibili = [
             "Fotografo",
             "Tutor per ripetizioni",
@@ -33,7 +36,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
             notifyError("Il lavoro inserito non è valido")
             return
         }
-        //richiesta di listing degli annunci in base a città e lavoro
+        // Request gig listings that match the chosen city and job type.
         try{
             const response = await axios.get('https://gigs-webapp.vercel.app/annunci/listing', {
                 params: data

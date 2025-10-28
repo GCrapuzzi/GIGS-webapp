@@ -1,12 +1,14 @@
-// Funzione che verifica se un numero di telefono è valido
+/**
+ * Validates an Italian mobile phone number.
+ */
 function validateNumber(number) {
-    
-    // Verifica se il numero è una stringa
+
+    // Ensure the input is a string.
     if (typeof number !== 'string') {
         return false;
     }
 
-    // Rimuove tutti i caratteri non numerici
+    // Strip non-digit characters and remove the country code.
     let plain = number.replace(/\D/g, '');
     plain = plain.substring(2);
 

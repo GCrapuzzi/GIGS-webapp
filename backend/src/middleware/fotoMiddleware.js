@@ -1,21 +1,22 @@
+/**
+ * Multer configuration that stores profile pictures on disk and validates the file type.
+ */
 const path = require("path");
 const multer = require('multer');
 
-// Da rivedere di brutto
-// Configurazione Multer per salvare le immagini in assets
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, path.join(__dirname, '../../public/uploads'));
     },
     filename: (req, file, cb) => {
-      cb(null, Date.now() + path.extname(file.originalname)); // Aggiunge un timestamp al nome del file per rendere il nome della foto univoco
+      cb(null, Date.now() + path.extname(file.originalname)); // Prefix the filename with a timestamp to avoid collisions.
     }
   });
-  
-  // Filtra solo immagini 
+
+  // Accept only JPEG and PNG files up to 5MB.
   const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // Limite di 5MB
+    limits: { fileSize: 5 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
       const fileTypes = /jpeg|jpg|png/;
       const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());

@@ -1,5 +1,8 @@
+/**
+ * Profile view shared across visitor and owner experiences.
+ */
 import { useEffect, useState } from "react";
-import Cardpage from "../pages/Cardpage"
+import Cardpage from "../pages/Cardpage";
 import { FaPaperPlane } from "react-icons/fa";
 import ChangeProfile from "./ChangeProfile";
 function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess}){
@@ -9,9 +12,9 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
     const [contactButtonStatus, setContactButtonStatus] = useState(false)
     
     useEffect(() => {
-        if (!utente) {// se si accede al profilo di un'altra persona
+        if (!utente) { // When browsing another user's profile.
             setImageUrl(`https://gigs-webapp.vercel.app${annuncio?.userId?.profileImageUrl || ""}`);
-        } else { // se si accede al proprio profilo
+        } else { // When viewing the authenticated user's profile.
             setImageUrl(`https://gigs-webapp.vercel.app${utente?.profileImageUrl || ""}`);
         }
     }, [utente, annuncio]);
@@ -20,7 +23,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
     
     return(
     <>
-        {!utente && ( // se utente non è presente si sta visualizzando il profilo di un'altra persona
+        {!utente && ( // Render when viewing someone else's profile.
         <>
         <div className='cardpageDetailsContainer'>
             <div className='firstColumn'>
@@ -63,7 +66,7 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
     </>
         )}
 
-        {utente && ( //se utente è presente si sta visualizzando il proprio profilo
+        {utente && ( // Render when the authenticated user visits their own profile.
         <>
         <div className={`overlay2 ${buttonStatus ? 'active' : ''}`}></div>
         {buttonStatus === true && 

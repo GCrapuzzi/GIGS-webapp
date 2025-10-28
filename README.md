@@ -1,20 +1,20 @@
 # GIGS Webapp
 
-GIGS è una piattaforma full-stack che connette professionisti e clienti per lavoretti on-demand. Il progetto è nato come web app universitaria ma offre un'architettura moderna, un flusso di autenticazione passwordless e una user experience pronta per essere raccontata nel curriculum.
+GIGS is a full-stack platform that connects professionals and clients for on-demand jobs. The project started as a university web app but features a modern architecture, a passwordless authentication flow, and a user experience designed and optimized for the widest possible audience.
 
-## Panoramica
-- **Frontend**: Single Page Application in React con React Router, gestione dello stato locale e notifiche contestuali tramite React Toastify per offrire un'esperienza utente dinamica.
-- **Backend**: API REST in Node.js/Express con persistenza su MongoDB (Mongoose), autenticazione via JWT su cookie HttpOnly e invio OTP tramite Vonage SMS.
-- **Storage**: Upload di immagini gestito con Multer e salvato su file system, con path esposto come asset statico per i profili utente.
+## Overview
+- **Frontend**: Single Page Application built with React and React Router, local state management, and contextual notifications via React Toastify.
+- **Backend**: REST API powered by Node.js/Express with MongoDB persistence (Mongoose), JWT authentication via HttpOnly cookies, and SMS delivery through Vonage.
+- **Storage**: Profile images uploaded with Multer and served as static assets from the backend.
 
-## Caratteristiche principali
-- **Autenticazione senza password con OTP**: verifica del numero di telefono, generazione OTP con scadenza e invio SMS via Vonage, seguita da emissione di JWT e cookie sicuro lato server.
-- **Gestione annunci di lavoro**: creazione annunci autenticata, prevenzione duplicati e associazione all'utente proprietario, con ricerca e filtro per città, categoria e fascia di prezzo.
-- **Profilo personalizzato**: aggiornamento di dati anagrafici, biografia, cambio numero con doppia conferma e upload foto profilo con validazione del formato.
-- **Esperienza cliente/professionista**: percorsi distinti per chi cerca o offre lavoretti, ricerca guidata con validazione dei dati e navigazione verso liste di annunci o schede profilo dettagliate.
-- **Gestione sessione client-side**: stato di autenticazione persistito in `sessionStorage`, accesso condizionato alle sezioni protette e logout con cleanup dello stato locale.
+## Key features
+- **Passwordless authentication with OTP**: phone number verification, expiring OTP generation, Vonage SMS delivery, and server-issued JWT cookies.
+- **Gig lifecycle management**: authenticated gig creation, duplicate prevention, and search/filter by city, category, and price range.
+- **Customizable profile**: personal details, bio management, phone number updates with double confirmation, and validated profile picture uploads.
+- **Customer and provider journeys**: distinct flows for users searching or offering gigs, guided forms, and navigation to rich profile pages.
+- **Client-side session state**: authentication tracked in `sessionStorage`, gated access to protected views, and explicit logout handling.
 
-## Struttura del progetto
+## Project structure
 ```
 GIGS-webapp/
 ├── backend/
@@ -37,13 +37,13 @@ GIGS-webapp/
     └── public/
 ```
 
-## Requisiti
+## Requirements
 - Node.js 18+
-- MongoDB (Atlas o istanza locale)
-- Credenziali Vonage SMS per l'invio degli OTP
+- MongoDB (Atlas or a local instance)
+- Vonage SMS credentials for OTP delivery
 
-## Configurazione ambiente
-Creare un file `.env` in `backend/` partendo dalle variabili utilizzate nella configurazione e nella connessione al database.
+## Environment variables
+Create a `.env` file in `backend/` that mirrors the values used across the configuration and database modules.
 
 ```bash
 MONGO_URI="mongodb+srv://<user>:<password>@cluster"
@@ -56,18 +56,14 @@ VONAGE_API_KEY="your-api-key"
 VONAGE_API_SECRET="your-api-secret"
 ```
 
-> **Nota:** il backend abilita il CORS verso il dominio di produzione (`https://gigs-webapp-frontend.vercel.app`) e verso il valore
-> indicato in `FRONTEND_URL`. Imposta quindi questa variabile sull'URL locale del frontend (ad esempio `http://localhost:3000`) e
-> riavvia il server Express quando modifichi il file `.env`.
-
-## Avvio in locale
+## Local development
 1. **Backend**
    ```bash
    cd backend
    npm install
    npm run dev
    ```
-   L'API Express sarà disponibile su `http://localhost:4000` e servirà automaticamente gli upload da `/uploads`.
+   The Express API will be available at `http://localhost:4000` and automatically serve `/uploads` as static assets.
 
 2. **Frontend**
    ```bash
@@ -75,33 +71,33 @@ VONAGE_API_SECRET="your-api-secret"
    npm install
    npm start
    ```
-   L'app React sarà disponibile su `http://localhost:3000` e comunicherà con l'API tramite gli endpoint REST esposti dal backend.
+   The React app will run at `http://localhost:3000` and communicate with the REST endpoints exposed by the backend.
 
-## API principali
-| Metodo | Endpoint | Descrizione |
+## Core API endpoints
+| Method | Endpoint | Description |
 | ------ | -------- | ----------- |
-| `POST` | `/users/verify` | Invia OTP al numero fornito, registrando/aggiornando l'utente. |
-| `POST` | `/users/authenticate` | Valida OTP e rilascia cookie JWT per la sessione. |
-| `GET` | `/users/loggedin` | Verifica il token e restituisce lo stato autenticato. |
-| `POST` | `/users/updateAccount` | Aggiorna dati profilo e numero di telefono con upload foto. |
-| `POST` | `/annunci/createAnnuncio` | Crea un nuovo annuncio collegato all'utente autenticato. |
-| `GET` | `/annunci/listing` | Restituisce annunci per città e tipo di lavoro. |
-| `GET` | `/annunci/filtra` | Filtra annunci per prezzo, città e categoria. |
+| `POST` | `/users/verify` | Sends an OTP to the provided number while creating/updating the user. |
+| `POST` | `/users/authenticate` | Validates the OTP and issues a JWT cookie for the session. |
+| `GET` | `/users/loggedin` | Verifies the token and returns the authenticated state. |
+| `POST` | `/users/updateAccount` | Updates profile data, phone number, and profile picture uploads. |
+| `POST` | `/annunci/createAnnuncio` | Creates a gig listing associated with the authenticated user. |
+| `GET` | `/annunci/listing` | Returns gigs filtered by city and job type. |
+| `GET` | `/annunci/filtra` | Filters gigs by price range, city, and category. |
 
-## Flussi utente
-- **Onboarding**: l'utente inserisce il numero, riceve OTP via SMS e viene autenticato tramite cookie HttpOnly (sicurezza contro XSS).
-- **Offerta di servizi**: dopo il login, il professionista compila il form guidato, carica una foto profilo e pubblica annunci visibili nei listing filtrati per città/lavoro.
-- **Ricerca annunci**: i clienti cercano tramite città e categoria predefinita, ottenendo risultati navigabili con dettagli su biografia e contatti del professionista.
+## User journeys
+- **Onboarding**: the user enters their phone number, receives an OTP via SMS, and is authenticated with an HttpOnly cookie (mitigating XSS).
+- **Offering services**: after logging in, providers complete guided forms, upload profile pictures, and publish gigs visible in filtered listings.
+- **Finding gigs**: customers browse by city and category and open detailed provider profiles with bios and contact information.
 
-## Qualità e sicurezza
-- Validazione dei parametri lato server per prevenire input non validi o incoerenti (prezzi, OTP, numeri di telefono).
-- Cookie HttpOnly e CORS configurati per il dominio deployato, proteggendo la sessione da accessi non autorizzati.
-- Upload immagini con limitazione formato/dimensione e storage dedicato nel backend.
+## Quality and security
+- Server-side validation protects against malformed input (price, OTP, phone number).
+- HttpOnly cookies and CORS settings constrain authenticated requests to trusted origins.
+- Image uploads enforce file type/size limits and are stored in a dedicated backend directory.
 
-## Spunti di estensione
-- Scrivere test automatici Jest per i controller principali (lo script `npm test` è già configurato nel backend).
-- Integrare un sistema di messaging in-app o recensioni per arricchire le interazioni tra clienti e professionisti.
-- Containerizzazione con Docker per deployment multi-ambiente ripetibile.
+## Future enhancements
+- Add Jest test coverage for the primary controllers (the backend already ships with the `npm test` script).
+- Introduce in-app messaging or reviews to deepen interactions between customers and providers.
+- Containerize the stack with Docker for reproducible multi-environment deployments.
 
-## Autori
+## Authors
 Crapuzzi Giovanni · Saracino Cristian · Stega Paolo Pio

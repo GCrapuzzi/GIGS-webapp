@@ -1,3 +1,6 @@
+/**
+ * Headline text that adapts to the active homepage flow.
+ */
 function HomepageText({formType}){
     return(
         <div className="HomepageText">
@@ -21,7 +24,7 @@ function HomepageText({formType}){
                 </div>
             )}
         </div>
-    )
+    );
 }
 
-export default HomepageText
+export default HomepageText;

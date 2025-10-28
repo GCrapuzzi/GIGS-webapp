@@ -1,20 +1,22 @@
+/**
+ * Returns the authenticated user's profile details.
+ */
 const User = require('../models/userSchema');
 
-// Funzione per inviare i dati dell'utente
 const trovaUser = async (req, res) => {
     try {
-        // Estrae l'id dell'utente dall'oggetto req.userId
+        // Extract the user id injected by the auth middleware.
         const userId = req.userId;
 
-        // Cerca l'utente nel database
+        // Load the user document.
         const user = await User.findOne ({_id: userId});
 
-        // Verifica se l'utente è presente
+        // Guard against missing accounts.
         if (!user) {
             return res.status(404).json({ message: 'Utente non trovato' });
         }
-        // Invia le informazioni sull'utente
-        return res.status(200).json({ message: 'Utente trovato', user });        
+        // Return the user payload.
+        return res.status(200).json({ message: 'Utente trovato', user });
     } catch (error) {
         return res.status(500).json({message: "Errore interno al server"});
     };

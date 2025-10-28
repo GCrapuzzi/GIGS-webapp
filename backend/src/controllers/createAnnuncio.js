@@ -1,24 +1,26 @@
+/**
+ * Persists a new gig listing for the authenticated user.
+ */
 const annuncio = require('../models/annuncioSchema');
 
-// Funzione per creare un annuncio 
 const createAnnuncio = async (req, res) => {
     try {
-        // Estrae i dati dall'oggetto req.body
+        // Extract gig details from the request body.
         const { città, lavoro, titolo, descrizione, tariffa, orario } = req.body;
-        const userId = req.userId; 
+        const userId = req.userId;
 
-        // Verifica che tutti i campi siano presenti
+        // Ensure all required fields are provided.
         if (!città || !lavoro || !titolo || !descrizione || !tariffa || !orario) {
             return res.status(400).json({ message: 'Tutti i campi sono obbligatori' });
         }
 
-        // Verifica che l'annuncio non sia già presente nel database
-        const existingAnnuncio = await annuncio.findOne({ userId: userId, lavoro: lavoro, città: città }); // Può restituire null
-        if (existingAnnuncio) { // Se diverso da null
+        // Prevent the user from creating duplicate listings for the same job/city combination.
+        const existingAnnuncio = await annuncio.findOne({ userId: userId, lavoro: lavoro, città: città });
+        if (existingAnnuncio) {
             return res.status(400).json({ message: 'Annuncio già presente' });
         }
 
-        // Crea un nuovo annuncio
+        // Instantiate a new gig listing document.
         try {
             const newAnnuncio = new annuncio({
                 titolo: titolo,
@@ -30,10 +32,10 @@ const createAnnuncio = async (req, res) => {
                 orario: orario
             });
 
-            // Salva il nuovo annuncio nel database
+            // Persist the document in MongoDB.
             await newAnnuncio.save();
 
-            // Invia la risposta al client
+            // Return the created document to the client.
             return res.status(201).json({ message: 'Annuncio creato con successo', annuncio: newAnnuncio });
         } catch (error) {
             return res.status(500).json({message: 'Errore durante il salvataggio dell\'annuncio' });
