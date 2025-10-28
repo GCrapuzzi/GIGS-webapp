@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { GiGardeningShears } from "react-icons/gi";
 import SearchCityInput from "./SearchCityInput";
+import { buildApiUrl } from "../config";
 
 function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChange, setCitta, notifyError}){
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -37,7 +38,7 @@ function SignupForm({formData, buttonGigStyle, buttonText, navigate, handleChang
         }
 
           try {
-            const response = await axios.post('https://gigs-webapp.vercel.app/users/verify', data, { withCredentials: true });
+            const response = await axios.post(buildApiUrl('/users/verify'), data, { withCredentials: true });
 
             if (response.status === 200) {
               navigate('/otp');

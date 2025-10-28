@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from 'react';
+import { buildApiUrl } from '../config';
 
 function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,7 +27,7 @@ function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get('https://gigs-webapp.vercel.app/users/logout',{ withCredentials: true });
+      const response = await axios.get(buildApiUrl('/users/logout'),{ withCredentials: true });
 
       if (response.status === 200) {
         sessionStorage.clear();
@@ -45,8 +46,8 @@ function Navbar({ toggleButtonState, notifySuccess, notifyError}) {
   const showProfile = async () => {
     if(location.pathname !== '/myProfile'){
       try {
-        const response = await axios.get('https://gigs-webapp.vercel.app/users/trovaUser',{ withCredentials: true });
-        const response2 = await axios.get('https://gigs-webapp.vercel.app/annunci/listingAnnunciUtente',{ withCredentials: true});
+        const response = await axios.get(buildApiUrl('/users/trovaUser'),{ withCredentials: true });
+        const response2 = await axios.get(buildApiUrl('/annunci/listingAnnunciUtente'),{ withCredentials: true});
         const data = {
           utente: response.data.user,
           listaPropriAnnunci: response2.data

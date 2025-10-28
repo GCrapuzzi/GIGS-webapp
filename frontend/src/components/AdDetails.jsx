@@ -4,6 +4,7 @@
 import {useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { useState } from "react";
+import { buildAssetUrl } from "../config";
 
 function AdDetails({handleClick, annuncio}){
     const user = annuncio.userId || {};
@@ -16,13 +17,15 @@ function AdDetails({handleClick, annuncio}){
         navigate('/profile', { state: { annuncio: annuncio } });
     }
 
+    const profileImageSrc = buildAssetUrl(user.profileImageUrl || '/path/to/default-image.jpg');
+
     return(
         <div className='cardpageDetailsContainer'>
         <div className='firstColumn'>
             <h1 className='cardpageDetailsText'>{annuncio.titolo}</h1>
             <p className="adUser">Annuncio di <a path="" onClick={viewProfile}><b>{user.nome ? `${user.nome} ${user.cognome}` : "Utente"}</b></a></p>
             <div className="imageContainer">
-            <img src={`https://gigs-webapp.vercel.app${user.profileImageUrl || '/path/to/default-image.jpg'}`} alt="Foto Profilo" />
+            <img src={profileImageSrc} alt="Foto Profilo" />
             </div>
             <h2>Descrizione dell'annuncio</h2>
             <p>{annuncio.descrizione}</p>

@@ -7,6 +7,7 @@ import Profilepage from '../components/Profilepage';
 import AdDetails from '../components/AdDetails';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { buildApiUrl } from '../config';
 
 function CardpageDetails({ handleClick, toggleButtonState, buttonState }) {
   const location = useLocation();
@@ -24,7 +25,7 @@ function CardpageDetails({ handleClick, toggleButtonState, buttonState }) {
 
   const listAnnunci = async () => {
     try {
-      const response = await axios.get('https://gigs-webapp.vercel.app/annunci/listingAnnunciVisitatore', {
+      const response = await axios.get(buildApiUrl('/annunci/listingAnnunciVisitatore'), {
         params: data,
       });
 

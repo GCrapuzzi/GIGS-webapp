@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { buildApiUrl } from '../config';
 import OtpForm from "./OtpForm";
 import SearchForm from "./SearchForm";
 import PartialProfileJobForm from "./PartialProfileJobForm";
@@ -78,7 +79,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
     const handleisNotRegisteredSubmit = async (formDataToSend) => {
         try {
             // Submit the profile update request.
-            const response1 = await axios.post('https://gigs-webapp.vercel.app/users/updateAccount', formDataToSend, {
+            const response1 = await axios.post(buildApiUrl('/users/updateAccount'), formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -114,7 +115,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
                 return
             }
     
-            const response2 = await axios.post('https://gigs-webapp.vercel.app/annunci/createAnnuncio', annuncioData, {
+            const response2 = await axios.post(buildApiUrl('/annunci/createAnnuncio'), annuncioData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -167,7 +168,7 @@ function HomepageForm({ formType,buttonText, notifySuccess, notifyError,setIsAut
         }
 
         try {
-            const response = await axios.post('https://gigs-webapp.vercel.app/annunci/createAnnuncio', annuncioData, {
+            const response = await axios.post(buildApiUrl('/annunci/createAnnuncio'), annuncioData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

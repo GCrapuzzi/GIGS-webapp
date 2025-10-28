@@ -3,6 +3,7 @@
  */
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { buildApiUrl } from '../config';
 
 function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}){
 
@@ -50,7 +51,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
           };
 
           try {
-            const response = await axios.post('https://gigs-webapp.vercel.app/users/authenticate', data , { withCredentials: true });
+            const response = await axios.post(buildApiUrl('/users/authenticate'), data , { withCredentials: true });
             if (response.status === 200) {
 
                 const responseData = response.data;
@@ -63,7 +64,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
                     sessionStorage.setItem('isRegistered', 'false')
                 }
 
-                const isLoggedResponse = await axios.get('https://gigs-webapp.vercel.app/users/loggedin', { withCredentials: true });
+                const isLoggedResponse = await axios.get(buildApiUrl('/users/loggedin'), { withCredentials: true });
                 
                 if (isLoggedResponse.status === 200) {
                     sessionStorage.setItem('isAuthenticated', 'true')
@@ -83,7 +84,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
 
         if (phoneData) {
             try {
-                const response = await axios.post("https://gigs-webapp.vercel.app/users/updateAccount", phoneData, { withCredentials: true });
+                const response = await axios.post(buildApiUrl('/users/updateAccount'), phoneData, { withCredentials: true });
         
                 if (response.status === 200) {
                     const data1 = {
@@ -91,7 +92,7 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
                     };
         
                     try {
-                        const response2 = await axios.post('https://gigs-webapp.vercel.app/users/verify', data1, { withCredentials: true });
+                        const response2 = await axios.post(buildApiUrl('/users/verify'), data1, { withCredentials: true });
                         
                         if (response2.status === 200) {
                             try {
@@ -100,12 +101,12 @@ function OtpForm({ buttonVisitorStyle, buttonText, navigate, setIsAuthenticated}
                                     otp: otp
                                 };
                                 
-                                const response3 = await axios.post('https://gigs-webapp.vercel.app/users/authenticate', data2, { withCredentials: true });
+                                const response3 = await axios.post(buildApiUrl('/users/authenticate'), data2, { withCredentials: true });
                                 
                                 if (response3.status === 200) {
                                     try {
                                         sessionStorage.setItem('phoneData', null);
-                                        const responseLogout = await axios.get('https://gigs-webapp.vercel.app/users/logout', { withCredentials: true });
+                                        const responseLogout = await axios.get(buildApiUrl('/users/logout'), { withCredentials: true });
         
                                         if (responseLogout.status === 200) {
                                             setIsAuthenticated(false)
