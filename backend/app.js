@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectToDatabase = require('./src/config/database');
+const config = require('./src/config/config');
 const path = require('path');
 
 // Importo le route
@@ -13,8 +14,22 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+const allowedOrigins = [
+  'https://gigs-webapp-frontend.vercel.app',
+];
+
+if (config.frontendURL && !allowedOrigins.includes(config.frontendURL)) {
+  allowedOrigins.push(config.frontendURL);
+}
+
 app.use(cors({
-  origin: 'https://gigs-webapp-frontend.vercel.app',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

@@ -56,6 +56,10 @@ VONAGE_API_KEY="your-api-key"
 VONAGE_API_SECRET="your-api-secret"
 ```
 
+> **Nota:** il backend abilita il CORS verso il dominio di produzione (`https://gigs-webapp-frontend.vercel.app`) e verso il valore
+> indicato in `FRONTEND_URL`. Imposta quindi questa variabile sull'URL locale del frontend (ad esempio `http://localhost:3000`) e
+> riavvia il server Express quando modifichi il file `.env`.
+
 ## Avvio in locale
 1. **Backend**
    ```bash
