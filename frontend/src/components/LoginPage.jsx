@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FaPhoneAlt } from "react-icons/fa";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { buildApiUrl } from '../config';
 
 
 function LoginPage({toggleButtonState, buttonState}){
@@ -29,7 +30,7 @@ function LoginPage({toggleButtonState, buttonState}){
       };
 
       try {
-        const response = await axios.post('https://gigs-webapp.vercel.app/users/verify', data, { withCredentials: true });
+        const response = await axios.post(buildApiUrl('/users/verify'), data, { withCredentials: true });
 
         if (response.status === 200) {
           toggleButtonState();

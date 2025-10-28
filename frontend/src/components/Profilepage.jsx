@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Cardpage from "../pages/Cardpage";
 import { FaPaperPlane } from "react-icons/fa";
 import ChangeProfile from "./ChangeProfile";
+import { buildAssetUrl } from "../config";
 function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess}){
 
     const [imageUrl, setImageUrl] = useState('')
@@ -13,9 +14,9 @@ function Profilepage({annuncio, listaAnnunci, utente, notifyError, notifySuccess
     
     useEffect(() => {
         if (!utente) { // When browsing another user's profile.
-            setImageUrl(`https://gigs-webapp.vercel.app${annuncio?.userId?.profileImageUrl || ""}`);
+            setImageUrl(buildAssetUrl(annuncio?.userId?.profileImageUrl || ""));
         } else { // When viewing the authenticated user's profile.
-            setImageUrl(`https://gigs-webapp.vercel.app${utente?.profileImageUrl || ""}`);
+            setImageUrl(buildAssetUrl(utente?.profileImageUrl || ""));
         }
     }, [utente, annuncio]);
     

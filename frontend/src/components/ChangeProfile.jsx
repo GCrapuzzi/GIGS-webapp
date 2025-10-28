@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { buildApiUrl } from "../config";
 
 function ChangeProfile({setButtonStatus, buttonStatus, notifySuccess, notifyError}) {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ function ChangeProfile({setButtonStatus, buttonStatus, notifySuccess, notifyErro
 
     const handleDelete = async () => {
         try {
-            await axios.post("https://gigs-webapp.vercel.app/users/deleteUserData", {}, { withCredentials: true });
+            await axios.post(buildApiUrl('/users/deleteUserData'), {}, { withCredentials: true });
             sessionStorage.clear();
             navigate("/");
             notifySuccess("L'account è stato correttamente eliminato");
@@ -50,7 +51,7 @@ function ChangeProfile({setButtonStatus, buttonStatus, notifySuccess, notifyErro
 
     const onChangeGeneralData = async (formData) => {
         try {
-            await axios.post("https://gigs-webapp.vercel.app/users/updateAccount", formData, { withCredentials: true });
+            await axios.post(buildApiUrl('/users/updateAccount'), formData, { withCredentials: true });
             notifySuccess("Le generalità sono state correttamente aggiornate");
             showProfile();
         } catch (error) {
@@ -110,8 +111,8 @@ function ChangeProfile({setButtonStatus, buttonStatus, notifySuccess, notifyErro
     // Refresh the profile view after successful updates so the UI stays in sync.
     const showProfile = async () => {
         try {
-          const response = await axios.get('https://gigs-webapp.vercel.app/users/trovaUser',{ withCredentials: true });
-          const response2 = await axios.get('https://gigs-webapp.vercel.app/annunci/listingAnnunciUtente',{ withCredentials: true })
+          const response = await axios.get(buildApiUrl('/users/trovaUser'),{ withCredentials: true });
+          const response2 = await axios.get(buildApiUrl('/annunci/listingAnnunciUtente'),{ withCredentials: true })
           const data = {
             utente: response.data.user,
             listaPropriAnnunci: response2.data

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { GiGardeningShears} from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import SearchCityInput from "./SearchCityInput";
+import { buildApiUrl } from "../config";
 
 function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ function SearchForm({buttonVisitorStyle, buttonText, notifyError}){
         }
         // Request gig listings that match the chosen city and job type.
         try{
-            const response = await axios.get('https://gigs-webapp.vercel.app/annunci/listing', {
+            const response = await axios.get(buildApiUrl('/annunci/listing'), {
                 params: data
             });
 

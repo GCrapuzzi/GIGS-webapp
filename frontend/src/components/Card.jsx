@@ -2,9 +2,11 @@
  * Compact card summarizing a gig listing.
  */
 import { Link } from "react-router-dom";
+import { buildAssetUrl } from "../config";
+
 function Card({ annuncio }) {
   const user = annuncio.userId;
-  const imageUrl = `https://gigs-webapp.vercel.app${user.profileImageUrl}`;
+  const imageUrl = buildAssetUrl(user.profileImageUrl);
 
   return (
 

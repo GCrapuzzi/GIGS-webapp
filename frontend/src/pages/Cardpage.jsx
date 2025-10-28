@@ -9,6 +9,7 @@ import { GiGardeningShears } from 'react-icons/gi';
 import SearchCityInput from '../components/SearchCityInput';
 import { VscSettings } from "react-icons/vsc";
 import axios from 'axios';
+import { buildApiUrl } from '../config';
 
 function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
   const location = useLocation();
@@ -50,7 +51,7 @@ function Cardpage({ buttonState, toggleButtonState, listaAnnunci, noFilter}) {
   const handleFilterForm = async (event) =>{
     event.preventDefault();
     try{
-      const response = await axios.get('https://gigs-webapp.vercel.app/annunci/filtra', {
+      const response = await axios.get(buildApiUrl('/annunci/filtra'), {
           params: formData
       });
       if(response.status === 200){
